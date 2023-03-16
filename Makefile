@@ -6,12 +6,12 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/03/07 23:27:53 by pruangde         ###   ########.fr        #
+#    Updated: 2023/03/14 19:40:53 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 UNAME = uname -s
-
+ARCH = arch
 ifeq ($(UNAME), Linux)
 	CC = clang
 else
@@ -25,12 +25,22 @@ NAME = minishell
 LIBFT_PATH = libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
+# ifeq ($(ARCH), arm64)
+# 	LDFLAGS	= -L${HOMEBREW_PREFIX}/opt/readline/lib
+# 	CPPFLAGS	= -I${HOMEBREW_PREFIX}/opt/readline/include
+# else
+# 	LDFLAGS	= -L/usr/local/opt/readline/lib
+# 	CPPFLAGS	= -I/usr/local/opt/readline/include
+# endif
+
+LDFLAGS	= -L${HOMEBREW_PREFIX}/opt/readline/lib
+CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
+
 CXINPUT = cx_input_1.c
 UTIL = utils_1.c utils_2.c utils_3.c
-OPR = operation_1.c operation_2.c
-SRT = sort_1.c sort_2.c
 
-SRCS = minishell.c $(CXINPUT) $(UTIL) $(OPR) $(SRT)
+#SRCS = minishell.c $(CXINPUT) $(UTIL)
+SRCS = minishell.c
 OBJS = $(SRCS:.c=.o)
 
 
@@ -40,16 +50,13 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(LIBFT) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -lreadline $(LDFLAGS) $(LIBFT) $(OBJS) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-bonus:  $(OBJS) $(BN_OBJS)
-	@ar -rcs $(NAME) $(OBJS) $(BN_OBJS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean:
 	@make -C $(LIBFT_PATH) clean
