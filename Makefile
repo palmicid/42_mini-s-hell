@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/03/14 19:40:53 by pruangde         ###   ########.fr        #
+#    Updated: 2023/03/18 12:56:37 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ else
 	CC = gcc
 endif
 
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g
 RM = rm -rf
 NAME = minishell
 
@@ -40,7 +41,7 @@ CXINPUT = cx_input_1.c
 UTIL = utils_1.c utils_2.c utils_3.c
 
 #SRCS = minishell.c $(CXINPUT) $(UTIL)
-SRCS = minishell.c
+SRCS = minishell.c sig_handle.c
 OBJS = $(SRCS:.c=.o)
 
 

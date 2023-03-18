@@ -1,69 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
+/*   Updated: 2023/03/18 12:38:40 by pruangde         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-pid_t	pid = 0;
+t_data	*g_data;
 
-void	sig_handle(int signo, siginfo_t *s, void *old)
+void	process(char *strcmd, char **env)
 {
-	(void)old;
-	(void)s;
-	if (signo == SIGINT)
-	{
-		ft_putendl_fd("", STDOUT_FILENO);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-void	signal_handling(void)
-{
-	struct sigaction	sig_int;
-	struct sigaction	sig_quit;
-
-	sig_int.sa_sigaction = sig_handle;
-	sig_quit.sa_handler = SIG_IGN;
-	sig_int.sa_flags = SA_SIGINFO;
-	sig_quit.sa_flags = SA_RESTART;
-	sigemptyset(&sig_int.sa_mask);
-	sigemptyset(&sig_quit.sa_mask);
-	sigaction(SIGINT, &sig_int, NULL);
-	sigaction(SIGQUIT, &sig_quit, NULL);
-	
-	
-}
-
-void	ft_process(char *strcmd)
-{
-	// pid_t	pid;
 	int		stat;
 
-	pid = fork();
-	if (pid == 0)
+	(void)env;
+	g_data->pid = fork();
+	if (g_data->pid == 0)
 	{
-		while (1)
-		{
-			printf("test kill = %s\n", strcmd);
-			sleep(2);
-		}
+		ft_putendl_fd(strcmd, 1);
+		exit(EXIT_SUCCESS);
 	}
-	else if (pid < 0)
+	else if (g_data->pid < 0)
 		strerror(errno);
 	else
 	{
-		
-		waitpid(pid, &stat, WNOHANG);
+		waitpid(g_data->pid, &stat, WNOHANG);
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	char	*strcmd;
-	// receive signal before enter while loop
+	
+	(void)ac;
+	(void)av;
+	g_data = (t_data *)malloc(sizeof(t_data));
 	signal_handling();
 	while (1)
 	{
 		strcmd = readline("Minishell >> ");
-		if (strcmd[0] == '\0')
+		if (!strcmd)
+			break ;
+		else if (strcmd[0] == '\0')
 			;
 		else if (ft_strncmp(strcmd, "exit", 4) == 0)
 		{
@@ -71,12 +54,11 @@ int	main(void)
 			break ;
 		}
 		else if (ft_strlen(strcmd) > 0)
-		{	
-			// cut string in to part and sent to exec
-			ft_process(strcmd);
-		}
+			process(strcmd, env);
 		if (strcmd)
 			free(strcmd);
 	}
+	if (!strcmd)
+		ft_putendl_fd("exit", 1);
 	return (0);
 }
