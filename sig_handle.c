@@ -6,14 +6,16 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:52:46 by pruangde          #+#    #+#             */
-/*   Updated: 2023/03/18 13:26:17 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:15:02 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sig_int_handler(void)
+// if signal int --> kill child proc
+void	sig_int_handler(int sig)
 {
+	(void)sig;
 	if (g_data->pid > 0)
 		kill(g_data->pid, SIGTERM);
 	ft_putendl_fd("", STDOUT_FILENO);
@@ -27,7 +29,7 @@ void	signal_handling(void)
 {
 	struct sigaction	sig_quit;
 	struct sigaction	sig_int;
-	
+
 	sigemptyset(&sig_int.sa_mask);
 	sig_int.sa_flags = SA_RESTART;
 	sig_int.sa_handler = sig_int_handler;

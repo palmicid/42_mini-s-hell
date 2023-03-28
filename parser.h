@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/03/28 03:06:29 by pruangde         ###   ########.fr       */
+/*   Created: 2023/03/24 11:12:53 by pruangde          #+#    #+#             */
+/*   Updated: 2023/03/25 11:44:18 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "parser.h"
-
-t_strcut	*free_strcutlist(t_strcut *list)
+// int stst --> 2 = doubleQ " " , 1 = single ' ', 0 non
+// use before split with pipe
+typedef struct	s_strcut
 {
-	t_strcut	*now;
-
-	while (list)
-	{	
-		now = list;
-		list = list->next;
-		free(now->str);
-		free(now);
-	}
-	now = NULL;
-	return (NULL);
-}
+	char			*str;
+	int				stat;
+	struct s_strcut	*next;
+}					t_strcut;

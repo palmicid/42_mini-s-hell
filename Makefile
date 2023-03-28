@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/03/18 12:56:37 by pruangde         ###   ########.fr        #
+#    Updated: 2023/03/24 11:03:47 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ else
 	CC = gcc
 endif
 
-#CFLAGS = -Wall -Wextra -Werror
-CFLAGS = -g
+CFLAGS = -g -Wall -Wextra -Werror
 RM = rm -rf
 NAME = minishell
 
@@ -70,7 +69,7 @@ fclean: clean
 re: fclean all
 
 test:
-	$(CC) *.c -o $(NAME)
+	$(CC) maintest.c parser_1.c -o $(NAME)
 #	$(CC) maintest.c $(NAME)
 #	valgrind --vgdb=no --leak-check=full --show-leak-kinds=all ./a.out
 

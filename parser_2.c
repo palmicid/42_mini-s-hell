@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   parser_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/03/28 03:06:29 by pruangde         ###   ########.fr       */
+/*   Created: 2023/03/28 03:08:18 by pruangde          #+#    #+#             */
+/*   Updated: 2023/03/28 10:56:43 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
-t_strcut	*free_strcutlist(t_strcut *list)
+int	str_find_pair(char *str, int i, t_strcut *strlist)
 {
-	t_strcut	*now;
-
-	while (list)
-	{	
-		now = list;
-		list = list->next;
-		free(now->str);
-		free(now);
-	}
-	now = NULL;
-	return (NULL);
+	
 }

@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/03/18 12:38:41 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:13:51 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,27 @@
 typedef struct	s_data
 {
 	pid_t	pid;
+	char	**env;
 	int		fortest;
 }			t_data;
 
 extern t_data	*g_data;
 
+typedef struct	s_cmd
+{
+	char	*filein;
+	char	*fileout;
+	char	***allcmd;
+}			t_cmd;
+
 
 // minishell
 
 // sig_handle
-void	sig_int_handler(void);
-void	signal_handling(void);
+// void	sig_int_handler(int sig);
+// void	signal_handling(void);
+
+// 
 
 // utils_1
 
