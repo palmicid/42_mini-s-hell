@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/03/24 11:13:51 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/03/31 00:22:59 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,30 @@ typedef struct	s_cmd
 	char	***allcmd;
 }			t_cmd;
 
+// int stst --> 2 = doubleQ " " , 1 = single ' ', 0 non
+// use before split with pipe
+typedef struct	s_strcut
+{
+	char			*str;
+	int				stat;
+	struct s_strcut	*next;
+}					t_strcut;
+
 
 // minishell
 
 // sig_handle
-// void	sig_int_handler(int sig);
-// void	signal_handling(void);
+void		sig_int_handler(int sig);
+void		signal_handling(void);
 
-// 
+// parser_1
+t_cmd		*str_split(char *str, t_cmd *table);
+
+// parser_2
+int			str_find_pair(char *str, int i, t_strcut **strlist);
+int			strcut_nonq(char *str, int i, t_strcut **strlist);
 
 // utils_1
-
+t_strcut	*free_strcutlist(t_strcut *list);
 
 #endif

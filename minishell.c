@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/03/25 12:14:21 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/03/31 00:14:13 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,8 @@ void	process(char *strcmd)
 	g_data->pid = fork();
 	if (g_data->pid == 0)
 	{
-		while (1)
-		{
-			printf("PRINT TEST\n");
-			sleep(1);
-		}
 		// string cut
-		// cmdtable = str_split(strcmd, cmdtable);
+		cmdtable = str_split(strcmd, cmdtable);
 		// to execute
 		// to_exec();
 		exit(EXIT_SUCCESS);

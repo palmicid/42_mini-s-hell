@@ -6,12 +6,11 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/03/28 03:06:29 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/03/30 23:29:37 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
 
 t_strcut	*free_strcutlist(t_strcut *list)
 {
