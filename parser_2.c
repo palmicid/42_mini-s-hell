@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 03:08:18 by pruangde          #+#    #+#             */
-/*   Updated: 2023/04/02 01:54:12 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:27:52 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	str_find_pair(char *str, int i, t_strcut **strlist)
 
 	st = i++;
 	while ((str[i] != str[st]) && str[i])
-	{
 		i++;
-	}
 	last = find_laststrcut(strlist[0]);
 	if (!last)
 	{
@@ -41,8 +39,6 @@ int	str_find_pair(char *str, int i, t_strcut **strlist)
 		exit(errno);
 	last->str = ft_strndup(&str[st], (i - st) + 1);	
 	addstat_strcut(last, (i - st));
-	printf("%s = %d\n", last->str, last->stat);		// testtttttttt
-	
 	return (i);
 }
 
@@ -74,7 +70,6 @@ static void	addstat_strcut(t_strcut *last, int ed)
 	}
 	else
 		last->stat = 0;
-	printf("st = %c , ed = %c\n", last->str[0], last->str[ed]);
 }
 
 int	strcut_nonq(char *str, int i, t_strcut **strlist)
@@ -84,9 +79,7 @@ int	strcut_nonq(char *str, int i, t_strcut **strlist)
 
 	st = i++;
 	while (((str[i] != 34) && (str[i] != 39)) && str[i])
-	{
 		i++;
-	}
 	last = find_laststrcut(strlist[0]);
 	if (!last)
 	{
@@ -99,7 +92,6 @@ int	strcut_nonq(char *str, int i, t_strcut **strlist)
 		last = last->next;
 	}
 	last->str = ft_strndup(&str[st], i - st);
-	addstat_strcut(last, i - st);
-	printf("%s = %d\n", last->str, last->stat);		// testtttttttt
+	addstat_strcut(last, (i - st) - 1);
 	return (i);
 }

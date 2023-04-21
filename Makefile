@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/04/01 17:00:17 by pruangde         ###   ########.fr        #
+#    Updated: 2023/04/17 21:31:16 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,11 @@ LIBFT = $(LIBFT_PATH)/libft.a
 LDFLAGS	= -L${HOMEBREW_PREFIX}/opt/readline/lib
 CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
 
-CXINPUT = cx_input_1.c
-PARS = parser_1.c parser_2.c
-UTIL = utils_1.c
+PARS = parser_1.c parser_2.c parser_3.c
+UTIL = utils_1.c utils_2.c
+ERRMSG = err_msg.c
 
-#SRCS = minishell.c $(CXINPUT) $(UTIL)
-SRCS = minishell.c sig_handle.c $(PARS) $(UTIL)
+SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG)
 OBJS = $(SRCS:.c=.o)
 
 
