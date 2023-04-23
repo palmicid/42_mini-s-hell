@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:52:30 by pruangde          #+#    #+#             */
-/*   Updated: 2023/04/09 10:41:47 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/04/23 16:33:29 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,20 @@ static t_strcut	*q_split(char *str);
 t_cmd	*str_split(char *str, t_cmd *table)
 {
 	t_strcut	*liststr;
-	t_lstcmd	*listcmd;
+	// t_lstcmd	*listcmd;
 	// t_cmd		*tabcmd;
 
-	listcmd = NULL;
-	// find ' ' or " " cpy include ' ' ," "
-	liststr = q_split(str);
+	// listcmd = NULL;
+	liststr = qsp_split(str);
 	if (!liststr)
 		return (NULL);
-	// pipe firsttttttttt
-	listcmd = pipe_split(listcmd, liststr);
-	if (!listcmd)
-	{
-		liststr = free_strcutlist(liststr);
-		return (NULL);
-	}
+	test_printstrcut(liststr);
+	// listcmd = pipe_split(listcmd, liststr);
+	// if (!listcmd)
+	// {
+	// 	liststr = free_strcutlist(liststr);
+	// 	return (NULL);
+	// }
 	// run cx str find space to separate cmd
 	// find $ << >> < >
 
