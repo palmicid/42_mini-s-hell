@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/04/23 16:34:27 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/07 09:08:56 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ extern t_data	*g_data;
 
 typedef struct	s_cmd
 {
-	char			*filein;
-	char			*fileout;
-	char			**allcmd;
-	char			*heredoc;
+	char			**cmd;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -72,28 +69,35 @@ void		signal_handling(void);
 t_cmd		*str_split(char *str, t_cmd *table);
 
 // parser_2 - quote split and add stat q or nonq
-int			str_find_pair(char *str, int i, t_strcut **strlist);
-int			strcut_nonq(char *str, int i, t_strcut **strlist);
+t_strcut	*qsp_split(char *str);
 
-// parser_3 - split cmd with space and pipe --> create another list token for pipe
+
+// parser_3 - split meta char
+t_strcut	*meta_split(t_strcut *list);
 
 
 // parser_4 - 
 
 
 // utils_1
-t_strcut	*free_strcutlist(t_strcut *list);
+t_strcut	*free_strcutlist(t_strcut **list);
 t_lstcmd	*free_listcmd(t_lstcmd *lstcmd);
 int			find_charpos(char *str, char c);
+t_strcut	*lastlist_strcut(t_strcut *list);
+int			cont_char(char *str, int i, char c);
 
 // ------ TEST
 void		test_print(t_lstcmd *head);
 void	test_printstrcut(t_strcut *fwd);
 
 // utils_2
+int			find_pair(char *str, int i);
+int			count_liststrcut(t_strcut *list);
+
 
 // err_msg
 void		err_multipipe(void);
+void		err_q_nopair(void);
 
 #endif
 

@@ -6,26 +6,29 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/04/23 15:16:45 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/07 05:04:33 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_strcut	*free_strcutlist(t_strcut *list)
+t_strcut	*free_strcutlist(t_strcut **list)
 {
+	t_strcut	*head;
 	t_strcut	*now;
 
-	while (list)
+	head = list[0];
+	while (head)
 	{	
-		now = list;
-		list = list->next;
+		now = head;
+		head = head->next;
 		if (now->str)
 			free(now->str);
 		free(now);
 	}
 	now = NULL;
-	return (list);
+	list[0] = NULL;
+	return (list[0]);
 }
 
 t_lstcmd	*free_listcmd(t_lstcmd *lstcmd)
@@ -37,7 +40,7 @@ t_lstcmd	*free_listcmd(t_lstcmd *lstcmd)
 	{
 		lstcmd = lstcmd->next;
 		if (now->strcut)
-			now->strcut = free_strcutlist(now->strcut);
+			free_strcutlist(&(now->strcut));
 		free(now);
 	}
 	return (NULL);
@@ -53,6 +56,25 @@ int	find_charpos(char *str, char c)
 	return (i);
 }
 
+t_strcut	*lastlist_strcut(t_strcut *list)
+{
+	t_strcut	*ret;
+
+	ret = list;
+	while (ret->next)
+	{
+		ret = ret->next;
+	}
+	return (ret);
+}
+
+// skip same char return next pos to last c
+int	cont_char(char *str, int i, char c)
+{
+	while (str[i] == c)
+		i++;
+	return (i);
+}
 
 // 	-----------TEST-------------
 void	test_print(t_lstcmd *head)
@@ -78,7 +100,7 @@ void	test_printstrcut(t_strcut *fwd)
 	printf("\n=======STRCUT_PRINT==========\n");
 	while (ptr)
 	{
-		printf("stat = %d | str = %s\n", ptr->stat, ptr->str);
+		printf("stat = %d | len = %zu | str = %s\n", ptr->stat, ft_strlen(ptr->str), ptr->str);
 		ptr = ptr->next;
 	}
 	printf("=============================\n");

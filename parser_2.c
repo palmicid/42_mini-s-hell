@@ -6,92 +6,90 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 03:08:18 by pruangde          #+#    #+#             */
-/*   Updated: 2023/04/05 14:27:52 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/07 09:05:33 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_strcut	*find_laststrcut(t_strcut *strlist);
-static void		addstat_strcut(t_strcut *last, int ed);
-
-// str[i] --> first, strlist == to create list
-int	str_find_pair(char *str, int i, t_strcut **strlist)
+// why int *i --> incase multiple space 
+static t_strcut	*create_splst(char *str, int st, int *i, t_strcut *list)
 {
-	int			st;
 	t_strcut	*last;
 
-	st = i++;
-	while ((str[i] != str[st]) && str[i])
-		i++;
-	last = find_laststrcut(strlist[0]);
-	if (!last)
+	if (!list)
 	{
-		last = (t_strcut *)malloc(sizeof(t_strcut));
-		strlist[0] = last;
+		list = (t_strcut *)malloc(sizeof(t_strcut));
+		if (!list)
+			return (NULL);
+		list->str = ft_strndup(str + st, *i - st);
+		list->stat = 0;
 	}
 	else
 	{
+		last = lastlist_strcut(list);
 		last->next = (t_strcut *)malloc(sizeof(t_strcut));
-		last = last->next;
+		if (!last->next)
+			return (free_strcutlist(&list));
+		last->next->str = ft_strndup(str + st, *i - st);
+		last->next->stat = 0;
 	}
-	if (!last)
-		exit(errno);
-	last->str = ft_strndup(&str[st], (i - st) + 1);	
-	addstat_strcut(last, (i - st));
-	return (i);
+	*i = cont_char(str, *i, ' ');
+	return (list);
 }
 
-static t_strcut	*find_laststrcut(t_strcut *strlist)
+static void	cx_dellast(t_strcut *list)
 {
 	t_strcut	*last;
 
-	last = strlist;
-	if (last == NULL)
-		;
-	else
+	if (count_liststrcut(list) > 1)
 	{
-		while (last->next != NULL)
-		{
+		last = list;
+		while (last->next->next)
 			last = last->next;
-		}
+		if (ft_strlen(last->next->str) == 0)
+			last->next = free_strcutlist(&(last->next));
 	}
-	return (last);
 }
 
-static void	addstat_strcut(t_strcut *last, int ed)
+static int	sub_qsplit(char *str, int i, int *st, t_strcut **list)
 {
-	if (last->str[0] == last->str[ed])
+	if (str[i] == 32)
 	{
-		if (last->str[0] == 34)
-			last->stat = 2;
-		else if (last->str[0] == 39)
-			last->stat = 1;
+		list[0] = create_splst(str, *st, &i, list[0]);
+		if (!list[0])
+			return (-1);
+		*st = i;
+		i--;
 	}
-	else
-		last->stat = 0;
-}
-
-int	strcut_nonq(char *str, int i, t_strcut **strlist)
-{
-	int			st;
-	t_strcut	*last;
-
-	st = i++;
-	while (((str[i] != 34) && (str[i] != 39)) && str[i])
-		i++;
-	last = find_laststrcut(strlist[0]);
-	if (!last)
+	else if ((str[i] == 34) || (str[i] == 39))
 	{
-		last = (t_strcut *)malloc(sizeof(t_strcut));
-		strlist[0] = last;
+		i = find_pair(str, i);
+		if (i < 0)
+			err_q_nopair();
 	}
-	else
-	{
-		last->next = (t_strcut *)malloc(sizeof(t_strcut));
-		last = last->next;
-	}
-	last->str = ft_strndup(&str[st], i - st);
-	addstat_strcut(last, (i - st) - 1);
 	return (i);
+}
+
+t_strcut	*qsp_split(char *str)
+{
+	int			i;
+	int			st;
+	t_strcut	*list;
+
+	i = cont_char(str, 0, ' ');
+	st = i;
+	list = NULL;
+	while (str[i] && i >= 0)
+	{	
+		i = sub_qsplit(str, i, &st, &list);
+		if (i < 0)
+			return (NULL);
+		i++;
+	}
+	list = create_splst(str, st, &i, list);
+	if (!list)
+		return (NULL);
+	cx_dellast(list);
+	return (list);
 }

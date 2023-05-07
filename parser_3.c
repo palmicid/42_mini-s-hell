@@ -18,6 +18,7 @@
 //		2 == double
 //		3 == pipe
 
-// continue sep space and pipe 
-// if == space --> sep list token
-// if == pipe  --> sep and create new for only pipe
+// t_strcut	*meta_split(t_strcut *list)
+// {
+
+// }
