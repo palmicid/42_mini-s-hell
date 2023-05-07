@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/07 05:04:33 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/08 02:24:52 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,13 @@ t_strcut	*free_strcutlist(t_strcut **list)
 	return (list[0]);
 }
 
-t_lstcmd	*free_listcmd(t_lstcmd *lstcmd)
+t_strcut	*free_strcut(t_strcut *tofree)
 {
-	t_lstcmd	*now;
-
-	now = lstcmd;
-	while (lstcmd)
-	{
-		lstcmd = lstcmd->next;
-		if (now->strcut)
-			free_strcutlist(&(now->strcut));
-		free(now);
-	}
-	return (NULL);
+	if (tofree->str)
+		free(tofree->str);
+	free(tofree);
+	tofree = NULL;
+	return (tofree);
 }
 
 int	find_charpos(char *str, char c)
@@ -61,9 +55,12 @@ t_strcut	*lastlist_strcut(t_strcut *list)
 	t_strcut	*ret;
 
 	ret = list;
-	while (ret->next)
+	if (ret)
 	{
-		ret = ret->next;
+		while (ret->next)
+		{
+			ret = ret->next;
+		}
 	}
 	return (ret);
 }
@@ -100,7 +97,7 @@ void	test_printstrcut(t_strcut *fwd)
 	printf("\n=======STRCUT_PRINT==========\n");
 	while (ptr)
 	{
-		printf("stat = %d | len = %zu | str = %s\n", ptr->stat, ft_strlen(ptr->str), ptr->str);
+		printf("stat = %d | len = %zu | str = [%s]\n", ptr->stat, ft_strlen(ptr->str), ptr->str);
 		ptr = ptr->next;
 	}
 	printf("=============================\n");

@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/07 09:08:56 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/08 02:19:13 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_data
 	int		fortest;
 }			t_data;
 
-extern t_data	*g_data;
+// extern t_data	*g_data;
 
 typedef struct	s_cmd
 {
@@ -62,8 +62,8 @@ typedef struct	s_listcmd
 // minishell
 
 // sig_handle
-void		sig_int_handler(int sig);
-void		signal_handling(void);
+// void		sig_int_handler(int sig);
+// void		signal_handling(void);
 
 // parser_1 - main split
 t_cmd		*str_split(char *str, t_cmd *table);
@@ -72,8 +72,8 @@ t_cmd		*str_split(char *str, t_cmd *table);
 t_strcut	*qsp_split(char *str);
 
 
-// parser_3 - split meta char
-t_strcut	*meta_split(t_strcut *list);
+// parser_3 - split meta char | < << >> >
+// t_strcut	*meta_split(t_strcut *head);
 
 
 // parser_4 - 
@@ -93,11 +93,13 @@ void	test_printstrcut(t_strcut *fwd);
 // utils_2
 int			find_pair(char *str, int i);
 int			count_liststrcut(t_strcut *list);
+int			ft_isspace(int c);
 
 
 // err_msg
 void		err_multipipe(void);
 void		err_q_nopair(void);
+void		err_redir(void);
 
 #endif
 

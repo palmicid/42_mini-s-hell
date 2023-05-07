@@ -13,12 +13,37 @@
 
 #include "minishell.h"
 
-// stat	0 == non q
-// 		1 == single
-//		2 == double
-//		3 == pipe
-
-// t_strcut	*meta_split(t_strcut *list)
+// static t_strcut	*next_findmetachar(t_strcut *head)
 // {
 
 // }
+
+// find <<< or >>> if has = err
+// err return 1 , ok return 0
+int	find_metatriple(t_strcut *head)
+{
+	// 1 find < || >
+	// if ' or " --> skip
+	// 2 if < > find count if more than 2 err
+}
+
+// metachar == | < << > >>
+// stat --> 0 = not cx, 1 = complete can skip
+t_strcut	*meta_split(t_strcut *head)
+{
+	// t_strcut	*b4;
+	// t_strcut	*now;
+	// t_strcut	*aft;
+
+	// now = head;
+	// b4 = NULL;
+	// aft = NULL;
+	if (find_metaerr(head))
+		return (free_strcutlist(&head));
+	// while (now)
+	// {
+
+	// 	// reset now to head
+	// 	now = next_findmetachar(head);
+	// }
+}

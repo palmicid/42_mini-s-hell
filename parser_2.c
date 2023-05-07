@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 03:08:18 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/07 09:05:33 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/07 19:31:14 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	cx_dellast(t_strcut *list)
 
 static int	sub_qsplit(char *str, int i, int *st, t_strcut **list)
 {
-	if (str[i] == 32)
+	if (ft_isspace(str[i]))
 	{
 		list[0] = create_splst(str, *st, &i, list[0]);
 		if (!list[0])

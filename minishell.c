@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/07 09:59:58 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/08 02:07:32 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	process(char *strcmd)
 		cmdtable = str_split(strcmd, cmdtable);
 		// to execute
 		// to_exec();
-		exit(EXIT_SUCCESS);
+		exit(errno);
 	}
 	else if (g_data->pid < 0)
 		strerror(errno);
