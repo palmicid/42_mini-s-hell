@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
+#    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/05/02 16:51:53 by pruangde         ###   ########.fr        #
+#    Updated: 2023/05/07 20:52:44 by bsirikam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,13 @@ UTIL = utils_1.c utils_2.c
 ERRMSG = err_msg.c
 
 SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG)
-OBJS = $(SRCS:.c=.o)
+OBJ_C = $(SRCS:.c=.o)
+OBJ_DIR = obj
+OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))
+
+$(OBJ_DIR)/%.o: %.c $(HEADER)
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 
 
@@ -50,7 +56,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -lreadline $(LDFLAGS) $(LIBFT) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -lreadline $(LDFLAGS) $(LIBFT) $(OBJS) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all
@@ -61,6 +67,7 @@ $(LIBFT):
 clean:
 	@make -C $(LIBFT_PATH) clean
 	@$(RM) $(OBJS) $(BN_OBJS)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@make -C $(LIBFT_PATH) fclean

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/07 09:59:58 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/07 20:16:10 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*sub_main(char *strcmd)
 int	main(int ac, char **av, char **env)
 {
 	char	*strcmd;
-	
+
 	strcmd = NULL;
 	g_data = (t_data *)malloc(sizeof(t_data));
 	if (!g_data)
@@ -68,6 +68,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	g_data->env = env;
+	printf("%s", g_data->env[0]);
 	signal_handling();
 	while (1)
 	{

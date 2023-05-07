@@ -3,29 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/07 09:08:56 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/07 20:46:06 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+// # include "./libft/libft.h"
+# include "./libft/libft.h"
 # include <limits.h>
+# include <sys/signal.h>
+# include <string.h>
+# include <stdbool.h>
+# include <stdio.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <signal.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <dirent.h>
+# include <sys/stat.h>
+# include <termios.h>
+# include <sys/types.h>
 # include <sys/wait.h>
-# include <sys/signal.h>
-# include <string.h>
 
 typedef struct	s_data
 {
@@ -76,7 +82,7 @@ t_strcut	*qsp_split(char *str);
 t_strcut	*meta_split(t_strcut *list);
 
 
-// parser_4 - 
+// parser_4 -
 
 
 // utils_1
@@ -106,4 +112,4 @@ void		err_q_nopair(void);
 // if cannot access or not found print cmd not found
 // for multiple pipe or nothing between sep list and find if nothing
 // bash: syntax error near unexpected token `|'
-// 
+//
