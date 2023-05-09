@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/08 02:19:13 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:28:57 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_data
 	int		fortest;
 }			t_data;
 
-// extern t_data	*g_data;
+extern t_data	*g_data;
 
 typedef struct	s_cmd
 {
@@ -62,26 +62,27 @@ typedef struct	s_listcmd
 // minishell
 
 // sig_handle
-// void		sig_int_handler(int sig);
-// void		signal_handling(void);
+void		sig_int_handler(int sig);
+void		signal_handling(void);
 
-// parser_1 - main split
+// parser_1 - main split + split long list to cmd
 t_cmd		*str_split(char *str, t_cmd *table);
 
 // parser_2 - quote split and add stat q or nonq
 t_strcut	*qsp_split(char *str);
 
-
 // parser_3 - split meta char | < << >> >
-// t_strcut	*meta_split(t_strcut *head);
+t_strcut	*meta_split(t_strcut *head);
+
+// parser_4 - remove quote
 
 
-// parser_4 - 
+// parser_5 - expand
 
 
 // utils_1
 t_strcut	*free_strcutlist(t_strcut **list);
-t_lstcmd	*free_listcmd(t_lstcmd *lstcmd);
+t_strcut	*free_strcut(t_strcut *tofree);
 int			find_charpos(char *str, char c);
 t_strcut	*lastlist_strcut(t_strcut *list);
 int			cont_char(char *str, int i, char c);
@@ -94,6 +95,13 @@ void	test_printstrcut(t_strcut *fwd);
 int			find_pair(char *str, int i);
 int			count_liststrcut(t_strcut *list);
 int			ft_isspace(int c);
+int			count_samechar(char *str, int pos);
+int			find_metapos(char *str);
+
+// utils_3
+int			add_metastat(char c);
+t_strcut	*search_liststrcut(t_strcut *head, t_strcut *now);
+t_strcut	*new_nowsepmeta(t_strcut *tmphd);
 
 
 // err_msg

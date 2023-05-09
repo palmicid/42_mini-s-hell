@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/08 02:07:32 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:44:08 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	process(char *strcmd)
 		// string cut
 		cmdtable = str_split(strcmd, cmdtable);
 		// to execute
+		
 		// to_exec();
 		exit(errno);
 	}

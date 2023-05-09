@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:52:30 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/08 02:28:22 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:49:51 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ t_cmd	*str_split(char *str, t_cmd *table)
 
 	// listcmd = NULL;
 	// find space 
-	printf("BUG-000\n");
 	liststr = qsp_split(str);
 	if (!liststr)
 		return (NULL);
-	// liststr = meta_split(liststr);
-	// if (!liststr)
-	// 	return (NULL);
+	liststr = meta_split(liststr);
+	if (!liststr)
+		return (NULL);
 	test_printstrcut(liststr);
 	// listcmd = pipe_split(listcmd, liststr);
 	// if (!listcmd)
@@ -42,7 +41,6 @@ t_cmd	*str_split(char *str, t_cmd *table)
 	(void)table;
 	if (liststr)
 		liststr = free_strcutlist(&liststr);
-	printf("test end\n");
 	return (NULL);
 	// FOR TEST ONLY !!!!
 

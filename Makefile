@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/05/08 02:36:31 by pruangde         ###   ########.fr        #
+#    Updated: 2023/05/09 08:12:34 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,11 @@ LIBFT = $(LIBFT_PATH)/libft.a
 LDFLAGS	= -L${HOMEBREW_PREFIX}/opt/readline/lib
 CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
 
-PARS = parser_1.c parser_2.c #parser_3.c
-UTIL = utils_1.c utils_2.c
+PARS = parser_1.c parser_2.c parser_3.c
+UTIL = utils_1.c utils_2.c utils_3.c
 ERRMSG = err_msg.c
 
-# SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG)
-SRCS = maintest.c $(PARS) $(UTIL) $(ERRMSG)
+SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG)
 OBJS = $(SRCS:.c=.o)
 
 
@@ -69,16 +68,11 @@ fclean: clean
 
 re: fclean all
 
-test:
-	$(CC) maintest.c parser_1.c -o $(NAME)
+# test:
 #	$(CC) maintest.c $(NAME)
 #	valgrind --vgdb=no --leak-check=full --show-leak-kinds=all ./a.out
-
-leak:
-	leaks --atExit -- ./push_swap
-
-san:
-	$(CC) -fsanitize=address -fno-omit-frame-pointer maintest.c
+#	leaks --atExit -- ./push_swap
+# 	$(CC) -fsanitize=address -fno-omit-frame-pointer maintest.c
 
 norm:
 	@echo "------------------------------------"
