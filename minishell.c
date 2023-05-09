@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/07 20:16:10 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:56:02 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	process(char *strcmd)
 		// string cut
 		cmdtable = str_split(strcmd, cmdtable);
 		// to execute
+		execute(cmdtable);
 		// to_exec();
 		exit(EXIT_SUCCESS);
 	}
@@ -44,13 +45,13 @@ char	*sub_main(char *strcmd)
 {
 	strcmd = readline("Minishell >> ");
 	if (!strcmd)
-		return(NULL);
+		return (NULL);
 	else if (strcmd[0] == '\0')
 		;
 	else if (ft_strncmp(strcmd, "exit", 4) == 0)
 	{
 		free(strcmd);
-		return(NULL);
+		return (NULL);
 	}
 	else if (ft_strlen(strcmd) > 0)
 		process(strcmd);
@@ -68,7 +69,6 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	g_data->env = env;
-	printf("%s", g_data->env[0]);
 	signal_handling();
 	while (1)
 	{

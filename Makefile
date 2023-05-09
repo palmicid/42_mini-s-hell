@@ -6,7 +6,7 @@
 #    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/05/07 20:52:44 by bsirikam         ###   ########.fr        #
+#    Updated: 2023/05/09 20:42:02 by bsirikam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,34 +29,33 @@ LIBFT = $(LIBFT_PATH)/libft.a
 # 	LDFLAGS	= -L${HOMEBREW_PREFIX}/opt/readline/lib
 # 	CPPFLAGS	= -I${HOMEBREW_PREFIX}/opt/readline/include
 # else
-# 	LDFLAGS	= -L/usr/local/opt/readline/lib
+# 	LDFLAGS	= -L/usr/local/opt/readline
 # 	CPPFLAGS	= -I/usr/local/opt/readline/include
 # endif
 
-LDFLAGS	= -L${HOMEBREW_PREFIX}/opt/readline/lib
-CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
+LDFLAGS		= -L/usr/local/opt/readline/
+CPPFLAGS	= -I/usr/local/opt/readline/include/
 
 PARS = parser_1.c parser_2.c parser_3.c
 UTIL = utils_1.c utils_2.c
 ERRMSG = err_msg.c
+EXECUTE = execute.c
 
-SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG)
+SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE)
 OBJ_C = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))
 
 $(OBJ_DIR)/%.o: %.c $(HEADER)
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-
+	@$(CC) $(CFLAGS) -c $< -I/usr/local/opt/readline/include/  -o $@
 
 .PHONY: all clean fclean re bonus
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -lreadline $(LDFLAGS) $(LIBFT) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -L/usr/local/opt/readline/lib/ -lreadline $(LIBFT) $(OBJS) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all

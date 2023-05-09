@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/07 20:46:06 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:55:45 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ int			count_liststrcut(t_strcut *list);
 // err_msg
 void		err_multipipe(void);
 void		err_q_nopair(void);
+
+// execute
+void	execute(t_cmd *cmdtable);
 
 #endif
 
