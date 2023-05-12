@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/10 01:26:14 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:37:05 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	execute(t_cmd *cmdtable)
 					if (is_builtin("ls"))
 						printf("builtin\n");
 					else
+					{
 						execve(ft_strjoin(path[j], "/ls"), test, NULL);
+						exit(EXIT_SUCCESS);
+					}
 				}
 				j++;
 			}
