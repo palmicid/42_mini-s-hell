@@ -6,7 +6,7 @@
 #    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/05/09 20:42:02 by bsirikam         ###   ########.fr        #
+#    Updated: 2023/05/21 21:57:19 by bsirikam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,9 @@ PARS = parser_1.c parser_2.c parser_3.c
 UTIL = utils_1.c utils_2.c
 ERRMSG = err_msg.c
 EXECUTE = execute.c
+BUILTIN = builtin.c
 
-SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE)
+SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) $(BUILTIN)
 OBJ_C = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))

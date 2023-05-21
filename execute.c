@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/11 22:37:05 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:02:36 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-// void	builtin()
+void	builtin(t_cmd *cmdtable)
+{
+	(void)cmdtable;
+	char	test[] = "env";
+	if (ft_strncmp(test, "env", 3) == 0)
+		ft_env();
+}
 
 void	execute(t_cmd *cmdtable)
 {

@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/09 20:55:45 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:03:09 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ void		err_q_nopair(void);
 
 // execute
 void	execute(t_cmd *cmdtable);
+
+// built_in
+void	ft_env();
 
 #endif
 
