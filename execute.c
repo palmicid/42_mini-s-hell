@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/21 22:02:36 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/22 00:03:56 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void	execute(t_cmd *cmdtable)
 			path = ft_split(tmp_env[i] + 5, ':');
 			while (path[j])
 			{
-				printf("After join = %s\n", ft_strjoin(path[j], "/ls"));
+				// printf("After join = %s\n", ft_strjoin(path[j], "/ls"));
 				if (access(ft_strjoin(path[j], "/ls"), X_OK) == 0)
 				{
-					if (is_builtin("ls"))
-						printf("builtin\n");
+					if (is_builtin("env"))
+						builtin(cmdtable);
 					else
 					{
 						execve(ft_strjoin(path[j], "/ls"), test, NULL);

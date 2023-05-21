@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefile                                         :+:    :+:  :+:     +:+       #
 #                                                     +:+ +:+         +:+      #
 #    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/05/21 21:57:19 by bsirikam         ###   ########.fr        #
+#    Updated: 2023/05/21 23:52:56 by nxwbtk      ###     ###   ########.th          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,14 +33,17 @@ LIBFT = $(LIBFT_PATH)/libft.a
 # 	CPPFLAGS	= -I/usr/local/opt/readline/include
 # endif
 
-LDFLAGS		= -L/usr/local/opt/readline/
-CPPFLAGS	= -I/usr/local/opt/readline/include/
+LDFLAGS = -L${HOMEBREW_PREFIX}/opt/readline/lib
+CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
+
+# LDFLAGS		= -L/usr/local/opt/readline/
+# CPPFLAGS	= -I/usr/local/opt/readline/include/
 
 PARS = parser_1.c parser_2.c parser_3.c
 UTIL = utils_1.c utils_2.c
 ERRMSG = err_msg.c
 EXECUTE = execute.c
-BUILTIN = builtin.c
+BUILTIN = built_in1.c
 
 SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) $(BUILTIN)
 OBJ_C = $(SRCS:.c=.o)
@@ -49,20 +52,20 @@ OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))
 
 $(OBJ_DIR)/%.o: %.c $(HEADER)
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -I/usr/local/opt/readline/include/  -o $@
+	@$(CC) $(CFLAGS) -c $< ${CPPFLAGS} -o $@
 
 .PHONY: all clean fclean re bonus
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -L/usr/local/opt/readline/lib/ -lreadline $(LIBFT) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LDFLAGS) -lreadline $(LIBFT) $(OBJS) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
 clean:
 	@make -C $(LIBFT_PATH) clean
@@ -79,9 +82,6 @@ test:
 	$(CC) maintest.c parser_1.c -o $(NAME)
 #	$(CC) maintest.c $(NAME)
 #	valgrind --vgdb=no --leak-check=full --show-leak-kinds=all ./a.out
-
-leak:
-	leaks --atExit -- ./push_swap
 
 san:
 	$(CC) -fsanitize=address -fno-omit-frame-pointer maintest.c

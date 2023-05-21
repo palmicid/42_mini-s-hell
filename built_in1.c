@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/21 22:02:43 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/21 23:03:57 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,12 @@
 
 void	ft_env()
 {
+	int i;
 
+	i = 0;
+	while (g_data->env[i])
+	{
+		printf("%s\n", g_data->env[i]);
+		i++;
+	}
 }
