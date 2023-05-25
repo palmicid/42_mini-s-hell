@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/22 00:03:56 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/26 02:04:16 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,20 @@ int	is_builtin(char *cmd)
 
 void	builtin(t_cmd *cmdtable)
 {
-	(void)cmdtable;
-	char	test[] = "env";
-	if (ft_strncmp(test, "env", 3) == 0)
-		ft_env();
+	// (void)cmdtable;
+	t_cmd	*tmp;
+	tmp = cmdtable;
+	// char	test[] = "export";
+	while (tmp)
+	{
+		if (ft_strncmp(*tmp->cmd, "env", 3) == 0)
+			ft_env();
+		else if (ft_strncmp(*tmp->cmd, "export", 5) == 0)
+		{
+			tmp = tmp->next;
+			ft_export(tmp->cmd);
+		}
+	}
 }
 
 void	execute(t_cmd *cmdtable)
@@ -47,10 +57,14 @@ void	execute(t_cmd *cmdtable)
 	int		j;
 	char	**test;
 
-	test = (char *[]){"ls", "-la", NULL};
+	// test = (char *[]){"ls", "-la", NULL};
 	tmp_env = g_data->env;
 	i = 0;
-	(void)cmdtable;
+	// (void)cmdtable;
+	// cmdtable = malloc(sizeof(t_cmd));
+	// cmdtable->cmd = malloc(sizeof(char *) * 2);
+	// cmdtable->cmd[0] = ft_strdup("export");
+	// cmdtable->next = NULL;
 	while (tmp_env[i])
 	{
 		j = 0;
@@ -59,7 +73,6 @@ void	execute(t_cmd *cmdtable)
 			path = ft_split(tmp_env[i] + 5, ':');
 			while (path[j])
 			{
-				// printf("After join = %s\n", ft_strjoin(path[j], "/ls"));
 				if (access(ft_strjoin(path[j], "/ls"), X_OK) == 0)
 				{
 					if (is_builtin("env"))
