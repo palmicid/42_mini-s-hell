@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:30:34 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/09 22:12:19 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:27:52 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,3 @@ int	find_metapos(char *str)
 	}
 	return (-1);
 }
-

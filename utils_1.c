@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/09 13:48:42 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/26 20:55:47 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,13 @@ int	find_charpos(char *str, char c)
 	int	i;
 
 	i = 0;
-	while (str[i] != c)
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
 		i++;
-	return (i);
+	}
+	return (-1);
 }
 
 t_strcut	*lastlist_strcut(t_strcut *list)
@@ -74,19 +78,21 @@ int	cont_char(char *str, int i, char c)
 }
 
 // 	-----------TEST-------------
-void	test_print(t_lstcmd *head)
+void	test_print(t_cmd *head)
 {
-	t_strcut	*ptr;
+	t_cmd	*ptr = head;
+	int		in = 0;
 
-	while (head)
+	while (ptr)
 	{
-		ptr = head->strcut;
-		while (ptr)
+		in = 0;
+		printf("CMD == ");
+		while (ptr->cmd[in])
 		{
-			printf("no = %d | cmd = %s\n", head->cmd_no, ptr->str);
-			ptr = ptr->next;
+			printf("|%s", ptr->cmd[in]);
+			in++;
 		}
-		head = head->next;
+		ptr = ptr->next;
 	}
 }
 
@@ -94,12 +100,33 @@ void	test_printstrcut(t_strcut *fwd)
 {
 	t_strcut	*ptr;
 	ptr = fwd;
-	printf("\n=======STRCUT_PRINT==========\n");
+	ft_putstr_fd("\n=======STRCUT_PRINT==========\n", 2);
 	while (ptr)
 	{
-		printf("stat = %d | len = %zu | str = [%s]\n", ptr->stat, ft_strlen(ptr->str), ptr->str);
-		ptr = ptr->next;
+		if (ptr->str)
+			ft_putstr_fd("stat = ", 2);
+			ft_putnbr_fd(ptr->stat, 2);
+			ft_putstr_fd(" | str = [", 2);
+			ft_putstr_fd(ptr->str, 2);
+			ft_putstr_fd("]\n", 2);
+			
+			// printf("[%s] - ", ptr->str);
+			
+			ptr = ptr->next;
 	}
-	printf("=============================\n");
+	ft_putstr_fd("\n=============================\n", 2);
 }
+
+void	test_printonestrcut(t_strcut *cur)
+{
+	if (cur)
+	{
+		ft_putstr_fd("stat = ", 2);
+		ft_putnbr_fd(cur->stat, 2);
+		ft_putstr_fd(" | str = [", 2);
+		ft_putstr_fd(cur->str, 2);
+		ft_putstr_fd("]\n", 2);
+	}
+}
+
 // 	-----------TEST-------------

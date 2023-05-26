@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:32:29 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/09 22:25:21 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/19 03:43:47 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static int	cx_createdupsepmeta(char *str, int st, int pos, t_strcut *node)
 {
 	if (st == pos)
 	{
-		if (str[pos] == str[pos + 1])
-			node->str = ft_strndup(str, 2);
+		if ((str[pos] == str[pos + 1]) && (str[pos] != '|'))
+			node->str = ft_strndup(str + st, 2);
 		else
-			node->str = ft_strndup(str, 1);
+			node->str = ft_strndup(str + st, 1);
 	}
 	else
 	{
@@ -60,7 +60,7 @@ static int	cx_createdupsepmeta(char *str, int st, int pos, t_strcut *node)
 	}
 	if (!(node->str))
 		return (-1);
-	node->stat = add_metastat(node->str[0]);
+	node->stat = add_metastat(node->str);
 	st += ft_strlen(node->str);
 	return (st);
 }
@@ -139,7 +139,7 @@ t_strcut	*meta_split(t_strcut *head)
 	now = head;
 	while (now)
 	{
-		if (now->stat == 0)
+		if (now->stat == 0 || now->stat == 1)
 		{
 			if (find_metapos(now->str) >= 0)
 			{
@@ -152,7 +152,7 @@ t_strcut	*meta_split(t_strcut *head)
 		}
 		now = now->next;
 	}
-	// head = cx_meta_valid(head);
+	head = cx_meta_valid(head);
 	return (head);
 }
 	// cx valid in fx if error free all and return NULL to head

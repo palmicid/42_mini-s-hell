@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/09 21:44:08 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/26 20:41:33 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,19 @@ t_data	*g_data;
 void	process(char *strcmd)
 {
 	int		stat;
-	t_cmd	*cmdtable;
+	t_cmd	*cmdlist;
 	// struct to store cmd and file
 
-	cmdtable = NULL;
+	cmdlist = NULL;
 	add_history(strcmd);
 	g_data->pid = fork();
 	if (g_data->pid == 0)
 	{
 		// string cut
-		cmdtable = str_split(strcmd, cmdtable);
+		cmdlist = str_split(strcmd);
+		printf("TEST CMDLIST \n");
+		test_print(cmdlist);
+
 		// to execute
 		
 		// to_exec();
@@ -58,7 +61,7 @@ char	*sub_main(char *strcmd)
 	return (strcmd);
 }
 
-int	main(int ac, char **av, char **env)
+int	main(void)
 {
 	char	*strcmd;
 	
@@ -66,9 +69,7 @@ int	main(int ac, char **av, char **env)
 	g_data = (t_data *)malloc(sizeof(t_data));
 	if (!g_data)
 		exit(EXIT_FAILURE);
-	(void)ac;
-	(void)av;
-	g_data->env = env;
+	init_environ();
 	signal_handling();
 	while (1)
 	{
@@ -79,6 +80,9 @@ int	main(int ac, char **av, char **env)
 			free(strcmd);
 	}
 	if (!strcmd)
+	{
+		end_environ();
 		ft_putendl_fd("exit", 1);
+	}
 	return (0);
 }
