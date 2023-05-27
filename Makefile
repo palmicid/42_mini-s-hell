@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/05/26 17:04:17 by pruangde         ###   ########.fr        #
+#    Updated: 2023/05/27 17:31:36 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ LDFLAGS	= -L${HOMEBREW_PREFIX}/opt/readline/lib
 CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
 
 PARS = parser_1.c parser_2.c parser_3.c parser_4.c parser_5.c parser_6.c
-UTIL = utils_1.c utils_2.c utils_3.c utils_4.c
+UTIL = utils_1.c utils_2.c utils_3.c utils_4.c utils_5.c
 ERRMSG = err_msg.c
 
 SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG)

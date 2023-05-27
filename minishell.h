@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/26 20:40:30 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:31:05 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_data
 	int		fortest;
 }			t_data;
 
-extern t_data	*g_data;
+t_data			*g_data;
 extern char		**environ;
 
 typedef struct s_cmd
@@ -51,7 +51,6 @@ typedef struct s_strcut
 	int				stat;
 	struct s_strcut	*next;
 }					t_strcut;
-
 
 // minishell
 
@@ -79,7 +78,7 @@ t_strcut	*remove_q_xpand(t_strcut *head);
 void		expand_var(t_strcut *tmp);
 
 // parser_6 - join str from list
-void	lst_strjoin(t_strcut *current, t_strcut **tmp);
+void		lst_strjoin(t_strcut *current, t_strcut **tmp);
 
 // utils_1
 t_strcut	*free_strcutlist(t_strcut **list);
@@ -113,6 +112,9 @@ void		set_error(t_strcut *cur);
 void		remove_q(t_strcut *head);
 int			next_i_qsplit(char *str, int i);
 t_cmd		*free_cmdlist(t_cmd *lstcmd);
+
+// utils_5
+t_strcut	*inside_cxmetavalid(t_strcut **head, char *str);
 
 // err_msg
 void		err_redirpipe(char *str);

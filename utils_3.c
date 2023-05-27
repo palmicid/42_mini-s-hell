@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 08:12:54 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/20 04:29:53 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:34:35 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,14 @@ t_strcut	*cx_meta_valid(t_strcut *head)
 		if (runner->stat == 4 || runner->stat == 3)
 		{
 			if (runner->stat == runner->next->stat)
-			{
-				err_redirpipe(runner->next->str);
-				return (free_strcutlist(&head));
-			}
+				return (inside_cxmetavalid(&head, runner->next->str));
 			if (runner->stat == 3 && runner->next->stat == 4)
-			{
-				err_redirpipe(runner->next->str);
-				return (free_strcutlist(&head));
-			}
+				return (inside_cxmetavalid(&head, runner->next->str));
 		}
 		runner = runner->next;
 	}
+	if (((runner->stat == 3) || runner->stat == 4))
+		return (inside_cxmetavalid(&head, "newline"));
 	return (head);
 }
 

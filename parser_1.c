@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:52:30 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/26 21:22:33 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/27 03:04:01 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ static t_strcut	*find_nextcmd(t_strcut *tofind)
 	return (list);
 }
 
-// count how many to malloc sep by pipe
+// count how many cmd to malloc sep by pipe
 static	int	count_strarray(t_strcut *cur)
 {
 	int	count;
 
 	count = 0;
-	while (cur->stat != 4)
+	while (cur)
 	{
+		if (cur->stat == 4)
+			return (count);
 		count++;
 		cur = cur->next;
 	}
@@ -52,7 +54,7 @@ static char	**cmd_fusion(t_strcut *curlst)
 	count = count_strarray(curstr);
 	strarr = (char **)malloc(sizeof(char *) * (count + 1));
 	strarr[count] = NULL;
-	while (index <= count)
+	while (index < count)
 	{
 		strarr[index] = ft_strdup(curstr->str);
 		if (!strarr[index])
@@ -115,18 +117,5 @@ t_cmd	*str_split(char *str)
 		errno = 1;
 	if (liststr)
 		liststr = free_strcutlist(&liststr);
-	
-	test_printstrcut(liststr);
-	test_print(listcmd);
-	
 	return (listcmd);
-
 }
-
-// ascii " == 34 , ' == 39 
-// q_split convert str to link list 
-// find ' or " in str if find mark pos then find another if not leave it
-// " = 2, ' = 1, non = 0
-
-// cmd_split split to arrey of struct list split by '|'
-

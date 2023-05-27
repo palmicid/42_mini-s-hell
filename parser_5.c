@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 04:15:44 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/26 17:25:47 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:31:38 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	sub_expand(t_strcut *cur)
 		fin = ssp_strjoin(fin, cur->str + st, 1, 0);
 	free(cur->str);
 	cur->str = fin;
-	test_printstrcut(cur);
 }
 
 void	expand_var(t_strcut *head)
@@ -98,12 +97,10 @@ void	expand_var(t_strcut *head)
 	{
 		if (cur->stat == 0 || cur->stat == 2)
 		{
-			test_printonestrcut(cur);
 			sub_expand(cur);
 			if (cur->stat == -1)
 				return (set_error(head));
 		}
 		cur = cur->next;
 	}
-	test_printstrcut(head);
 }

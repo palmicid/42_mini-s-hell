@@ -6,33 +6,28 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/26 20:41:33 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:35:19 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data	*g_data;
+
 
 // the child going to be parent for all program
 void	process(char *strcmd)
 {
 	int		stat;
 	t_cmd	*cmdlist;
-	// struct to store cmd and file
-
+	
 	cmdlist = NULL;
 	add_history(strcmd);
 	g_data->pid = fork();
 	if (g_data->pid == 0)
 	{
-		// string cut
 		cmdlist = str_split(strcmd);
-		printf("TEST CMDLIST \n");
-		test_print(cmdlist);
-
 		// to execute
-		
+		test_print(cmdlist);
 		// to_exec();
 		exit(errno);
 	}
@@ -48,13 +43,13 @@ char	*sub_main(char *strcmd)
 {
 	strcmd = readline("Minishell >> ");
 	if (!strcmd)
-		return(NULL);
+		return (NULL);
 	else if (strcmd[0] == '\0')
 		;
 	else if (ft_strncmp(strcmd, "exit", 4) == 0)
 	{
 		free(strcmd);
-		return(NULL);
+		return (NULL);
 	}
 	else if (ft_strlen(strcmd) > 0)
 		process(strcmd);
@@ -64,7 +59,7 @@ char	*sub_main(char *strcmd)
 int	main(void)
 {
 	char	*strcmd;
-	
+
 	strcmd = NULL;
 	g_data = (t_data *)malloc(sizeof(t_data));
 	if (!g_data)

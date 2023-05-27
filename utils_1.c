@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/26 20:55:47 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/27 02:57:50 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	test_print(t_cmd *head)
 			printf("|%s", ptr->cmd[in]);
 			in++;
 		}
+		printf("|\n");
 		ptr = ptr->next;
 	}
 }
