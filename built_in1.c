@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/25 23:56:17 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/28 01:27:38 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,18 @@ void	ft_export_noarg()
 	}
 }
 
+void	ft_export_witharg(char **cmd)
+{
+	(void)cmd;
+	printf("export with arg\n");
+}
+
 void	ft_export(char **cmd)
 {
 	if (!cmd)
 		ft_export_noarg();
+	else
+	{
+		ft_export_witharg(cmd);
+	}
 }
