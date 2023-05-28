@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/28 01:46:58 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/28 13:14:14 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,27 +83,26 @@ char	*sub_main(char *strcmd)
 // 	return (0);
 // }
 
-int main(int argc, char const *argv[], char *env[])
+int main(int argc, char const *argv[], char **env)
 {
 	t_cmd	*cmdtable;
-	t_cmd	*cmdtable2;
+	// t_cmd	*cmdtable2;
 
 	(void)argc;
 	(void)argv;
-	(void)env;
+	g_data = malloc(sizeof(t_data));
+	g_data->env = env;
 	cmdtable = malloc(sizeof(t_cmd));
-	cmdtable2 = malloc(sizeof(t_cmd));
-	cmdtable->cmd = malloc(sizeof(char *) * 3);
-	cmdtable2->cmd = malloc(sizeof(char *) * 3);
-	cmdtable->cmd[0] = "touch";
-    cmdtable->cmd[1] = "test";
-	cmdtable->cmd[2] = NULL;
+	cmdtable->cmd = malloc(sizeof(char *) * 2);
+	cmdtable->cmd[0] = "export";
+    cmdtable->cmd[1] = NULL;
+	cmdtable->next = NULL;
 
-    cmdtable2->cmd[0] = "ls";
-    cmdtable2->cmd[1] = "-a";
-    cmdtable2->cmd[2] = NULL;
-    cmdtable->next = cmdtable2;
-    cmdtable2->next = NULL;
+    // cmdtable2->cmd[0] = "ls";
+    // cmdtable2->cmd[1] = "-a";
+    // cmdtable2->cmd[2] = NULL;
+    // cmdtable->next = cmdtable2;
+    // cmdtable2->next = NULL;
 	while (cmdtable)
 	{
 		execute(cmdtable);

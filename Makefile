@@ -43,7 +43,7 @@ PARS = parser_1.c parser_2.c parser_3.c
 UTIL = utils_1.c utils_2.c
 ERRMSG = err_msg.c
 EXECUTE = execute.c
-BUILTIN = built_in1.c
+BUILTIN = builtin_export.c builtin_env.c
 
 SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) $(BUILTIN)
 OBJ_C = $(SRCS:.c=.o)

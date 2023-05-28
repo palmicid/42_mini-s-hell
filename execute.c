@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/28 01:43:30 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/28 15:07:01 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,16 @@ int	is_builtin(char *cmd)
 
 void	builtin(t_cmd *cmdtable)
 {
-	// (void)cmdtable;
 	t_cmd	*tmp;
+
 	tmp = cmdtable;
-	// char	test[] = "export";
 	while (tmp)
 	{
 		if (ft_strncmp(*tmp->cmd, "env", 3) == 0)
-			ft_env();
+			ft_env(cmdtable);
 		else if (ft_strncmp(*tmp->cmd, "export", 5) == 0)
-		{
-			tmp = tmp->next;
-			ft_export(tmp->cmd);
-		}
+			ft_export(cmdtable);
+		tmp = tmp->next;
 	}
 }
 
@@ -67,7 +64,7 @@ int	execute_2(t_cmd *cmdtable, char *pnamewp)
 	return (1);
 }
 
-char	*addSlash(char *cmd)
+char	*addslash(char *cmd)
 {
 	char	*sl_progname;
 
@@ -86,20 +83,18 @@ void	execute(t_cmd *cmdtable)
 	int		j;
 	char	*prog_name_with_path;
 
-	// test = (char *[]){"ls", "-la", NULL};
-	// (void)cmdtable;
 	j = 0;
 	tmp_env = getenv("PATH");
 	path = ft_split(tmp_env + 5, ':');
-	progname_with_sl = addSlash(cmdtable->cmd[0]);
+	progname_with_sl = addslash(cmdtable->cmd[0]);
+	if (is_builtin(cmdtable->cmd[0]))
+			builtin(cmdtable);
 	while (path[j])
 	{
 		prog_name_with_path = ft_strjoin(path[j], progname_with_sl);
-		if (access(prog_name_with_path , X_OK) == 0)
+		if (access(prog_name_with_path, X_OK) == 0)
 		{
-			if (is_builtin(cmdtable->cmd[0]))
-				builtin(cmdtable);
-			else if (execute_2(cmdtable, prog_name_with_path) == 0)
+			if (execute_2(cmdtable, prog_name_with_path) == 0)
 			{
 				free(prog_name_with_path);
 				break ;
