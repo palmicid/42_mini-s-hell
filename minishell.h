@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/28 17:27:14 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:14:21 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,16 @@ void		err_q_nopair(void);
 void		err_redir(void);
 
 // execute
-void	execute(t_cmd *cmdtable);
+void		execute(t_cmd *cmdtable);
 
 // built_in
-void	ft_env(t_cmd *cmdtable);
-void	ft_export(t_cmd *cmdtable);
-void	ft_export_noarg();
+void		ft_env(t_cmd *cmdtable);
+void		ft_export(t_cmd *cmdtable);
+void		ft_export_noarg(void);
+void		ft_export_witharg(t_cmd *cmdtable);
+char		*get_key(char *s);
+void		replace_env(char *env);
+void		ft_pwd(t_cmd *cmdtable);
 
 #endif
 

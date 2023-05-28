@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/28 15:07:01 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:13:38 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,14 @@ int	is_builtin(char *cmd)
 
 void	builtin(t_cmd *cmdtable)
 {
-	t_cmd	*tmp;
-
-	tmp = cmdtable;
-	while (tmp)
+	if (ft_strncmp(cmdtable->cmd[0], "env", 3) == 0)
 	{
-		if (ft_strncmp(*tmp->cmd, "env", 3) == 0)
-			ft_env(cmdtable);
-		else if (ft_strncmp(*tmp->cmd, "export", 5) == 0)
-			ft_export(cmdtable);
-		tmp = tmp->next;
+		ft_env(cmdtable);
 	}
+	else if (ft_strncmp(cmdtable->cmd[0], "export", 5) == 0)
+		ft_export(cmdtable);
+	else if (ft_strncmp(cmdtable->cmd[0], "pwd", 3) == 0)
+		ft_pwd(cmdtable);
 }
 
 int	execute_2(t_cmd *cmdtable, char *pnamewp)
@@ -86,9 +83,9 @@ void	execute(t_cmd *cmdtable)
 	j = 0;
 	tmp_env = getenv("PATH");
 	path = ft_split(tmp_env + 5, ':');
-	progname_with_sl = addslash(cmdtable->cmd[0]);
 	if (is_builtin(cmdtable->cmd[0]))
 			builtin(cmdtable);
+	progname_with_sl = addslash(cmdtable->cmd[0]);
 	while (path[j])
 	{
 		prog_name_with_path = ft_strjoin(path[j], progname_with_sl);

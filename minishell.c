@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/28 17:38:18 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:19:17 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,62 @@ char	*sub_main(char *strcmd)
 	return (strcmd);
 }
 
-int	main(void)
-{
-	char	*strcmd;
+// int	main(void)
+// {
+// 	char	*strcmd;
 
-	strcmd = NULL;
+// 	strcmd = NULL;
+// 	g_data = (t_data *)malloc(sizeof(t_data));
+// 	if (!g_data)
+// 		exit(EXIT_FAILURE);
+// 	init_environ();
+// 	signal_handling();
+// 	while (1)
+// 	{
+// 		strcmd = sub_main(strcmd);
+// 		if (!strcmd)
+// 			break ;
+// 		if (strcmd)
+// 			free(strcmd);
+// 	}
+// 	if (!strcmd)
+// 	{
+// 		end_environ();
+// 		ft_putendl_fd("exit", 1);
+// 	}
+// 	return (0);
+// }
+
+int main(int argc, char *argv[], char *envp[])
+{
+	t_cmd	*cmdtable;
+	t_cmd	*cmdtable2;
+	t_cmd	*cmdtable3;
+	t_cmd	*cmdtable4;
+
+	(void)argc;
+	(void)argv;
+	(void)envp;
 	g_data = (t_data *)malloc(sizeof(t_data));
 	if (!g_data)
 		exit(EXIT_FAILURE);
 	init_environ();
-	signal_handling();
-	while (1)
+	cmdtable = malloc(sizeof(t_cmd));
+	cmdtable->cmd = malloc(sizeof(char *) * 3);
+	cmdtable2 = malloc(sizeof(t_cmd));
+	cmdtable2->cmd = malloc(sizeof(char *) * 2);
+	cmdtable3 = malloc(sizeof(t_cmd));
+	cmdtable3->cmd = malloc(sizeof(char *) * 3);
+	cmdtable4 = malloc(sizeof(t_cmd));
+	cmdtable4->cmd = malloc(sizeof(char *) * 2);
+	cmdtable->cmd[0] = ft_strdup("pwd");
+	cmdtable->cmd[1] = NULL;
+	cmdtable->cmd[2] = NULL;
+	cmdtable->next = NULL;
+	while (cmdtable)
 	{
-		strcmd = sub_main(strcmd);
-		if (!strcmd)
-			break ;
-		if (strcmd)
-			free(strcmd);
+		execute(cmdtable);
+		cmdtable = cmdtable->next;
 	}
-	if (!strcmd)
-	{
-		end_environ();
-		ft_putendl_fd("exit", 1);
-	}
-	return (0);
+	return 0;
 }

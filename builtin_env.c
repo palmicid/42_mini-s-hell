@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 11:52:31 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/28 12:34:44 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/28 23:34:07 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,29 @@ void	ft_env(t_cmd *cmdtable)
 		env_error("too many arguments");
 		return ;
 	}
-	while (g_data->env[i])
+	while (environ[i])
 	{
-		ft_putendl_fd(g_data->env[i], STDOUT_FILENO);
+		ft_putendl_fd(environ[i], STDOUT_FILENO);
+		i++;
+	}
+}
+
+void	replace_env(char *env)
+{
+	int		i;
+	char	*key;
+
+	i = 0;
+	key = get_key(env);
+	while (environ[i])
+	{
+		if (ft_strncmp(key, environ[i], ft_strlen(key)) == 0)
+		{
+			free(environ[i]);
+			environ[i] = ft_strdup(env);
+			free(key);
+			return ;
+		}
 		i++;
 	}
 }
