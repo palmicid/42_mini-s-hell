@@ -6,32 +6,31 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/28 13:14:14 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/28 17:33:05 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data	*g_data;
+
 
 // the child going to be parent for all program
 void	process(char *strcmd)
 {
 	int		stat;
-	t_cmd	*cmdtable;
-	// struct to store cmd and file
+	t_cmd	*cmdlist;
 
-	cmdtable = NULL;
+	cmdlist = NULL;
 	add_history(strcmd);
 	g_data->pid = fork();
 	if (g_data->pid == 0)
 	{
-		// string cut
-		cmdtable = str_split(strcmd, cmdtable);
+		cmdlist = str_split(strcmd);
 		// to execute
+		test_print(cmdlist);
 		execute(cmdtable);
 		// to_exec();
-		exit(EXIT_SUCCESS);
+		exit(errno);
 	}
 	else if (g_data->pid < 0)
 		strerror(errno);
@@ -58,55 +57,27 @@ char	*sub_main(char *strcmd)
 	return (strcmd);
 }
 
-// int	main(int ac, char **av, char **env)
-// {
-// 	char	*strcmd;
-
-// 	strcmd = NULL;
-// 	g_data = (t_data *)malloc(sizeof(t_data));
-// 	if (!g_data)
-// 		exit(EXIT_FAILURE);
-// 	(void)ac;
-// 	(void)av;
-// 	g_data->env = env;
-// 	signal_handling();
-// 	while (1)
-// 	{
-// 		strcmd = sub_main(strcmd);
-// 		if (!strcmd)
-// 			break ;
-// 		if (strcmd)
-// 			free(strcmd);
-// 	}
-// 	if (!strcmd)
-// 		ft_putendl_fd("exit", 1);
-// 	return (0);
-// }
-
-int main(int argc, char const *argv[], char **env)
+int	main(int ac, char **av, char **env)
 {
-	t_cmd	*cmdtable;
-	// t_cmd	*cmdtable2;
+	char	*strcmd;
 
-	(void)argc;
-	(void)argv;
-	g_data = malloc(sizeof(t_data));
+	strcmd = NULL;
+	g_data = (t_data *)malloc(sizeof(t_data));
+	if (!g_data)
+		exit(EXIT_FAILURE);
+	(void)ac;
+	(void)av;
 	g_data->env = env;
-	cmdtable = malloc(sizeof(t_cmd));
-	cmdtable->cmd = malloc(sizeof(char *) * 2);
-	cmdtable->cmd[0] = "export";
-    cmdtable->cmd[1] = NULL;
-	cmdtable->next = NULL;
-
-    // cmdtable2->cmd[0] = "ls";
-    // cmdtable2->cmd[1] = "-a";
-    // cmdtable2->cmd[2] = NULL;
-    // cmdtable->next = cmdtable2;
-    // cmdtable2->next = NULL;
-	while (cmdtable)
+	signal_handling();
+	while (1)
 	{
 		execute(cmdtable);
 		cmdtable = cmdtable->next;
 	}
-	return 0;
+	if (!strcmd)
+	{
+		end_environ();
+		ft_putendl_fd("exit", 1);
+	}
+	return (0);
 }

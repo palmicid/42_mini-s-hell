@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   utils_5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 12:36:52 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/11 08:01:56 by pruangde         ###   ########.fr       */
+/*   Created: 2023/05/27 17:27:40 by pruangde          #+#    #+#             */
+/*   Updated: 2023/05/27 17:30:22 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-size_t	ft_strlen(const char *s)
+t_strcut	*inside_cxmetavalid(t_strcut **head, char *str)
 {
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (i);
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
+	err_redirpipe(str);
+	return (free_strcutlist(head));
 }

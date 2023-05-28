@@ -6,7 +6,7 @@
 #    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/05/21 23:52:56 by nxwbtk      ###     ###   ########.th          #
+#    Updated: 2023/05/02 16:51:53 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ else
 	CC = gcc
 endif
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 NAME = minishell
 
@@ -39,13 +39,13 @@ CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
 # LDFLAGS		= -L/usr/local/opt/readline/
 # CPPFLAGS	= -I/usr/local/opt/readline/include/
 
-PARS = parser_1.c parser_2.c parser_3.c
-UTIL = utils_1.c utils_2.c
+PARS = parser_1.c parser_2.c parser_3.c parser_4.c parser_5.c parser_6.c
+UTIL = utils_1.c utils_2.c utils_3.c utils_4.c utils_5.c
 ERRMSG = err_msg.c
 EXECUTE = execute.c
 BUILTIN = builtin_export.c builtin_env.c
 
-SRCS = minishell.c sig_handle.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) $(BUILTIN)
+SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) $(BUILTIN)
 OBJ_C = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))
@@ -78,13 +78,12 @@ fclean: clean
 
 re: fclean all
 
-test:
-	$(CC) maintest.c parser_1.c -o $(NAME)
+# test:
 #	$(CC) maintest.c $(NAME)
 #	valgrind --vgdb=no --leak-check=full --show-leak-kinds=all ./a.out
-
-san:
-	$(CC) -fsanitize=address -fno-omit-frame-pointer maintest.c
+#	leaks --atExit -- ./push_swap
+# 	$(CC) -fsanitize=address -fno-omit-frame-pointer maintest.c
+#	#-fsanitize=address -fno-omit-frame-pointer -fdiagnostics-color=always
 
 norm:
 	@echo "------------------------------------"

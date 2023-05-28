@@ -1,1 +1,13 @@
-<test cmd1 | cmd2 "qwer  |     qweds" > sassssss
+<test << cmd1| echo "$USER"$USER'$USER' | cmd2 'qwer <<< | $USER    qweds'aedfg >> sassssss
+
+find . -type f -empty -prune -o -type f -printf "%s\t" -exec file --brief --mime-type '{}' \; | awk 'BEGIN {printf("%12s\t%12s\n","bytes","type)} {type=$2; a[type]+=$1} END {for (i in a) printf("%12u\t%12s\n", a[i], i)|"sort -nr"}'
+
+echo test|cat -e|cat -e|cat -e |cat -e| cat -ee
+
+echo "$USER"$USER'$USER'
+
+echo "$USER"
+echo $USER'$USER'
+echo "$USER"$USER
+
+printf("TEST-001\n");
