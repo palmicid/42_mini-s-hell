@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:52:46 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/22 00:10:42 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:31:06 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 void	sig_int_handler(int sig)
 {
 	(void)sig;
-	if (g_data->pid > 0)
-		kill(g_data->pid, SIGTERM);
+	errno = 130;
 	ft_putendl_fd("", STDOUT_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);

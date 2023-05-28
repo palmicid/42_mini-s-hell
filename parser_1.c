@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:52:30 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/27 03:04:01 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/28 22:06:18 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ t_cmd	*str_split(char *str)
 		errno = 1;
 	if (liststr)
 		liststr = free_strcutlist(&liststr);
+	test_print(listcmd);
 	return (listcmd);
 }

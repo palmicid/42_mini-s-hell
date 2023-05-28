@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 04:15:44 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/27 17:31:38 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/28 23:28:35 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ static char	*sub_expand_proc(char *str, int *i, char *fin)
 		return (NULL);
 	var = getenv(name);
 	if (!var)
+	{
+		printf("No VAR env found\n");
 		return (ft_freemanycharptr(name, 0, 0, 0));
+	}
 	fin = ssp_strjoin(fin, var, 1, 0);
 	free(name);
 	return (fin);
