@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
+#    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/05/27 17:31:36 by pruangde         ###   ########.fr        #
+#    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
+#    Updated: 2023/05/29 00:14:33 by bsirikam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,38 +29,48 @@ LIBFT = $(LIBFT_PATH)/libft.a
 # 	LDFLAGS	= -L${HOMEBREW_PREFIX}/opt/readline/lib
 # 	CPPFLAGS	= -I${HOMEBREW_PREFIX}/opt/readline/include
 # else
-# 	LDFLAGS	= -L/usr/local/opt/readline/lib
+# 	LDFLAGS	= -L/usr/local/opt/readline
 # 	CPPFLAGS	= -I/usr/local/opt/readline/include
 # endif
 
-LDFLAGS	= -L${HOMEBREW_PREFIX}/opt/readline/lib
+LDFLAGS = -L${HOMEBREW_PREFIX}/opt/readline/lib
 CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
+
+# LDFLAGS		= -L/usr/local/opt/readline/
+# CPPFLAGS	= -I/usr/local/opt/readline/include/
 
 PARS = parser_1.c parser_2.c parser_3.c parser_4.c parser_5.c parser_6.c
 UTIL = utils_1.c utils_2.c utils_3.c utils_4.c utils_5.c
 ERRMSG = err_msg.c
+EXECUTE = execute.c
+BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c
 
-SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG)
-OBJS = $(SRCS:.c=.o)
+SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) $(BUILTIN)
+OBJ_C = $(SRCS:.c=.o)
+OBJ_DIR = obj
+OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))
 
-
+$(OBJ_DIR)/%.o: %.c $(HEADER)
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< ${CPPFLAGS} -o $@
 
 .PHONY: all clean fclean re bonus
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -lreadline $(LDFLAGS) $(LIBFT) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LDFLAGS) -lreadline $(LIBFT) $(OBJS) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
 clean:
 	@make -C $(LIBFT_PATH) clean
 	@$(RM) $(OBJS) $(BN_OBJS)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@make -C $(LIBFT_PATH) fclean
@@ -71,9 +81,12 @@ re: fclean all
 # test:
 #	$(CC) maintest.c $(NAME)
 #	valgrind --vgdb=no --leak-check=full --show-leak-kinds=all ./a.out
-#	leaks --atExit -- ./push_swap
-# 	$(CC) -fsanitize=address -fno-omit-frame-pointer maintest.c
-#	#-fsanitize=address -fno-omit-frame-pointer -fdiagnostics-color=always 
+
+leak:
+	leaks --atExit -- ./push_swap
+
+san:
+	$(CC) -fsanitize=address -fno-omit-frame-pointer maintest.c
 
 norm:
 	@echo "------------------------------------"

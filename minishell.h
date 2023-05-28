@@ -6,26 +6,32 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/28 22:07:08 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:41:13 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+// # include "./libft/libft.h"
+# include "./libft/libft.h"
 # include <limits.h>
+# include <sys/signal.h>
+# include <string.h>
+# include <stdbool.h>
+# include <stdio.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <signal.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <dirent.h>
+# include <sys/stat.h>
+# include <termios.h>
+# include <sys/types.h>
 # include <sys/wait.h>
-# include <sys/signal.h>
-# include <string.h>
 
 typedef struct s_data
 {
@@ -76,6 +82,8 @@ t_strcut	*remove_q_xpand(t_strcut *head);
 // parser_5 - expand
 void		expand_var(t_strcut *tmp);
 
+// parser_4 -
+
 // parser_6 - join str from list
 void		lst_strjoin(t_strcut *current, t_strcut **tmp);
 
@@ -120,10 +128,22 @@ void		err_redirpipe(char *str);
 void		err_q_nopair(void);
 void		err_redir(void);
 
+// execute
+void		execute(t_cmd *cmdtable);
+
+// built_in
+void		ft_env(t_cmd *cmdtable);
+void		ft_export(t_cmd *cmdtable);
+void		ft_export_noarg(void);
+void		ft_export_witharg(t_cmd *cmdtable);
+char		*get_key(char *s);
+void		replace_env(char *env);
+void		ft_pwd(t_cmd *cmdtable);
+
 #endif
 
 // cx if cmd can access before execute
 // if cannot access or not found print cmd not found
 // for multiple pipe or nothing between sep list and find if nothing
 // bash: syntax error near unexpected token `|'
-// 
+//

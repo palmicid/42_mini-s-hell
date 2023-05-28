@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/29 00:32:40 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:41:45 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	process(char *strcmd, t_data *data)
 {
 	int		stat;
 	t_cmd	*cmdlist;
-	
+
 	cmdlist = NULL;
 	add_history(strcmd);
 	data->pid = fork();
