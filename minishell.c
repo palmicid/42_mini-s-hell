@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/28 17:33:05 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/28 17:38:18 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	process(char *strcmd)
 		cmdlist = str_split(strcmd);
 		// to execute
 		test_print(cmdlist);
-		execute(cmdtable);
 		// to_exec();
 		exit(errno);
 	}
@@ -57,7 +56,7 @@ char	*sub_main(char *strcmd)
 	return (strcmd);
 }
 
-int	main(int ac, char **av, char **env)
+int	main(void)
 {
 	char	*strcmd;
 
@@ -65,14 +64,15 @@ int	main(int ac, char **av, char **env)
 	g_data = (t_data *)malloc(sizeof(t_data));
 	if (!g_data)
 		exit(EXIT_FAILURE);
-	(void)ac;
-	(void)av;
-	g_data->env = env;
+	init_environ();
 	signal_handling();
 	while (1)
 	{
-		execute(cmdtable);
-		cmdtable = cmdtable->next;
+		strcmd = sub_main(strcmd);
+		if (!strcmd)
+			break ;
+		if (strcmd)
+			free(strcmd);
 	}
 	if (!strcmd)
 	{

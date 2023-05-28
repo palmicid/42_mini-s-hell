@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                         :+:    :+:  :+:     +:+       #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
+#    By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/17 12:37:19 by pruangde          #+#    #+#              #
-#    Updated: 2023/05/02 16:51:53 by pruangde         ###   ########.fr        #
+#    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
+#    Updated: 2023/05/28 17:30:10 by bsirikam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,9 +81,12 @@ re: fclean all
 # test:
 #	$(CC) maintest.c $(NAME)
 #	valgrind --vgdb=no --leak-check=full --show-leak-kinds=all ./a.out
-#	leaks --atExit -- ./push_swap
-# 	$(CC) -fsanitize=address -fno-omit-frame-pointer maintest.c
-#	#-fsanitize=address -fno-omit-frame-pointer -fdiagnostics-color=always
+
+leak:
+	leaks --atExit -- ./push_swap
+
+san:
+	$(CC) -fsanitize=address -fno-omit-frame-pointer maintest.c
 
 norm:
 	@echo "------------------------------------"
