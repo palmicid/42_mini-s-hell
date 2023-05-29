@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   minishell-test.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/30 01:21:21 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/30 00:17:09 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,16 @@ void	process(char *strcmd, t_data *data)
 	// temp_pid = &data->pid;
 	// if (data->pid == 0)
 	// {
-	cmdlist = str_split(strcmd, data);
+	data->pid = fork();
+	if (data->pid == 0)
+	{
+		cmdlist = str_split(strcmd);
 	// to execute
-	test_print(cmdlist);
-	data->exit_stat = to_execute(cmdlist);
-	cmdlist = free_cmdlist(cmdlist);
-	// exit(errno);
+		test_print(cmdlist);
+		data->exit_stat = to_execute(cmdlist);
+		cmdlist = free_cmdlist(cmdlist);
+		exit(errno);
+	}
 	// }
 	// else if (data->pid < 0)
 	// 	strerror(errno);
@@ -41,43 +45,36 @@ void	process(char *strcmd, t_data *data)
 	// }
 }
 
-char	*sub_main(char *strcmd, t_data *data)
-{
-	strcmd = readline("Minishell >> ");
-	if (!strcmd)
-		return (NULL);
-	else if (strcmd[0] == '\0')
-		;
-	else if (ft_strncmp(strcmd, "exit", 4) == 0)
-	{
-		free(strcmd);
-		return (NULL);
-	}
-	else if (ft_strlen(strcmd) > 0)
-		process(strcmd, data);
-	return (strcmd);
-}
 
 int	main(void)
 {
 	char	*strcmd;
+	int		runstat = 1;
 	t_data	*data;
 
 	strcmd = NULL;
 	data = (t_data *)malloc(sizeof(t_data));
-	if (init_environ(data))
-		exit(EXIT_FAILURE);
+	init_environ(data);
 	signal_handling();
-	while (1)
+	while (runstat)
 	{
-		strcmd = sub_main(strcmd, data);
+		// strcmd = sub_main(strcmd, &data);
+		strcmd = readline("Minishell >> ");
 		if (!strcmd)
-			break ;
+			runstat = 0;
+		else if (strcmd[0] == '\0')
+			;
+		else if (ft_strncmp(strcmd, "exit", 4) == 0)
+			free(strcmd);
+		else if (ft_strlen(strcmd) > 0)
+			process(strcmd, data);
 		if (strcmd)
 			free(strcmd);
 	}
 	if (!strcmd)
+	{
+		end_environ(data);
 		ft_putendl_fd("exit", 1);
-	end_environ(data);
+	}
 	return (0);
 }

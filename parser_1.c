@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:52:30 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/28 22:06:18 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/30 01:10:12 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static t_cmd	*fusion_and_sepcmd(t_strcut *liststr)
 }
 
 // find ' ' or " " if cannot find pair set all as a string
-t_cmd	*str_split(char *str)
+t_cmd	*str_split(char *str, t_data *data)
 {
 	t_strcut	*liststr;
 	t_cmd		*listcmd;
@@ -109,7 +109,7 @@ t_cmd	*str_split(char *str)
 	liststr = meta_split(liststr);
 	if (!liststr)
 		return (NULL);
-	liststr = remove_q_xpand(liststr);
+	liststr = remove_q_xpand(liststr, data);
 	if (!liststr)
 		return (NULL);
 	listcmd = fusion_and_sepcmd(liststr);
@@ -117,6 +117,5 @@ t_cmd	*str_split(char *str)
 		errno = 1;
 	if (liststr)
 		liststr = free_strcutlist(&liststr);
-	test_print(listcmd);
 	return (listcmd);
 }

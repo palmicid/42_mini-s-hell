@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/29 00:41:13 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/30 01:19:27 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@
 
 typedef struct s_data
 {
-	pid_t	pid;
-	char	**env;
-	int		fortest;
-}			t_data;
+	pid_t				pid;
+	char				**env;
+	int					exit_stat;
+}						t_data;
 
 extern char		**environ;
 
@@ -46,7 +46,16 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	struct s_cmd	*next;
+	pid_t			pid;
 }					t_cmd;
+
+typedef struct s_c
+{
+	int	st;
+	int	i;
+	int	j;
+}		t_c;
+
 
 // int stst --> 2 = doubleQ " " , 1 = single ' ', 0 non
 // use before split with pipe
@@ -58,17 +67,18 @@ typedef struct s_strcut
 }					t_strcut;
 
 // minishell
+void	process(char *strcmd, t_data *data);
 
 // sig_handle
 void		sig_int_handler(int sig);
-void		signal_handling(void);
+void		signal_handling();
 
 // env
-void		init_environ(t_data *data);
+int			init_environ(t_data *data);
 void		end_environ(t_data *data);
 
 // parser_1 - main split + split long list to cmd
-t_cmd		*str_split(char *str);
+t_cmd		*str_split(char *str, t_data *data);
 
 // parser_2 - quote split and add stat q or nonq
 t_strcut	*qsp_split(char *str);
@@ -77,12 +87,10 @@ t_strcut	*qsp_split(char *str);
 t_strcut	*meta_split(t_strcut *head);
 
 // parser_4 - remove quote
-t_strcut	*remove_q_xpand(t_strcut *head);
+t_strcut	*remove_q_xpand(t_strcut *head, t_data *data);
 
 // parser_5 - expand
-void		expand_var(t_strcut *tmp);
-
-// parser_4 -
+void		expand_var(t_strcut *tmp, t_data *data);
 
 // parser_6 - join str from list
 void		lst_strjoin(t_strcut *current, t_strcut **tmp);
@@ -95,9 +103,13 @@ t_strcut	*lastlist_strcut(t_strcut *list);
 int			cont_char(char *str, int i, char c);
 
 // ------ TEST
+int			to_execute(t_cmd *cmds);
 void		test_print(t_cmd *head);
 void		test_printstrcut(t_strcut *fwd);
 void		test_printonestrcut(t_strcut *cur);
+
+
+ 
 
 // utils_2
 int			find_pair(char *str, int i);
@@ -142,8 +154,4 @@ void		ft_pwd(t_cmd *cmdtable);
 
 #endif
 
-// cx if cmd can access before execute
-// if cannot access or not found print cmd not found
-// for multiple pipe or nothing between sep list and find if nothing
-// bash: syntax error near unexpected token `|'
-//
+// fixing signal and if var ?

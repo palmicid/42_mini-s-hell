@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 09:35:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/26 20:46:04 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/29 23:51:05 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,14 @@ static t_strcut	*creat_q_strcutlst(char *str)
 // 3. find if any $ and convert follow stat setting
 // 4. join all str together --> free old and replace by newone
 // run in str if find
-static void	remove_qproc(t_strcut *current)
+static void	remove_qproc(t_strcut *current, t_data *data)
 {
 	t_strcut	*tmp;
 
 	tmp = creat_q_strcutlst(current->str);
 	if (!tmp)
 		return (set_error(current));
-	ft_putendl_fd("B4 ENTER EXPAND", 2);
-	expand_var(tmp);
+	expand_var(tmp, data);
 	if (tmp->stat == -1)
 	{
 		set_error(current);
@@ -115,7 +114,7 @@ static void	remove_qproc(t_strcut *current)
 // if have q in str split it remove q and expand
 // bef == list before ptr, aft == list after ptr if any
 // remove q and expand
-t_strcut	*remove_q_xpand(t_strcut *head)
+t_strcut	*remove_q_xpand(t_strcut *head, t_data *data)
 {
 	t_strcut	*ptr;
 
@@ -127,7 +126,7 @@ t_strcut	*remove_q_xpand(t_strcut *head)
 		{
 			if (find_q_doll(ptr->str))
 			{
-				remove_qproc(ptr);
+				remove_qproc(ptr, data);
 				if (ptr->stat == -1)
 					return (free_strcutlist(&head));
 			}
