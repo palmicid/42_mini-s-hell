@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/29 00:41:13 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:01:47 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ void		ft_export_witharg(t_cmd *cmdtable);
 char		*get_key(char *s);
 void		replace_env(char *env);
 void		ft_pwd(t_cmd *cmdtable);
+void		ft_echo(t_cmd *cmdtable);
+char		*getvalue(char *s, char c);
 
 #endif
 
