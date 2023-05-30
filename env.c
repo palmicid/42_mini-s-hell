@@ -6,23 +6,32 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:10:34 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/28 22:19:00 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:21:16 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_environ(t_data *data)
+int	init_environ(t_data *data)
 {
 	char	**tmp1;
 
+	if (!data)
+		exit(EXIT_FAILURE);
 	data->env = ft_splitdup(environ);
+	if (!(data->env))
+	{
+		free(data);
+		exit(EXIT_FAILURE);
+	}
 	tmp1 = data->env;
 	data->env = environ;
 	environ = tmp1;
+	data->exit_stat = 0;
+	return (0);
 }
 
-void	end_environ(t_data *data)
+int	end_environ(t_data *data)
 {
 	char	**tmp;
 
@@ -31,4 +40,6 @@ void	end_environ(t_data *data)
 	environ = tmp;
 	ft_free_p2p_char(data->env);
 	data->env = NULL;
+	free(data);
+	return (0);
 }

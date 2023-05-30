@@ -6,7 +6,7 @@
 #    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
-#    Updated: 2023/05/31 00:36:23 by bsirikam         ###   ########.fr        #
+#    Updated: 2023/05/31 00:45:13 by bsirikam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ else
 	CC = gcc
 endif
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 NAME = minishell
 
@@ -39,6 +39,11 @@ CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
 # LDFLAGS		= -L/usr/local/opt/readline/
 # CPPFLAGS	= -I/usr/local/opt/readline/include/
 
+# LDFLAGS		= -L/usr/include/readline/
+# CPPFLAGS	= -I/usr/local/opt/readline/include/
+
+
+
 PARS = parser_1.c parser_2.c parser_3.c parser_4.c parser_5.c parser_6.c
 UTIL = utils_1.c utils_2.c utils_3.c utils_4.c utils_5.c
 ERRMSG = err_msg.c
@@ -46,7 +51,10 @@ EXECUTE = execute.c
 BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c \
 builtin_echo.c
 
-SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) $(BUILTIN)
+EXECUTE = test_execute.c
+#BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c
+
+SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) #$(BUILTIN)
 OBJ_C = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))
@@ -60,7 +68,7 @@ $(OBJ_DIR)/%.o: %.c $(HEADER)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $(LDFLAGS) -lreadline $(LIBFT) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) -lreadline $(LIBFT) $(OBJS) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all
