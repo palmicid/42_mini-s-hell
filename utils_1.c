@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/27 02:57:50 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:02:12 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ t_strcut	*lastlist_strcut(t_strcut *list)
 	t_strcut	*ret;
 
 	ret = list;
-	if (ret)
+	if (ret != NULL)
 	{
-		while (ret->next)
+		while (ret->next != NULL)
 		{
 			ret = ret->next;
 		}
@@ -83,11 +83,11 @@ void	test_print(t_cmd *head)
 	t_cmd	*ptr = head;
 	int		in = 0;
 
-	while (ptr)
+	while (ptr != NULL)
 	{
 		in = 0;
 		printf("CMD == ");
-		while (ptr->cmd[in])
+		while (ptr->cmd[in] != NULL)
 		{
 			printf("|%s", ptr->cmd[in]);
 			in++;

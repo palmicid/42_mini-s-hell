@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:32:29 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/19 03:43:47 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/30 23:34:53 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ static t_strcut	*create_sepmeta(char *str, int pos)
 	int			st;
 
 	st = 0;
-	ret = (t_strcut *)malloc(sizeof(t_strcut));
+	ret = createnew_strcut();
 	if (!ret)
 		return (NULL);
 	creating = ret;
 	st = cx_createdupsepmeta(str, st, pos, creating);
 	while (str[st])
 	{
-		creating->next = (t_strcut *)malloc(sizeof(t_strcut));
+		creating->next = createnew_strcut();
 		if (!(creating->next))
 			return (free_strcutlist(&ret));
 		creating = creating->next;

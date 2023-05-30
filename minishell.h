@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/30 01:19:27 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/30 23:33:39 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	struct s_cmd	*next;
-	pid_t			pid;
 }					t_cmd;
 
 typedef struct s_c
@@ -75,7 +74,7 @@ void		signal_handling();
 
 // env
 int			init_environ(t_data *data);
-void		end_environ(t_data *data);
+int			end_environ(t_data *data);
 
 // parser_1 - main split + split long list to cmd
 t_cmd		*str_split(char *str, t_data *data);
@@ -134,7 +133,9 @@ t_cmd		*free_cmdlist(t_cmd *lstcmd);
 
 // utils_5
 t_strcut	*inside_cxmetavalid(t_strcut **head, char *str);
-
+t_strcut 	*createnew_strcut(void);
+t_cmd		*createnew_lstcmd(void);
+t_c			*create_countptr(void);
 // err_msg
 void		err_redirpipe(char *str);
 void		err_q_nopair(void);

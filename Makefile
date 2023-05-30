@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
-#    Updated: 2023/05/30 00:17:05 by pruangde         ###   ########.fr        #
+#    Updated: 2023/05/30 16:59:35 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ else
 	CC = gcc
 endif
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 NAME = minishell
 
@@ -38,6 +38,11 @@ CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
 
 # LDFLAGS		= -L/usr/local/opt/readline/
 # CPPFLAGS	= -I/usr/local/opt/readline/include/
+
+# LDFLAGS		= -L/usr/include/readline/
+# CPPFLAGS	= -I/usr/local/opt/readline/include/
+
+
 
 PARS = parser_1.c parser_2.c parser_3.c parser_4.c parser_5.c parser_6.c
 UTIL = utils_1.c utils_2.c utils_3.c utils_4.c utils_5.c

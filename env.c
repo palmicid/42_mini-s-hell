@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:10:34 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/30 01:12:39 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:21:16 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	init_environ(t_data *data)
 	char	**tmp1;
 
 	if (!data)
-		return (1);
+		exit(EXIT_FAILURE);
 	data->env = ft_splitdup(environ);
 	if (!(data->env))
 	{
 		free(data);
-		return (1);
+		exit(EXIT_FAILURE);
 	}
 	tmp1 = data->env;
 	data->env = environ;
@@ -31,7 +31,7 @@ int	init_environ(t_data *data)
 	return (0);
 }
 
-void	end_environ(t_data *data)
+int	end_environ(t_data *data)
 {
 	char	**tmp;
 
@@ -41,4 +41,5 @@ void	end_environ(t_data *data)
 	ft_free_p2p_char(data->env);
 	data->env = NULL;
 	free(data);
+	return (0);
 }

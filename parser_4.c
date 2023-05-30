@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 09:35:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/29 23:51:05 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:00:55 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_strcut	*create_lst(char *str, int st, int *i, t_strcut *list)
 			return (NULL);
 		list->str = ft_strndup(str + st, (*i + 1) - st);
 		list->stat = 0;
+		list->next = NULL;
 	}
 	else
 	{
@@ -32,6 +33,7 @@ static t_strcut	*create_lst(char *str, int st, int *i, t_strcut *list)
 			return (free_strcutlist(&list));
 		last->next->str = ft_strndup(str + st, (*i + 1) - st);
 		last->next->stat = 0;
+		last->next->next = NULL;
 	}
 	return (list);
 }
