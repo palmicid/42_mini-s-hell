@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/30 23:48:45 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/31 01:31:10 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ int	is_builtin(char *cmd)
 void	builtin(t_cmd *cmdtable)
 {
 	if (ft_strncmp(cmdtable->cmd[0], "env", 3) == 0)
-	{
 		ft_env(cmdtable);
-	}
 	else if (ft_strncmp(cmdtable->cmd[0], "export", 5) == 0)
 		ft_export(cmdtable);
 	else if (ft_strncmp(cmdtable->cmd[0], "pwd", 3) == 0)
 		ft_pwd(cmdtable);
 	else if (ft_strncmp(cmdtable->cmd[0], "echo", 4) == 0)
 		ft_echo(cmdtable);
+	else if (ft_strncmp(cmdtable->cmd[0], "unset", 5) == 0)
+		ft_unset(cmdtable);
 }
 
 int	execute_2(t_cmd *cmdtable, char *pnamewp)
@@ -85,7 +85,7 @@ void	execute(t_cmd *cmdtable)
 	j = 0;
 	tmp_env = getenv("PATH");
 	path = ft_split(tmp_env + 5, ':');
-	if (is_builtin(cmdtable->cmd[0]))
+	if (cmdtable->cmd[0] && is_builtin(cmdtable->cmd[0]))
 	{
 		builtin(cmdtable);
 		return ;

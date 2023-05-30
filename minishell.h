@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/31 00:46:32 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/05/31 01:46:05 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_strcut
 }					t_strcut;
 
 // minishell
-void	process(char *strcmd, t_data *data);
+void		process(char *strcmd, t_data *data);
 
 // sig_handle
 void		sig_int_handler(int sig);
@@ -130,7 +130,7 @@ t_cmd		*free_cmdlist(t_cmd *lstcmd);
 
 // utils_5
 t_strcut	*inside_cxmetavalid(t_strcut **head, char *str);
-t_strcut 	*createnew_strcut(void);
+t_strcut	*createnew_strcut(void);
 t_cmd		*createnew_lstcmd(void);
 t_c			*create_countptr(void);
 // err_msg
@@ -142,6 +142,7 @@ void		err_redir(void);
 void		execute(t_cmd *cmdtable);
 
 // built_in
+int			get_env_size(void);
 void		ft_env(t_cmd *cmdtable);
 void		ft_export(t_cmd *cmdtable);
 void		ft_export_noarg(void);
@@ -151,6 +152,7 @@ void		replace_env(char *env);
 void		ft_pwd(t_cmd *cmdtable);
 void		ft_echo(t_cmd *cmdtable);
 char		*getvalue(char *s, char c);
+void		ft_unset(t_cmd *cmdtable);
 
 #endif
 

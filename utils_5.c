@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:27:40 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/30 23:34:29 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:49:21 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_strcut	*inside_cxmetavalid(t_strcut **head, char *str)
 	return (free_strcutlist(head));
 }
 
-t_strcut *createnew_strcut(void)
+t_strcut	*createnew_strcut(void)
 {
 	t_strcut	*listnew;
 
