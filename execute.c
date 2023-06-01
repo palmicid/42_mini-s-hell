@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/31 01:31:10 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:25:07 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,20 @@ char	*addslash(char *cmd)
 	return (sl_progname);
 }
 
+char	*my_get_env(void)
+{
+	int	i;
+
+	i = 0;
+	while (environ[i])
+	{
+		if (ft_strncmp(environ[i], "PATH=", 5) == 0)
+			return (ft_substr(environ[i], 5, ft_strlen(environ[i]) - 5));
+		i++;
+	}
+	return (NULL);
+}
+
 void	execute(t_cmd *cmdtable)
 {
 	char	*tmp_env;
@@ -83,7 +97,7 @@ void	execute(t_cmd *cmdtable)
 	char	*prog_name_with_path;
 
 	j = 0;
-	tmp_env = getenv("PATH");
+	tmp_env = my_get_env();
 	path = ft_split(tmp_env + 5, ':');
 	if (cmdtable->cmd[0] && is_builtin(cmdtable->cmd[0]))
 	{

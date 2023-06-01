@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/29 00:10:48 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:20:17 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ int	isalready(char *cmd)
 	return (1);
 }
 
-int	get_env_size(void)
+int	find_tmp_size(char **tmp)
 {
 	int	i;
 
 	i = 0;
-	while (environ[i])
+	if (!tmp)
+		return (0);
+	while (tmp[i])
 		i++;
 	return (i);
 }
@@ -45,11 +47,20 @@ int	get_env_size(void)
 void	replace_environ(char **tmp)
 {
 	int	i;
+	int	tmp_size;
 
+	i = 0;
+	tmp_size = find_tmp_size(tmp);
+	while (environ[i])
+	{
+		free(environ[i]);
+		i++;
+	}
+	free(environ);
+	environ = malloc(sizeof(char *) * (tmp_size + 1));
 	i = 0;
 	while (tmp[i])
 	{
-		free(environ[i]);
 		environ[i] = ft_strdup(tmp[i]);
 		i++;
 	}
@@ -75,7 +86,7 @@ void	ft_export_witharg(t_cmd *cmdtable)
 	}
 	i = 0;
 	env_size = get_env_size();
-	tmp = malloc(sizeof(char *) * (env_size + 1));
+	tmp = malloc(sizeof(char *) * (env_size + 2));
 	while (environ[i])
 	{
 		tmp[i] = ft_strdup(environ[i]);

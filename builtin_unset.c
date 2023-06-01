@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:49:53 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/31 02:06:16 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/01 22:09:35 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,14 @@ void	new_env(char *key, char **tmp)
 	{
 		if (ft_strncmp(key, tmp[i], ft_strlen(key)) == 0)
 			i++;
+		if (!tmp[i])
+			break ;
 		environ[j] = ft_strdup(tmp[i]);
 		j++;
 		i++;
 	}
 	environ[j] = NULL;
+	i = 0;
 	while (tmp[i])
 	{
 		free(tmp[i]);
@@ -94,7 +97,8 @@ void	unset_env(char *key)
 		if (ft_strncmp(env_key, key, ft_strlen(key)) == 0)
 		{
 			new_env(env_key, tmp_env);
-			break ;
+			free(env_key);
+			return ;
 		}
 		free(env_key);
 		i++;
@@ -116,7 +120,6 @@ void	ft_unset(t_cmd *cmdtable)
 	{
 		if (check_key(cmdtable->cmd[i]))
 			return ;
-		j = 0;
 		while (environ[j])
 		{
 			if (ft_strncmp(cmdtable->cmd[i], environ[j], \
@@ -128,5 +131,7 @@ void	ft_unset(t_cmd *cmdtable)
 			j++;
 		}
 		i++;
+		j = 0;
+		printf("Hello %d\n", i);
 	}
 }
