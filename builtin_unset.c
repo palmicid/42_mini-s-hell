@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:49:53 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/01 22:09:35 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/06 23:31:05 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,5 @@ void	ft_unset(t_cmd *cmdtable)
 		}
 		i++;
 		j = 0;
-		printf("Hello %d\n", i);
 	}
 }

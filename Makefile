@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+         #
+#    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
-#    Updated: 2023/06/01 19:57:01 by bsirikam         ###   ########.fr        #
+#    Updated: 2023/06/07 00:03:40 by bsirikam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ builtin_echo.c builtin_unset.c builtin_utils.c
 # EXECUTE = test_execute.c
 #BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c
 
-SRCS = main_test.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) $(BUILTIN)
+SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXECUTE) $(BUILTIN)
 OBJ_C = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))

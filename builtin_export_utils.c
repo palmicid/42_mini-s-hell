@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 00:07:54 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/29 00:08:16 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/06 23:50:16 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,25 @@ char	*get_key(char *s)
 	while (s[i] && s[i] != '=')
 		i++;
 	return (ft_substr(s, 0, i));
+}
+
+char	*remove_quote(char *cmd)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	j = 0;
+	tmp = malloc((sizeof(char)) * (ft_strlen(cmd) - 1));
+	while (cmd[i])
+	{
+		if (cmd[i] == '\"' || cmd[i] == '\'')
+			i++;
+		tmp[j] = cmd[i];
+		j++;
+		i++;
+	}
+	tmp[i] = '\0';
+	return (tmp);
 }

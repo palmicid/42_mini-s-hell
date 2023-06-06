@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/01 19:56:49 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/06 21:59:41 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,15 +143,17 @@ void		execute(t_cmd *cmdtable);
 
 // built_in
 int			get_env_size(void);
+int			validate_env(char *env);
+char		*remove_quote(char *cmd);
+char		*get_key(char *s);
+char		*getvalue(char *s, char c);
 void		ft_env(t_cmd *cmdtable);
 void		ft_export(t_cmd *cmdtable);
 void		ft_export_noarg(void);
 void		ft_export_witharg(t_cmd *cmdtable);
-char		*get_key(char *s);
 void		replace_env(char *env);
 void		ft_pwd(t_cmd *cmdtable);
 void		ft_echo(t_cmd *cmdtable);
-char		*getvalue(char *s, char c);
 void		ft_unset(t_cmd *cmdtable);
 
 #endif

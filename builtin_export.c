@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/01 20:20:17 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/06 23:50:31 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	ft_export_witharg(t_cmd *cmdtable)
 	int		env_size;
 	char	**tmp;
 	int		i;
+	char	*export_without_quote;
 
 	if (isalready(cmdtable->cmd[1]) == 0)
 	{
@@ -86,13 +87,16 @@ void	ft_export_witharg(t_cmd *cmdtable)
 	}
 	i = 0;
 	env_size = get_env_size();
+	if (validate_env(cmdtable->cmd[1]) == 0)
+		return ;
+	export_without_quote = remove_quote(cmdtable->cmd[1]);
 	tmp = malloc(sizeof(char *) * (env_size + 2));
 	while (environ[i])
 	{
 		tmp[i] = ft_strdup(environ[i]);
 		i++;
 	}
-	tmp[i] = ft_strdup(cmdtable->cmd[1]);
+	tmp[i] = ft_strdup(export_without_quote);
 	tmp[i + 1] = NULL;
 	replace_environ(tmp);
 }
