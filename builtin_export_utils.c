@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 00:07:54 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/06 23:50:16 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/08 23:46:12 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	ft_export_noarg(void)
 	i = 0;
 	while (environ[i])
 	{
-		msg = ft_strjoin("declare -x ", environ[i]);
+		msg = ft_strjoin("declare -x ", get_key(environ[i]));
+		msg = ft_strjoin(msg, "=\"");
+		msg = ft_strjoin(msg, getvalue(environ[i], '='));
+		msg = ft_strjoin(msg, "\"");
 		ft_putendl_fd(msg, STDOUT_FILENO);
 		free(msg);
 		i++;

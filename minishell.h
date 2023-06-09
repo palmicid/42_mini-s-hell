@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/06 21:59:41 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:46:22 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,10 +143,15 @@ void		execute(t_cmd *cmdtable);
 
 // built_in
 int			get_env_size(void);
+int			is_home_with_path(t_cmd *cmdtable);
+int			home_with_path(t_cmd *cmdtable, char *oldpwd);
 int			validate_env(char *env);
+int			normal_path(t_cmd *cmdtable, char *oldpwd);
 char		*remove_quote(char *cmd);
 char		*get_key(char *s);
 char		*getvalue(char *s, char c);
+char		*remove_quote(char *cmd);
+char		*get_pwd_now(char *pwd);
 void		ft_env(t_cmd *cmdtable);
 void		ft_export(t_cmd *cmdtable);
 void		ft_export_noarg(void);
@@ -155,6 +160,8 @@ void		replace_env(char *env);
 void		ft_pwd(t_cmd *cmdtable);
 void		ft_echo(t_cmd *cmdtable);
 void		ft_unset(t_cmd *cmdtable);
+void		ft_cd(t_cmd *cmdtable);
+void		ft_exit(t_cmd *cmdtable);
 
 #endif
 

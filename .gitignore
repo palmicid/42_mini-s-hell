@@ -55,3 +55,4 @@ dkms.conf
 
 
 main_test.c
+test_chdir.c

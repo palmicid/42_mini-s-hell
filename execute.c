@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/01 20:25:07 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:46:37 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ void	builtin(t_cmd *cmdtable)
 		ft_echo(cmdtable);
 	else if (ft_strncmp(cmdtable->cmd[0], "unset", 5) == 0)
 		ft_unset(cmdtable);
+	else if (ft_strncmp(cmdtable->cmd[0], "cd", 2) == 0)
+		ft_cd(cmdtable);
+	else if (ft_strncmp(cmdtable->cmd[0], "exit", 4) == 0)
+		ft_exit(cmdtable);
 }
 
 int	execute_2(t_cmd *cmdtable, char *pnamewp)
