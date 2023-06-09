@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/10 02:46:37 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/10 03:26:18 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ void	execute(t_cmd *cmdtable)
 	char	*prog_name_with_path;
 
 	j = 0;
-	tmp_env = my_get_env();
-	path = ft_split(tmp_env + 5, ':');
 	if (cmdtable->cmd[0] && is_builtin(cmdtable->cmd[0]))
 	{
 		builtin(cmdtable);
 		return ;
 	}
+	tmp_env = my_get_env();
+	path = ft_split(tmp_env + 5, ':');
 	progname_with_sl = addslash(cmdtable->cmd[0]);
 	while (path[j])
 	{
