@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/10 03:26:18 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:03:53 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,6 @@ void	builtin(t_cmd *cmdtable)
 		ft_exit(cmdtable);
 }
 
-int	execute_2(t_cmd *cmdtable, char *pnamewp)
-{
-	int	pid;
-
-	pid = fork();
-	waitpid(pid, NULL, 0);
-	if (pid == 0)
-	{
-		if (execve(pnamewp, cmdtable->cmd, NULL) != 0)
-		{
-			perror("execve");
-			return (1);
-		}
-		return (0);
-	}
-	return (1);
-}
-
 char	*addslash(char *cmd)
 {
 	char	*sl_progname;
@@ -94,35 +76,26 @@ char	*my_get_env(void)
 
 void	execute(t_cmd *cmdtable)
 {
-	char	*tmp_env;
+	int		pid;
+	int		fd[2];
 	char	**path;
-	char	*progname_with_sl;
-	int		j;
-	char	*prog_name_with_path;
+	char	*tmp_env;
 
-	j = 0;
-	if (cmdtable->cmd[0] && is_builtin(cmdtable->cmd[0]))
+	pid = -2;
+	if (check_builtin_fork(cmdtable) || (!is_builtin(cmdtable->cmd[0]) \
+	&& cmdtable->next))
 	{
-		builtin(cmdtable);
-		return ;
+		pipe(fd);
+		if (is_builtin(cmdtable->cmd[0]))
+			pid = fork();
 	}
-	tmp_env = my_get_env();
-	path = ft_split(tmp_env + 5, ':');
-	progname_with_sl = addslash(cmdtable->cmd[0]);
-	while (path[j])
+	else if (!check_builtin_fork(cmdtable) && is_builtin(cmdtable->cmd[0]))
 	{
-		prog_name_with_path = ft_strjoin(path[j], progname_with_sl);
-		if (access(prog_name_with_path, X_OK) == 0)
+		if (cmdtable->cmd[0] && is_builtin(cmdtable->cmd[0]))
 		{
-			if (execute_2(cmdtable, prog_name_with_path) == 0)
-			{
-				free(prog_name_with_path);
-				break ;
-			}
+			builtin(cmdtable);
+			return ;
 		}
-		else
-			free(prog_name_with_path);
-		j++;
 	}
-	free(progname_with_sl);
+	execve_part(cmdtable, path, tmp_env);
 }

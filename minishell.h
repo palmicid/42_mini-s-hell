@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/10 02:46:22 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:39:50 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,10 @@ void		err_q_nopair(void);
 void		err_redir(void);
 
 // execute
+int			execute_2(t_cmd *cmdtable, char *pnamewp);
+int			check_builtin_fork(t_cmd *cmdtable);
 void		execute(t_cmd *cmdtable);
+void		execve_part(t_cmd *cmdtable, char **path, char *tmp_env);
 
 // built_in
 int			get_env_size(void);
