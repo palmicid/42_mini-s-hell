@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/10 16:03:53 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/23 09:44:57 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,127 @@ char	*my_get_env(void)
 	return (NULL);
 }
 
+int		lst_cmd_size(t_cmd *cmdtable)
+{
+	int		i;
+	t_cmd	*tmp;
+
+	i = 0;
+	if (!cmdtable)
+		return (0);
+	tmp = cmdtable;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+void	init_pipe(t_cmd *cmdtable)
+{
+	t_pipe	*pipe_s;
+	t_cmd	*tmp;
+	int		size_fd;
+	int		i;
+
+	pipe_s = malloc(sizeof(t_pipe));
+	size_fd = (lst_cmd_size(cmdtable) - 1) * 2;
+	pipe_s->size_fd = size_fd;
+	pipe_s->fd = malloc(sizeof(int) * size_fd);
+	i = 0;
+	while (i < (size_fd / 2))
+	{
+		if (pipe(pipe_s->fd + i * 2) < 0)
+			ft_putstr_fd("pipe error\n", 2);
+		i++;
+	}
+	tmp = cmdtable;
+	while (tmp)
+	{
+		tmp->pipe = pipe_s;
+		tmp = tmp->next;
+	}
+}
+
+int	is_redirect_sign(char *s)
+{
+	if (ft_strncmp(s, ">", 2) == 0)
+		return (1);
+	else if (ft_strncmp(s, ">>", 3) == 0)
+		return (1);
+	else if (ft_strncmp(s, "<", 2) == 0)
+		return (1);
+	else if (ft_strncmp(s, "<<", 3) == 0)
+		return (1);
+	return (0);
+}
+
+char	*hash_name(char *filename)
+{
+	int		i;
+	int		table_size;
+	int		c;
+	char	*hash_name;
+
+	i = 0;
+	table_size = ft_strlen(filename);
+	hash_name = malloc(sizeof(char) * table_size + 1);
+	while (filename[i])
+	{
+		c = filename[i];
+		hash_name[i] = c + i;
+		i++;
+	}
+	hash_name[i] = '\0';
+	return (hash_name);
+}
+
+void	heredoc(t_cmd *cmdtable)
+{
+	t_cmd	*tmp;
+	int		i;
+	char	*name;
+
+	tmp = cmdtable;
+	i = 0;
+	while (tmp->cmd[i])
+	{
+		if (ft_strncmp(tmp->cmd[i], "<<", 3) == 0)
+		{
+			name = hash_name(tmp->cmd[i + 1]);
+			printf("Hello heredoc\n");
+			exit(EXIT_SUCCESS);
+		}
+		i++;
+	}
+}
+
 void	execute(t_cmd *cmdtable)
 {
 	int		pid;
 	int		fd[2];
 	char	**path;
 	char	*tmp_env;
-
-	pid = -2;
-	if (check_builtin_fork(cmdtable) || (!is_builtin(cmdtable->cmd[0]) \
-	&& cmdtable->next))
-	{
-		pipe(fd);
-		if (is_builtin(cmdtable->cmd[0]))
-			pid = fork();
-	}
-	else if (!check_builtin_fork(cmdtable) && is_builtin(cmdtable->cmd[0]))
-	{
-		if (cmdtable->cmd[0] && is_builtin(cmdtable->cmd[0]))
-		{
-			builtin(cmdtable);
-			return ;
-		}
-	}
+	// pid = -2;
+	// if (check_builtin_fork(cmdtable) || (!is_builtin(cmdtable->cmd[0]) \
+	// && cmdtable->next))
+	// {
+	// 	pipe(fd);
+	// 	if (is_builtin(cmdtable->cmd[0]))
+	// 		pid = fork();
+	// }
+	// else if (!check_builtin_fork(cmdtable) && is_builtin(cmdtable->cmd[0]))
+	// {
+	// 	if (cmdtable->cmd[0] && is_builtin(cmdtable->cmd[0]))
+	// 	{
+	// 		builtin(cmdtable);
+	// 		return ;
+	// 	}
+	// }
+	if (lst_cmd_size(cmdtable) != 1)
+		init_pipe(cmdtable);
+	heredoc(cmdtable);
+	exit(EXIT_SUCCESS);
 	execve_part(cmdtable, path, tmp_env);
 }

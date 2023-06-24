@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/10 15:39:50 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/22 23:19:04 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,18 @@ typedef struct s_data
 
 extern char		**environ;
 
+typedef struct s_pipe
+{
+	int	*fd;
+	int	pipe_count;
+	int	size_fd;
+}				t_pipe;
+
 typedef struct s_cmd
 {
 	char			**cmd;
 	struct s_cmd	*next;
+	struct s_pipe	*pipe;
 }					t_cmd;
 
 typedef struct s_c
@@ -155,6 +163,9 @@ char		*get_key(char *s);
 char		*getvalue(char *s, char c);
 char		*remove_quote(char *cmd);
 char		*get_pwd_now(char *pwd);
+char		*my_get_env(void);
+char		*addslash(char *cmd);
+char		*hash_name(char *filename);
 void		ft_env(t_cmd *cmdtable);
 void		ft_export(t_cmd *cmdtable);
 void		ft_export_noarg(void);
