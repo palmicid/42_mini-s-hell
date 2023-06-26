@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 04:15:44 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/30 23:38:26 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:54:37 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*sub_expand_proc(char *str, t_c *c, char *fin, t_data *data)
 	name = getvarname(str, c);
 	if (!name)
 		return (NULL);
-	var = getenv(name);
+	var = my_getenv(name);
 	if (!var)
 	{
 		if (ft_strncmp(name, "?", 2) == 0)

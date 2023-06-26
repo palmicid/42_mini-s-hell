@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 01:28:19 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/10 02:39:45 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:54:37 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	home_with_path(t_cmd *cmdtable, char *oldpwd)
 	char	*cd;
 	char	*pwd;
 
-	cd = ft_strjoin(getenv("HOME"), ft_substr(cmdtable->cmd[1], 1, \
+	cd = ft_strjoin(my_getenv("HOME"), ft_substr(cmdtable->cmd[1], 1, \
 		ft_strlen(cmdtable->cmd[1])));
 	if (chdir(cd) == -1)
 	{

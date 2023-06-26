@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:49:53 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/06 23:31:05 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:34:25 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ char	**copy_env(void)
 	if (!tmp)
 		return (NULL);
 	i = 0;
-	while (environ[i])
+	while (g_data->env[i])
 	{
-		tmp[i] = ft_strdup(environ[i]);
+		tmp[i] = ft_strdup(g_data->env[i]);
 		i++;
 	}
 	tmp[i] = NULL;
@@ -56,9 +56,9 @@ void	new_env(char *key, char **tmp)
 
 	i = 0;
 	j = 0;
-	while (environ[i])
+	while (g_data->env[i])
 	{
-		free(environ[i]);
+		free(g_data->env[i]);
 		i++;
 	}
 	i = 0;
@@ -68,11 +68,11 @@ void	new_env(char *key, char **tmp)
 			i++;
 		if (!tmp[i])
 			break ;
-		environ[j] = ft_strdup(tmp[i]);
+		g_data->env[j] = ft_strdup(tmp[i]);
 		j++;
 		i++;
 	}
-	environ[j] = NULL;
+	g_data->env[j] = NULL;
 	i = 0;
 	while (tmp[i])
 	{
@@ -93,7 +93,7 @@ void	unset_env(char *key)
 	tmp_env = copy_env();
 	while (i < env_size)
 	{
-		env_key = get_key(environ[i]);
+		env_key = get_key(g_data->env[i]);
 		if (ft_strncmp(env_key, key, ft_strlen(key)) == 0)
 		{
 			new_env(env_key, tmp_env);
@@ -120,9 +120,9 @@ void	ft_unset(t_cmd *cmdtable)
 	{
 		if (check_key(cmdtable->cmd[i]))
 			return ;
-		while (environ[j])
+		while (g_data->env[j])
 		{
-			if (ft_strncmp(cmdtable->cmd[i], environ[j], \
+			if (ft_strncmp(cmdtable->cmd[i], g_data->env[j], \
 			ft_strlen(cmdtable->cmd[i])) == 0)
 			{
 				unset_env(cmdtable->cmd[i]);

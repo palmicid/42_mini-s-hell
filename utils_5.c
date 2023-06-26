@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:27:40 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/31 00:49:21 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/26 23:28:49 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,9 @@ t_c	*create_countptr(void)
 	new->j = 0;
 	new->st = 0;
 	return (new);
+}
+
+char *get_cmd(t_cmd *lst)
+{
+	
 }

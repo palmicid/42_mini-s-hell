@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 11:52:31 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/10 00:51:45 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:33:55 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	ft_env(t_cmd *cmdtable)
 		env_error("too many arguments");
 		return ;
 	}
-	while (environ[i])
+	while (g_data->env[i])
 	{
-		ft_putendl_fd(environ[i], STDOUT_FILENO);
+		ft_putendl_fd(g_data->env[i], STDOUT_FILENO);
 		i++;
 	}
 }
@@ -75,12 +75,12 @@ void	replace_env(char *env)
 	if (validate_env(env) == 0)
 		return ;
 	env = remove_quote(env);
-	while (environ[i])
+	while (g_data->env[i])
 	{
-		if (ft_strncmp(key, environ[i], ft_strlen(key)) == 0)
+		if (ft_strncmp(key, g_data->env[i], ft_strlen(key)) == 0)
 		{
-			free(environ[i]);
-			environ[i] = ft_strdup(env);
+			free(g_data->env[i]);
+			g_data->env[i] = ft_strdup(env);
 			free(key);
 			return ;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/06 23:50:31 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:34:20 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	isalready(char *cmd)
 
 	i = 0;
 	cmd_without_value = get_key(cmd);
-	while (environ[i])
+	while (g_data->env[i])
 	{
-		if (ft_strncmp(cmd_without_value, environ[i], \
+		if (ft_strncmp(cmd_without_value, g_data->env[i], \
 		ft_strlen(cmd_without_value)) == 0)
 		{
 			free(cmd_without_value);
@@ -44,27 +44,27 @@ int	find_tmp_size(char **tmp)
 	return (i);
 }
 
-void	replace_environ(char **tmp)
+void	replace_g_data->env(char **tmp)
 {
 	int	i;
 	int	tmp_size;
 
 	i = 0;
 	tmp_size = find_tmp_size(tmp);
-	while (environ[i])
+	while (g_data->env[i])
 	{
-		free(environ[i]);
+		free(g_data->env[i]);
 		i++;
 	}
-	free(environ);
-	environ = malloc(sizeof(char *) * (tmp_size + 1));
+	free(g_data->env);
+	g_data->env = malloc(sizeof(char *) * (tmp_size + 1));
 	i = 0;
 	while (tmp[i])
 	{
-		environ[i] = ft_strdup(tmp[i]);
+		g_data->env[i] = ft_strdup(tmp[i]);
 		i++;
 	}
-	environ[i] = NULL;
+	g_data->env[i] = NULL;
 	i = 0;
 	while (tmp[i])
 	{
@@ -91,14 +91,14 @@ void	ft_export_witharg(t_cmd *cmdtable)
 		return ;
 	export_without_quote = remove_quote(cmdtable->cmd[1]);
 	tmp = malloc(sizeof(char *) * (env_size + 2));
-	while (environ[i])
+	while (g_data->env[i])
 	{
-		tmp[i] = ft_strdup(environ[i]);
+		tmp[i] = ft_strdup(g_data->env[i]);
 		i++;
 	}
 	tmp[i] = ft_strdup(export_without_quote);
 	tmp[i + 1] = NULL;
-	replace_environ(tmp);
+	replace_g_data->env(tmp);
 }
 
 void	ft_export(t_cmd *cmdtable)

@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_utils.c                                    :+:      :+:    :+:   */
+/*   execute_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 19:56:15 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/26 18:34:27 by pruangde         ###   ########.fr       */
+/*   Created: 2023/06/26 20:59:55 by pruangde          #+#    #+#             */
+/*   Updated: 2023/06/26 21:05:54 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_env_size(void)
+int			cx_bltin_parent(char *str)
 {
-	int	i;
+	if (ft_strncmp(str, "cd", 3) == 0)
+		return (1);
+	else if (ft_strncmp(str, "export", 7) == 0)
+		return (1);
+	else if (ft_strncmp(str, "unset", 6) == 0)
+		return (1);
+	else if (ft_strncmp(str, "exit", 5) == 0)
+		return (1);
+	return (0);
+}
 
-	i = 0;
-	while (g_data->env[i])
-		i++;
-	return (i);
+int			cx_isbltin(char *str)
+{
+
 }

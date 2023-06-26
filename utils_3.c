@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 08:12:54 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/27 17:34:35 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/26 23:31:01 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_strcut	*cx_meta_valid(t_strcut *head)
 	t_strcut	*runner;
 
 	runner = head;
+	if (runner->stat == 4)
+		return (inside_cxmetavalid(&head, runner->str));
 	while (runner->next != NULL)
 	{
 		if (runner->stat == 4 || runner->stat == 3)

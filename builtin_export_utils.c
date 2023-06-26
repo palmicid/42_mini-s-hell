@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 00:07:54 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/08 23:46:12 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:34:01 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	ft_export_noarg(void)
 	char	*msg;
 
 	i = 0;
-	while (environ[i])
+	while (g_data->env[i])
 	{
-		msg = ft_strjoin("declare -x ", get_key(environ[i]));
+		msg = ft_strjoin("declare -x ", get_key(g_data->env[i]));
 		msg = ft_strjoin(msg, "=\"");
-		msg = ft_strjoin(msg, getvalue(environ[i], '='));
+		msg = ft_strjoin(msg, getvalue(g_data->env[i], '='));
 		msg = ft_strjoin(msg, "\"");
 		ft_putendl_fd(msg, STDOUT_FILENO);
 		free(msg);

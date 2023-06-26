@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/22 23:19:04 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:19:00 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ typedef struct s_data
 	pid_t				pid;
 	char				**env;
 	int					exit_stat;
+	char				*strcmd;
 }						t_data;
 
-extern char		**environ;
+// extern char		**environ;
+extern t_data	*g_data;
 
 typedef struct s_pipe
 {
@@ -63,6 +65,12 @@ typedef struct s_c
 	int	j;
 }		t_c;
 
+typedef struct s_heredoc
+{
+	int		has_hd;
+	int		*fdhd[2];
+	char	*strarr;
+}			t_heredoc;
 
 // int stst --> 2 = doubleQ " " , 1 = single ' ', 0 non
 // use before split with pipe
@@ -74,15 +82,16 @@ typedef struct s_strcut
 }					t_strcut;
 
 // minishell
-void		process(char *strcmd, t_data *data);
+void		process(void);
 
 // sig_handle
 void		sig_int_handler(int sig);
 void		signal_handling();
 
 // env
-int			init_environ(t_data *data);
-int			end_environ(t_data *data);
+int			init_environ(char **env);
+int			end_environ(void);
+char		*my_getenv(char *str);
 
 // parser_1 - main split + split long list to cmd
 t_cmd		*str_split(char *str, t_data *data);
@@ -146,11 +155,18 @@ void		err_redirpipe(char *str);
 void		err_q_nopair(void);
 void		err_redir(void);
 
-// execute
-int			execute_2(t_cmd *cmdtable, char *pnamewp);
-int			check_builtin_fork(t_cmd *cmdtable);
-void		execute(t_cmd *cmdtable);
-void		execve_part(t_cmd *cmdtable, char **path, char *tmp_env);
+// execute_1
+void		to_execute(t_cmd *cmd);
+
+// execute_2
+int			cx_bltin_parent(char *str);
+int			cx_isbltin(char *str);
+
+// not mine
+// int			execute_2(t_cmd *cmdtable, char *pnamewp);
+// int			check_builtin_fork(t_cmd *cmdtable);
+// void		execute(t_cmd *cmdtable);
+// void		execve_part(t_cmd *cmdtable, char **path, char *tmp_env);
 
 // built_in
 int			get_env_size(void);

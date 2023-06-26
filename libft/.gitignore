@@ -3,6 +3,7 @@ war-mach/
 eztest/
 libftTester/
 libft-war-machine/
+.vs*
 
 # Prerequisites
 *.d

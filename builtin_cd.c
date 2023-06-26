@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 23:51:57 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/10 02:45:05 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:54:37 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	go_home(char *oldpwd)
 {
 	char	*pwd;
 
-	if (chdir(getenv("HOME")) == -1)
+	if (chdir(my_getenv("HOME")) == -1)
 		return (1);
 	pwd = get_pwd_now(getcwd(NULL, 0));
 	replace_env(oldpwd);

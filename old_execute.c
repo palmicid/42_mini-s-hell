@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/23 09:44:57 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:34:45 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ char	*my_get_env(void)
 	int	i;
 
 	i = 0;
-	while (environ[i])
+	while (g_data->env[i])
 	{
-		if (ft_strncmp(environ[i], "PATH=", 5) == 0)
-			return (ft_substr(environ[i], 5, ft_strlen(environ[i]) - 5));
+		if (ft_strncmp(g_data->env[i], "PATH=", 5) == 0)
+			return (ft_substr(g_data->env[i], 5, ft_strlen(g_data->env[i]) - 5));
 		i++;
 	}
 	return (NULL);
