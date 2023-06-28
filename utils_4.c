@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 01:50:38 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/26 20:44:41 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/28 21:21:37 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,22 @@ int	next_i_qsplit(char *str, int i)
 	return (i - 1);
 }
 
-t_cmd	*free_cmdlist(t_cmd *lstcmd)
+t_cmd	*free_cmdlist(t_cmd **lstcmd)
 {
 	t_cmd	*tofree;
 
-	tofree = lstcmd;
-	while (lstcmd)
+	tofree = lstcmd[0];
+	while (tofree)
 	{
-		lstcmd = lstcmd->next;
 		if (tofree->cmd)
-			ft_free_p2p_char(tofree->cmd);
-		free(tofree);
-		tofree = lstcmd;
+			free_strcutlist(&tofree->cmd);
+		tofree = tofree->next;
 	}
-	return (lstcmd);
+	while (lstcmd[0])
+	{
+		tofree = lstcmd[0];
+		lstcmd[0] = lstcmd[0]->next;
+		free(tofree);
+	}
+	return (lstcmd[0]);
 }

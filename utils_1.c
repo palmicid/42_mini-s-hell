@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/30 17:02:12 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/28 23:53:18 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,49 @@ int	cont_char(char *str, int i, char c)
 }
 
 // 	-----------TEST-------------
-void	test_print(t_cmd *head)
-{
-	t_cmd	*ptr = head;
-	int		in = 0;
+// void	test_print(t_cmd *head)
+// {
+// 	t_cmd	*ptr = head;
+// 	int		in = 0;
 
-	while (ptr != NULL)
+// 	while (ptr != NULL)
+// 	{
+// 		in = 0;
+// 		printf("CMD == ");
+// 		while (ptr->cmd[in] != NULL)
+// 		{
+// 			printf("|%s", ptr->cmd[in]);
+// 			in++;
+// 		}
+// 		printf("|\n");
+// 		ptr = ptr->next;
+// 	}
+// }
+
+void	test_printcmdlist(t_cmd *head)
+{
+	t_cmd		*run;
+	t_strcut	*listrun;
+	
+	run = head;
+	ft_putstr_fd("\n=======STRCUT_PRINT==========\n", 2);
+	while (run)
 	{
-		in = 0;
-		printf("CMD == ");
-		while (ptr->cmd[in] != NULL)
+		listrun = run->cmd;
+		ft_putstr_fd("--------------------------------\n", 2);
+		while (listrun)
 		{
-			printf("|%s", ptr->cmd[in]);
-			in++;
+			ft_putstr_fd("stat = ", 2);
+			ft_putnbr_fd(listrun->stat, 2);
+			ft_putstr_fd(" | str = [", 2);
+			ft_putstr_fd(listrun->str, 2);
+			ft_putstr_fd("]\n", 2);
+			listrun = listrun->next;
 		}
-		printf("|\n");
-		ptr = ptr->next;
+		ft_putstr_fd("--------------------------------\n", 2);
+		run = run->next;
 	}
+	ft_putstr_fd("\n=============================\n", 2);
 }
 
 void	test_printstrcut(t_strcut *fwd)

@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
-#    Updated: 2023/06/26 21:00:39 by pruangde         ###   ########.fr        #
+#    Updated: 2023/06/27 12:51:02 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
 
 
 PARS = parser_1.c parser_2.c parser_3.c parser_4.c parser_5.c parser_6.c
-UTIL = utils_1.c utils_2.c utils_3.c utils_4.c utils_5.c
+UTIL = utils_1.c utils_2.c utils_3.c utils_4.c utils_5.c utils_6.c
 ERRMSG = err_msg.c
 EXEC = execute_1.c execute_2.c
 BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c \

@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:59:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/26 21:05:54 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/27 01:28:57 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			cx_bltin_parent(char *str)
 {
 	if (ft_strncmp(str, "cd", 3) == 0)
 		return (1);
-	else if (ft_strncmp(str, "export", 7) == 0)
+	else if (ft_strncmp(str, "export", 7) == 0)	// with argc
 		return (1);
 	else if (ft_strncmp(str, "unset", 6) == 0)
 		return (1);
@@ -27,5 +27,19 @@ int			cx_bltin_parent(char *str)
 
 int			cx_isbltin(char *str)
 {
-
+	if (ft_strncmp(str, "cd", 3) == 0)
+		return (1);
+	else if (ft_strncmp(str, "export", 7) == 0)
+		return (1);
+	else if (ft_strncmp(str, "unset", 6) == 0)
+		return (1);
+	else if (ft_strncmp(str, "exit", 5) == 0)
+		return (1);
+	else if (ft_strncmp(str, "pwd", 4) == 0)
+		return (1);
+	else if (ft_strncmp(str, "env", 4) == 0)
+		return (1);
+	else if (ft_strncmp(str, "echo", 5) == 0)
+		return (1);
+	return (0);
 }

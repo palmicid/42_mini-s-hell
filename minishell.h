@@ -6,12 +6,17 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/26 21:19:00 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/28 22:31:43 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+// !!!!!!!! NOTICE !!!!!!!!!
+// change the way to pass cmd stat must remain
+// 
+
 
 // # include "./libft/libft.h"
 # include "./libft/libft.h"
@@ -53,9 +58,8 @@ typedef struct s_pipe
 
 typedef struct s_cmd
 {
-	char			**cmd;
+	struct s_strcut	*cmd;
 	struct s_cmd	*next;
-	struct s_pipe	*pipe;
 }					t_cmd;
 
 typedef struct s_c
@@ -119,8 +123,8 @@ t_strcut	*lastlist_strcut(t_strcut *list);
 int			cont_char(char *str, int i, char c);
 
 // ------ TEST
-int			to_execute(t_cmd *cmds);
-void		test_print(t_cmd *head);
+// void		test_print(t_cmd *head);
+void		test_printcmdlist(t_cmd *head);
 void		test_printstrcut(t_strcut *fwd);
 void		test_printonestrcut(t_strcut *cur);
 
@@ -143,7 +147,7 @@ int			find_q_doll(char *str);
 void		set_error(t_strcut *cur);
 void		remove_q(t_strcut *head);
 int			next_i_qsplit(char *str, int i);
-t_cmd		*free_cmdlist(t_cmd *lstcmd);
+t_cmd		*free_cmdlist(t_cmd **lstcmd);
 
 // utils_5
 t_strcut	*inside_cxmetavalid(t_strcut **head, char *str);

@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/26 23:19:13 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/27 22:29:47 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	back2normal(int fdin, int fdout, t_heredoc *hd)
 	
 }
 // init all and find redirect
-int	init_allvar(t_cmd *cmd, int *fdin, int *fdout, t_heredoc *hd)
+int	init_allfd(t_cmd *cmd, int *fdin, int *fdout, t_heredoc *hd)
 {
 	*fdin = -1;
 	*fdout = -1;
@@ -37,9 +37,14 @@ int	one_exec(t_cmd *cmd)
 	int			fdout;
 	t_heredoc	heredoc;
 	
-	cmdonly = get_cmd(cmd);
-	if (init_allvar(cmd, &fdin, &fdout, &heredoc))
+	if (init_allfd(cmd, &fdin, &fdout, &heredoc))
 		return (g_data->exit_stat);
+	cmdonly = get_cmd(cmd);
+	if (!cmdonly)
+	{
+		// close all open fd;
+		return (0);
+	}
 	if (cx_bltin_parent(cmdonly))
 		exec_bltin(cmdonly);
 	// cx if sp bltin

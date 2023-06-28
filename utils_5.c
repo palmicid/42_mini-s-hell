@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:27:40 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/26 23:28:49 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/27 22:32:41 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,16 @@ t_c	*create_countptr(void)
 	return (new);
 }
 
-char *get_cmd(t_cmd *lst)
+// 
+int	isredir_str(char *str)
 {
-	
+	if (ft_strncmp(str, "<", 2) == 0)
+		return (1);
+	else if (ft_strncmp(str, "<<", 3) == 0)
+		return (2);
+	else if (ft_strncmp(str, ">", 2) == 0)
+		return (3);
+	else if (ft_strncmp(str, ">>", 3) == 0)
+		return (4);
+	return (0);
 }

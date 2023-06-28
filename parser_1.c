@@ -6,95 +6,74 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:52:30 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/30 22:44:37 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/28 23:48:59 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_strcut	*find_nextcmd(t_strcut *tofind)
+static t_cmd	*sep_commandlist(t_cmd *head, t_strcut *run)
 {
-	t_strcut	*list;
+	t_cmd	*cmd;
 
-	list = tofind;
-	while (list)
-	{
-		if (list->stat == 4)
-			return (list->next);
-		list = list->next;
-	}
-	return (list);
+	cmd = head;
+	while (cmd->next)
+		cmd = cmd->next;
+	cmd->next = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!cmd->next)
+		return (free_cmdlist(&head));
+	cmd = cmd->next;
+	cmd->cmd = run->next;
+	cmd->next = NULL;
+	return (head);
 }
 
-// count how many cmd to malloc sep by pipe
-static	int	count_strarray(t_strcut *cur)
+static void	remove_pipe_fromlist(t_cmd *head)
 {
-	int	count;
+	t_cmd		*cmdlst;
+	t_strcut	*strlst;
 
-	count = 0;
-	while (cur)
+	cmdlst = head;
+	while (cmdlst)
 	{
-		if (cur->stat == 4)
-			return (count);
-		count++;
-		cur = cur->next;
-	}
-	return (count);
-}
-
-static char	**cmd_fusion(t_strcut *curlst)
-{
-	int			index;
-	int			count;
-	char		**strarr;
-	t_strcut	*curstr;
-
-	index = 0;
-	curstr = curlst;
-	count = count_strarray(curstr);
-	strarr = (char **)malloc(sizeof(char *) * (count + 1));
-	strarr[count] = NULL;
-	while (index < count)
-	{
-		strarr[index] = ft_strdup(curstr->str);
-		if (!strarr[index])
+		strlst = cmdlst->cmd;
+		while (strlst && strlst->next)
 		{
-			ft_free_p2p_char(strarr);
-			return (NULL);
+			if (strlst->next->stat == 4)
+			{
+				free(strlst->next->str);
+				free(strlst->next);
+				strlst->next = NULL;
+			}
+			strlst = strlst->next;
 		}
-		index++;
-		curstr = curstr->next;
+		cmdlst = cmdlst->next;
 	}
-	return (strarr);
 }
 
-static t_cmd	*fusion_and_sepcmd(t_strcut *liststr)
+static t_cmd *fusion_and_sepcmd(t_strcut *liststr)
 {
-	t_cmd		*headcmd;
-	t_cmd		*nowcmd;
-	t_strcut	*curstr;
+	t_cmd		*head;
+	t_strcut	*runstr;
 
-	curstr = liststr;
-	headcmd = createnew_lstcmd();
-	if (!headcmd)
+	head = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!head)
 		return (NULL);
-	headcmd->cmd = cmd_fusion(curstr);
-	if (!headcmd->cmd)
-		return (free_cmdlist(headcmd));
-	curstr = find_nextcmd(curstr);
-	nowcmd = headcmd;
-	while (curstr)
+	head->cmd = liststr;
+	head->next = NULL;
+	runstr = liststr;
+	while (runstr)
 	{
-		nowcmd->next = createnew_lstcmd();
-		if (!nowcmd->next)
-			return (free_cmdlist(headcmd));
-		nowcmd = nowcmd->next;
-		nowcmd->cmd = cmd_fusion(curstr);
-		if (!nowcmd->cmd)
-			return (free_cmdlist(headcmd));
-		curstr = find_nextcmd(curstr);
+		if (runstr->stat == 4)
+		{
+			head = sep_commandlist(head, runstr);
+			if (!head)
+				return (NULL);
+		}
+		runstr = runstr->next;
 	}
-	return (headcmd);
+	remove_pipe_fromlist(head);
+	return (head);
 }
 
 // find ' ' or " " if cannot find pair set all as a string
@@ -112,10 +91,9 @@ t_cmd	*str_split(char *str, t_data *data)
 	liststr = remove_q_xpand(liststr, data);
 	if (!liststr)
 		return (NULL);
+	// test_printstrcut(liststr);
 	listcmd = fusion_and_sepcmd(liststr);
 	if (!listcmd)
-		errno = 1;
-	if (liststr)
-		liststr = free_strcutlist(&liststr);
+		return (NULL);
 	return (listcmd);
 }
