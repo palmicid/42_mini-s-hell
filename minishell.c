@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/28 23:53:50 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:06:10 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_data	*g_data;
 // the child going to be parent for all program
 void	process(void)
 {
-	t_cmd	*cmdlist;
+	t_cmdlist	*cmdlist;
 
 	cmdlist = NULL;
 	add_history(g_data->strcmd);

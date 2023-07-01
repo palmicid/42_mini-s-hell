@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 00:48:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/28 23:53:18 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:06:36 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int	cont_char(char *str, int i, char c)
 }
 
 // 	-----------TEST-------------
-// void	test_print(t_cmd *head)
+// void	test_print(t_cmdlist *head)
 // {
-// 	t_cmd	*ptr = head;
+// 	t_cmdlist	*ptr = head;
 // 	int		in = 0;
 
 // 	while (ptr != NULL)
@@ -97,9 +97,9 @@ int	cont_char(char *str, int i, char c)
 // 	}
 // }
 
-void	test_printcmdlist(t_cmd *head)
+void	test_printcmdlist(t_cmdlist *head)
 {
-	t_cmd		*run;
+	t_cmdlist		*run;
 	t_strcut	*listrun;
 	
 	run = head;

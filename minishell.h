@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/28 22:31:43 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/01 14:12:29 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,18 @@ typedef struct s_pipe
 	int	size_fd;
 }				t_pipe;
 
+typedef struct s_cmdlist
+{
+	struct s_strcut		*cmd;
+	struct s_cmdlist	*next;
+}					t_cmdlist;
+
 typedef struct s_cmd
 {
-	struct s_strcut	*cmd;
-	struct s_cmd	*next;
-}					t_cmd;
+	char	**cmd;
+	int		fdin;
+	int		fdout;
+}			t_cmd;
 
 typedef struct s_c
 {
@@ -72,8 +79,8 @@ typedef struct s_c
 typedef struct s_heredoc
 {
 	int		has_hd;
-	int		*fdhd[2];
-	char	*strarr;
+	int		fdhd[2];
+	char	*str;
 }			t_heredoc;
 
 // int stst --> 2 = doubleQ " " , 1 = single ' ', 0 non
@@ -98,7 +105,7 @@ int			end_environ(void);
 char		*my_getenv(char *str);
 
 // parser_1 - main split + split long list to cmd
-t_cmd		*str_split(char *str, t_data *data);
+t_cmdlist		*str_split(char *str, t_data *data);
 
 // parser_2 - quote split and add stat q or nonq
 t_strcut	*qsp_split(char *str);
@@ -123,8 +130,8 @@ t_strcut	*lastlist_strcut(t_strcut *list);
 int			cont_char(char *str, int i, char c);
 
 // ------ TEST
-// void		test_print(t_cmd *head);
-void		test_printcmdlist(t_cmd *head);
+// void		test_print(t_cmdlist *head);
+void		test_printcmdlist(t_cmdlist *head);
 void		test_printstrcut(t_strcut *fwd);
 void		test_printonestrcut(t_strcut *cur);
 
@@ -147,37 +154,43 @@ int			find_q_doll(char *str);
 void		set_error(t_strcut *cur);
 void		remove_q(t_strcut *head);
 int			next_i_qsplit(char *str, int i);
-t_cmd		*free_cmdlist(t_cmd **lstcmd);
+t_cmdlist		*free_cmdlist(t_cmdlist **lstcmd);
 
 // utils_5
 t_strcut	*inside_cxmetavalid(t_strcut **head, char *str);
 t_strcut	*createnew_strcut(void);
-t_cmd		*createnew_lstcmd(void);
+t_cmdlist		*createnew_lstcmd(void);
 t_c			*create_countptr(void);
+int			which_redir(char *str);
+
+// utils_6	open file and heredoc
+int			to_heredoc(t_strcut *list, t_heredoc *hd);
+
 // err_msg
 void		err_redirpipe(char *str);
 void		err_q_nopair(void);
 void		err_redir(void);
+void		err_msgexec(char *str, char *msg)
 
 // execute_1
-void		to_execute(t_cmd *cmd);
+void		to_execute(t_cmdlist *cmd);
 
 // execute_2
 int			cx_bltin_parent(char *str);
 int			cx_isbltin(char *str);
 
 // not mine
-// int			execute_2(t_cmd *cmdtable, char *pnamewp);
-// int			check_builtin_fork(t_cmd *cmdtable);
-// void		execute(t_cmd *cmdtable);
-// void		execve_part(t_cmd *cmdtable, char **path, char *tmp_env);
+// int			execute_2(t_cmdlist *cmdtable, char *pnamewp);
+// int			check_builtin_fork(t_cmdlist *cmdtable);
+// void		execute(t_cmdlist *cmdtable);
+// void		execve_part(t_cmdlist *cmdtable, char **path, char *tmp_env);
 
 // built_in
 int			get_env_size(void);
-int			is_home_with_path(t_cmd *cmdtable);
-int			home_with_path(t_cmd *cmdtable, char *oldpwd);
+int			is_home_with_path(t_cmdlist *cmdtable);
+int			home_with_path(t_cmdlist *cmdtable, char *oldpwd);
 int			validate_env(char *env);
-int			normal_path(t_cmd *cmdtable, char *oldpwd);
+int			normal_path(t_cmdlist *cmdtable, char *oldpwd);
 char		*remove_quote(char *cmd);
 char		*get_key(char *s);
 char		*getvalue(char *s, char c);
@@ -186,16 +199,16 @@ char		*get_pwd_now(char *pwd);
 char		*my_get_env(void);
 char		*addslash(char *cmd);
 char		*hash_name(char *filename);
-void		ft_env(t_cmd *cmdtable);
-void		ft_export(t_cmd *cmdtable);
+void		ft_env(t_cmdlist *cmdtable);
+void		ft_export(t_cmdlist *cmdtable);
 void		ft_export_noarg(void);
-void		ft_export_witharg(t_cmd *cmdtable);
+void		ft_export_witharg(t_cmdlist *cmdtable);
 void		replace_env(char *env);
-void		ft_pwd(t_cmd *cmdtable);
-void		ft_echo(t_cmd *cmdtable);
-void		ft_unset(t_cmd *cmdtable);
-void		ft_cd(t_cmd *cmdtable);
-void		ft_exit(t_cmd *cmdtable);
+void		ft_pwd(t_cmdlist *cmdtable);
+void		ft_echo(t_cmdlist *cmdtable);
+void		ft_unset(t_cmdlist *cmdtable);
+void		ft_cd(t_cmdlist *cmdtable);
+void		ft_exit(t_cmdlist *cmdtable);
 
 #endif
 

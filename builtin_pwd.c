@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 00:13:49 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/08 23:30:24 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:05:50 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*getvalue(char *s, char c)
 	return (ft_substr(s, i + 1, ft_strlen(s)));
 }
 
-void	ft_pwd(t_cmd *cmdtable)
+void	ft_pwd(t_cmdlist *cmdtable)
 {
 	char	*pwd;
 

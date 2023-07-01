@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   old_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/26 18:34:45 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:06:25 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-void	builtin(t_cmd *cmdtable)
+void	builtin(t_cmdlist *cmdtable)
 {
 	if (ft_strncmp(cmdtable->cmd[0], "env", 3) == 0)
 		ft_env(cmdtable);
@@ -74,10 +74,10 @@ char	*my_get_env(void)
 	return (NULL);
 }
 
-int		lst_cmd_size(t_cmd *cmdtable)
+int		lst_cmdlist_size(t_cmdlist *cmdtable)
 {
 	int		i;
-	t_cmd	*tmp;
+	t_cmdlist	*tmp;
 
 	i = 0;
 	if (!cmdtable)
@@ -91,15 +91,15 @@ int		lst_cmd_size(t_cmd *cmdtable)
 	return (i);
 }
 
-void	init_pipe(t_cmd *cmdtable)
+void	init_pipe(t_cmdlist *cmdtable)
 {
 	t_pipe	*pipe_s;
-	t_cmd	*tmp;
+	t_cmdlist	*tmp;
 	int		size_fd;
 	int		i;
 
 	pipe_s = malloc(sizeof(t_pipe));
-	size_fd = (lst_cmd_size(cmdtable) - 1) * 2;
+	size_fd = (lst_cmdlist_size(cmdtable) - 1) * 2;
 	pipe_s->size_fd = size_fd;
 	pipe_s->fd = malloc(sizeof(int) * size_fd);
 	i = 0;
@@ -150,9 +150,9 @@ char	*hash_name(char *filename)
 	return (hash_name);
 }
 
-void	heredoc(t_cmd *cmdtable)
+void	heredoc(t_cmdlist *cmdtable)
 {
-	t_cmd	*tmp;
+	t_cmdlist	*tmp;
 	int		i;
 	char	*name;
 
@@ -170,7 +170,7 @@ void	heredoc(t_cmd *cmdtable)
 	}
 }
 
-void	execute(t_cmd *cmdtable)
+void	execute(t_cmdlist *cmdtable)
 {
 	int		pid;
 	int		fd[2];
@@ -192,7 +192,7 @@ void	execute(t_cmd *cmdtable)
 	// 		return ;
 	// 	}
 	// }
-	if (lst_cmd_size(cmdtable) != 1)
+	if (lst_cmdlist_size(cmdtable) != 1)
 		init_pipe(cmdtable);
 	heredoc(cmdtable);
 	exit(EXIT_SUCCESS);

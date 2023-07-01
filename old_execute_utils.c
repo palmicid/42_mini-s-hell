@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_utils.c                                    :+:      :+:    :+:   */
+/*   old_execute_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 15:27:40 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/10 15:51:42 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:06:18 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_2(t_cmd *cmdtable, char *pnamewp)
+int	execute_2(t_cmdlist *cmdtable, char *pnamewp)
 {
 	int	pid;
 
@@ -30,7 +30,7 @@ int	execute_2(t_cmd *cmdtable, char *pnamewp)
 	return (1);
 }
 
-void	execve_part(t_cmd *cmdtable, char **path, char *tmp_env)
+void	execve_part(t_cmdlist *cmdtable, char **path, char *tmp_env)
 {
 	char	*progname_with_sl;
 	char	*prog_name_with_path;
@@ -60,7 +60,7 @@ void	execve_part(t_cmd *cmdtable, char **path, char *tmp_env)
 }
 
 
-int	check_builtin_fork(t_cmd *cmdtable)
+int	check_builtin_fork(t_cmdlist *cmdtable)
 {
 	if ((ft_strncmp(cmdtable->cmd[0], "echo", 5) == 0) && cmdtable->next)
 		return (1);

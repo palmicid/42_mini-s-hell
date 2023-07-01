@@ -6,13 +6,13 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 01:28:19 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/26 15:54:37 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:05:20 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_home_with_path(t_cmd *cmdtable)
+int	is_home_with_path(t_cmdlist *cmdtable)
 {
 	if (ft_strncmp(cmdtable->cmd[0], "cd", 2) == 0 && \
 	ft_strncmp(cmdtable->cmd[1], "~", 2) != 0 && \
@@ -21,7 +21,7 @@ int	is_home_with_path(t_cmd *cmdtable)
 	return (0);
 }
 
-int	home_with_path(t_cmd *cmdtable, char *oldpwd)
+int	home_with_path(t_cmdlist *cmdtable, char *oldpwd)
 {
 	char	*cd;
 	char	*pwd;
@@ -45,7 +45,7 @@ int	home_with_path(t_cmd *cmdtable, char *oldpwd)
 	return (0);
 }
 
-int	normal_path(t_cmd *cmdtable, char *oldpwd)
+int	normal_path(t_cmdlist *cmdtable, char *oldpwd)
 {
 	char	*pwd;
 	char	*cd;

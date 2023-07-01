@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/27 22:29:47 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/01 14:26:18 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,44 @@ void	back2normal(int fdin, int fdout, t_heredoc *hd)
 	
 }
 // init all and find redirect
-int	init_allfd(t_cmd *cmd, int *fdin, int *fdout, t_heredoc *hd)
+int	init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
 {
-	*fdin = -1;
-	*fdout = -1;
-	hd->has_hd = 0;
-
+	int	lastin;
 	
+	*fdin = 0;
+	*fdout = 1;
+	hd->has_hd = 0;
+	lastin = 0
+
+	// Loop heredoc;
+	to_heredoc(cmd, hd);
+	// Loop open file
+
+	// while (cmd)
+	// {
+	// 	if (cmd->stat == 3)
+	// 	{
+	// 		if (fd_redir(cmd, fdin, fdout, hd))
+	// 			return (1);
+	// 		cmd = cmd->next;
+	// 	}
+	// 	cmd = cmd->next;
+	// }
 }
 
-int	one_exec(t_cmd *cmd)
+int	one_exec(t_cmdlist *cmd)
 {
 	char		**cmdonly;
 	int			fdin;
 	int			fdout;
 	t_heredoc	heredoc;
 	
-	if (init_allfd(cmd, &fdin, &fdout, &heredoc))
+	if (init_allfd(cmd->cmd, &fdin, &fdout, &heredoc))
 		return (g_data->exit_stat);
-	cmdonly = get_cmd(cmd);
+	cmdonly = get_cmd(cmd->cmd);
+	// if must run in parent (no output && no input)
+	// no dup2 b4 fork
+	// cmdonly = get_cmdlist(cmd);
 	if (!cmdonly)
 	{
 		// close all open fd;
@@ -52,7 +71,7 @@ int	one_exec(t_cmd *cmd)
 
 }
 
-void	to_execute(t_cmd *cmd)
+void	to_execute(t_cmdlist *cmd)
 {
 	if (cmd->next == NULL)
 		g_data->exit_stat = one_exec(cmd);

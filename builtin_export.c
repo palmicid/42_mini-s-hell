@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/26 18:34:20 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:05:48 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	replace_g_data->env(char **tmp)
 	}
 }
 
-void	ft_export_witharg(t_cmd *cmdtable)
+void	ft_export_witharg(t_cmdlist *cmdtable)
 {
 	int		env_size;
 	char	**tmp;
@@ -101,9 +101,9 @@ void	ft_export_witharg(t_cmd *cmdtable)
 	replace_g_data->env(tmp);
 }
 
-void	ft_export(t_cmd *cmdtable)
+void	ft_export(t_cmdlist *cmdtable)
 {
-	t_cmd	*tmp;
+	t_cmdlist	*tmp;
 
 	tmp = cmdtable;
 	if (!tmp->cmd[1])

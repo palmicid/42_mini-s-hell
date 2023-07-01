@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 02:45:49 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/10 16:13:04 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:05:37 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cmd_size(t_cmd *cmdtable)
+int	cmd_size(t_cmdlist *cmdtable)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ int	check_arg1(char *cmd)
 	return (0);
 }
 
-void	ft_exit(t_cmd *cmdtable)
+void	ft_exit(t_cmdlist *cmdtable)
 {
 	if (ft_strncmp(cmdtable->cmd[0], "exit", 5) == 0)
 	{

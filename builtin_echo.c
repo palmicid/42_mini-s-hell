@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:48:58 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/05/31 00:32:20 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:05:32 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*cutspace(char *s)
 	return (ft_substr(s, i, j));
 }
 
-void	echo_utils(t_cmd *cmdtable)
+void	echo_utils(t_cmdlist *cmdtable)
 {
 	char	*output;
 	int		i;
@@ -49,7 +49,7 @@ void	echo_utils(t_cmd *cmdtable)
 	free(output);
 }
 
-void	last_string(int i, t_cmd *cmdtable)
+void	last_string(int i, t_cmdlist *cmdtable)
 {
 	char	*output;
 
@@ -61,7 +61,7 @@ void	last_string(int i, t_cmd *cmdtable)
 	}
 }
 
-void	ft_echo(t_cmd *cmdtable)
+void	ft_echo(t_cmdlist *cmdtable)
 {
 	char	*output;
 	int		i;

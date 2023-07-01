@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 11:52:31 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/26 18:33:55 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:05:34 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	env_error(char *s)
 	free(msg);
 }
 
-void	ft_env(t_cmd *cmdtable)
+void	ft_env(t_cmdlist *cmdtable)
 {
 	int		i;
-	t_cmd	*tmp;
+	t_cmdlist	*tmp;
 
 	i = 0;
 	tmp = cmdtable;

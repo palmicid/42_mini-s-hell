@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:27:40 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/27 22:32:41 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:06:41 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ t_strcut	*createnew_strcut(void)
 	return (listnew);
 }
 
-t_cmd	*createnew_lstcmd(void)
+t_cmdlist	*createnew_lstcmd(void)
 {
-	t_cmd	*listnew;
+	t_cmdlist	*listnew;
 
-	listnew = (t_cmd *)malloc(sizeof(t_cmd));
+	listnew = (t_cmdlist *)malloc(sizeof(t_cmdlist));
 	if (!listnew)
 		return (NULL);
 	listnew->next = NULL;
@@ -55,8 +55,8 @@ t_c	*create_countptr(void)
 	return (new);
 }
 
-// 
-int	isredir_str(char *str)
+// cx what the redir is
+int	which_redir(char *str)
 {
 	if (ft_strncmp(str, "<", 2) == 0)
 		return (1);

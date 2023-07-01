@@ -6,20 +6,20 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:52:30 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/28 23:48:59 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:06:30 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_cmd	*sep_commandlist(t_cmd *head, t_strcut *run)
+static t_cmdlist	*sep_commandlist(t_cmdlist *head, t_strcut *run)
 {
-	t_cmd	*cmd;
+	t_cmdlist	*cmd;
 
 	cmd = head;
 	while (cmd->next)
 		cmd = cmd->next;
-	cmd->next = (t_cmd *)malloc(sizeof(t_cmd));
+	cmd->next = (t_cmdlist *)malloc(sizeof(t_cmdlist));
 	if (!cmd->next)
 		return (free_cmdlist(&head));
 	cmd = cmd->next;
@@ -28,9 +28,9 @@ static t_cmd	*sep_commandlist(t_cmd *head, t_strcut *run)
 	return (head);
 }
 
-static void	remove_pipe_fromlist(t_cmd *head)
+static void	remove_pipe_fromlist(t_cmdlist *head)
 {
-	t_cmd		*cmdlst;
+	t_cmdlist		*cmdlst;
 	t_strcut	*strlst;
 
 	cmdlst = head;
@@ -51,12 +51,12 @@ static void	remove_pipe_fromlist(t_cmd *head)
 	}
 }
 
-static t_cmd *fusion_and_sepcmd(t_strcut *liststr)
+static t_cmdlist *fusion_and_sepcmd(t_strcut *liststr)
 {
-	t_cmd		*head;
+	t_cmdlist		*head;
 	t_strcut	*runstr;
 
-	head = (t_cmd *)malloc(sizeof(t_cmd));
+	head = (t_cmdlist *)malloc(sizeof(t_cmdlist));
 	if (!head)
 		return (NULL);
 	head->cmd = liststr;
@@ -77,10 +77,10 @@ static t_cmd *fusion_and_sepcmd(t_strcut *liststr)
 }
 
 // find ' ' or " " if cannot find pair set all as a string
-t_cmd	*str_split(char *str, t_data *data)
+t_cmdlist	*str_split(char *str, t_data *data)
 {
 	t_strcut	*liststr;
-	t_cmd		*listcmd;
+	t_cmdlist		*listcmd;
 
 	liststr = qsp_split(str);
 	if (!liststr)

@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:49:53 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/26 18:34:25 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:05:54 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	unset_env(char *key)
 	}
 }
 
-void	ft_unset(t_cmd *cmdtable)
+void	ft_unset(t_cmdlist *cmdtable)
 {
 	int	i;
 	int	j;
