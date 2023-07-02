@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:34:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/01 14:21:32 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:13:41 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,33 @@ char	**get_cmd(t_strcut *head)
 	ret = onlycmd_dup(runner, ret);
 	if (!ret)
 		return (NULL);
+	return (ret);
 }
 
-void	err_heredoc_eof(char *str)
+void	rec_heredoc(char *eof, t_heredoc *hd)
 {
-	// bash: warning: here-document at line 1 delimited by end-of-file (wanted `blah')
-	ft_putstr_fd("Minishell: warning: here-document ", 2);
-	ft_putstr_fd("delimited by end-of-file (wanted `", 2);
-	ft_putstr_fd(str, 2);
-	ft_putendl_fd("'", 2)
+	char	*str;
+
+	str = NULL;
+	while (1)
+	{
+		str = readline("> ");
+		if (!str)
+		{
+			err_heredoc_eof(eof);
+			break ;
+		}
+		if (ft_strcmp(str, eof) == 0)
+		{
+			free(str);
+			break ;
+		}
+		ft_putendl_fd(str, hd->fdhd[1]);
+		free(str);
+	}
+	close(hd->fdhd[1]);
 }
+
 
 // return fd[0] close fd[1]
 int	to_heredoc(t_strcut *list, t_heredoc *hd)
@@ -83,10 +100,20 @@ int	to_heredoc(t_strcut *list, t_heredoc *hd)
 	{
 		if (list->stat == 3 && which_redir(list->str) == 2)
 		{
-			
+			if (hd->has_hd == 1)
+				close(hd->fdhd[0]);
+			hd->has_hd = 1;
+			if (pipe(hd->fdhd) < 0)
+				return (-1);
+			list = list->next;
+			rec_heredoc(list->str, hd);
 		}
+		list = list->next;
 	}
-	
+	char str[100];
+	read(hd->fdhd[0], str, 100);
+	printf("heredoc = %s", str);
+	return 0;
 }
 
 // mode 1 = input RDONLY , mode 3 = RDWR, 4 WR app
@@ -108,14 +135,14 @@ int	openfile(char *str, int *fd, int mode)
 	return (0);
 }
 
-int	fd_redir(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
+int	fd_redir(t_strcut *cmd, int *fdin, int *fdout)
 {
-	if (which_redir(cmd) == 1)
-		*fdin = openfile(cmd->next->str, fdin, NULL, 1);
-	else if (which_redir(cmd) == 3)
-		*fdin = openfile(cmd->next->str, fdout, NULL, 3);
-	else if (which_redir(cmd) == 4)
-		*fdin = openfile(cmd->next->str, fdout, NULL, 4);
+	if (which_redir(cmd->str) == 1)
+		*fdin = openfile(cmd->next->str, fdin, 1);
+	else if (which_redir(cmd->str) == 3)
+		*fdin = openfile(cmd->next->str, fdout, 3);
+	else if (which_redir(cmd->str) == 4)
+		*fdin = openfile(cmd->next->str, fdout, 4);
 	if (*fdin < 0 || *fdout < 0)
 		return (1);
 	return (0);

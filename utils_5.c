@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:27:40 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/29 09:06:41 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/02 11:11:37 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_c	*create_countptr(void)
 	return (new);
 }
 
-// cx what the redir is
+// cx what the redir is 1 <, 2 <<, 3 >, 4 >>
 int	which_redir(char *str)
 {
 	if (ft_strncmp(str, "<", 2) == 0)

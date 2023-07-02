@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
-#    Updated: 2023/06/27 12:51:02 by pruangde         ###   ########.fr        #
+#    Updated: 2023/07/02 11:56:24 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ builtin_exit.c
 # EXECUTE = test_execute.c
 #BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c
 
-SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) #$(BUILTIN)
+SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXEC) #$(BUILTIN)
 OBJ_C = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))

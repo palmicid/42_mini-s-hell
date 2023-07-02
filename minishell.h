@@ -6,16 +6,12 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/01 14:12:29 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:16:13 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-// !!!!!!!! NOTICE !!!!!!!!!
-// change the way to pass cmd stat must remain
-// 
 
 
 // # include "./libft/libft.h"
@@ -80,7 +76,7 @@ typedef struct s_heredoc
 {
 	int		has_hd;
 	int		fdhd[2];
-	char	*str;
+	// char	*str;
 }			t_heredoc;
 
 // int stst --> 2 = doubleQ " " , 1 = single ' ', 0 non
@@ -159,24 +155,30 @@ t_cmdlist		*free_cmdlist(t_cmdlist **lstcmd);
 // utils_5
 t_strcut	*inside_cxmetavalid(t_strcut **head, char *str);
 t_strcut	*createnew_strcut(void);
-t_cmdlist		*createnew_lstcmd(void);
+t_cmdlist	*createnew_lstcmd(void);
 t_c			*create_countptr(void);
 int			which_redir(char *str);
 
 // utils_6	open file and heredoc
+char		**get_cmd(t_strcut *head);
+void		rec_heredoc(char *eof, t_heredoc *hd);
 int			to_heredoc(t_strcut *list, t_heredoc *hd);
+int			openfile(char *str, int *fd, int mode);
+int			fd_redir(t_strcut *cmd, int *fdin, int *fdout);
+
 
 // err_msg
 void		err_redirpipe(char *str);
 void		err_q_nopair(void);
 void		err_redir(void);
-void		err_msgexec(char *str, char *msg)
+void		err_msgexec(char *str, char *msg);
+void		err_heredoc_eof(char *str);
 
 // execute_1
 void		to_execute(t_cmdlist *cmd);
 
 // execute_2
-int			cx_bltin_parent(char *str);
+int			cx_bltin_parent(char **strarr);
 int			cx_isbltin(char *str);
 
 // not mine
