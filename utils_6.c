@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:34:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/02 13:13:41 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/03 00:01:02 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,36 +114,4 @@ int	to_heredoc(t_strcut *list, t_heredoc *hd)
 	read(hd->fdhd[0], str, 100);
 	printf("heredoc = %s", str);
 	return 0;
-}
-
-// mode 1 = input RDONLY , mode 3 = RDWR, 4 WR app
-int	openfile(char *str, int *fd, int mode)
-{
-	if (*fd > 2)
-		close(*fd);
-	else if (mode == 1)
-		*fd = open(str, O_RDONLY);
-	else if (mode == 3)
-		*fd = open(str, O_RDWR | O_CREAT | O_TRUNC, 0666);
-	else if (mode == 4)
-		*fd = open(str, O_RDWR | O_CREAT | O_APPEND, 0666);
-	if (*fd < 0)
-	{
-		err_msgexec(str, strerror(errno));
-		return (1);	
-	}
-	return (0);
-}
-
-int	fd_redir(t_strcut *cmd, int *fdin, int *fdout)
-{
-	if (which_redir(cmd->str) == 1)
-		*fdin = openfile(cmd->next->str, fdin, 1);
-	else if (which_redir(cmd->str) == 3)
-		*fdin = openfile(cmd->next->str, fdout, 3);
-	else if (which_redir(cmd->str) == 4)
-		*fdin = openfile(cmd->next->str, fdout, 4);
-	if (*fdin < 0 || *fdout < 0)
-		return (1);
-	return (0);
 }

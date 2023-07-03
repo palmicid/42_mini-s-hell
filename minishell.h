@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/02 13:16:13 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/03 09:18:17 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,10 +163,13 @@ int			which_redir(char *str);
 char		**get_cmd(t_strcut *head);
 void		rec_heredoc(char *eof, t_heredoc *hd);
 int			to_heredoc(t_strcut *list, t_heredoc *hd);
+
+// utils_7
 int			openfile(char *str, int *fd, int mode);
 int			fd_redir(t_strcut *cmd, int *fdin, int *fdout);
-
-
+int			find_lastinput(t_strcut *cmd);
+int			loop_openfile(t_strcut *cmd, int *fdin, int *fdout);
+void		close_all_fd(int *fdin, int *fdout, t_heredoc *hd);
 // err_msg
 void		err_redirpipe(char *str);
 void		err_q_nopair(void);

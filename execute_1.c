@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/02 12:00:26 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/03 09:40:32 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,28 @@
 // 		dup2(STDOUT_FILENO, fdout);
 	
 // }
+
+// lastin == cx if last re in == fd || heredoc
 // init all and find redirect
 int	init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
 {
-	// int	lastin;
+	int	lastin;
 	
-	// *fdin = 0;
-	// *fdout = 1;
-	// hd->has_hd = 0;
-	// lastin = 0;
-	(void) fdin;
-	(void) fdout;
-	// Loop heredoc;
+	*fdin = 0;
+	*fdout = 1;
+	hd->has_hd = 0;
+	lastin = find_lastinput(cmd);
 	to_heredoc(cmd, hd);
-	// Loop open file
+	if (lastin == 1 && hd->has_hd == 1)
+		close(hd->fdhd[0]);
+	if (loop_openfile(cmd, fdin, fdout))
+	{
+		close_all_fd(fdin, fdout, hd);
+		return (1);
+	}
+	if (*fdin > 2 && lastin == 2)
+		close(*fdin);
 	return (0);
-	// while (cmd)
-	// {
-	// 	if (cmd->stat == 3)
-	// 	{
-	// 		if (fd_redir(cmd, fdin, fdout, hd))
-	// 			return (1);
-	// 		cmd = cmd->next;
-	// 	}
-	// 	cmd = cmd->next;
-	// }
 }
 
 static int	one_exec(t_cmdlist *cmd)
@@ -56,16 +53,12 @@ static int	one_exec(t_cmdlist *cmd)
 	
 	if (init_allfd(cmd->cmd, &fdin, &fdout, &heredoc))
 		return (g_data->exit_stat);
-	// cmdonly = get_cmd(cmd->cmd);
-	// if must run in parent (no output && no input)
-	// no dup2 b4 fork
-	// cmdonly = get_cmdlist(cmd);
-	return (1);
-	// if (!cmdonly)
-	// {
-	// 	// close all open fd;
-	// 	return (0);
-	// }
+	if (!cmdonly)
+	{
+		close_all_fd(&fdin, &fdout, &heredoc);
+		return (1);
+	}
+
 	// if (cx_bltin_parent(cmdonly))
 	// 	exec_bltin(cmdonly);
 	// cx if sp bltin
