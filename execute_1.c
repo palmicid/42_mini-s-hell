@@ -6,20 +6,25 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/03 09:40:32 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:45:09 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	back2normal(int fdin, int fdout, t_heredoc *hd)
-// {
-// 	if (fdin > 2)
-// 		dup2(STDIN_FILENO, fdin);
-// 	if (fdout > 2)
-// 		dup2(STDOUT_FILENO, fdout);
-	
-// }
+static int	exec_bltin_parent(char **cmd)
+{
+	errno = 0;
+	if (ft_strcmp("cd", cmd[0]) == 0)
+		ft_cd(cmd);
+	else if (ft_strcmp("export", cmd[0]) == 0)
+		ft_export(cmd);
+	else if (ft_strcmp("exit", cmd[0]) == 0)
+		ft_exit(cmd);
+	else if (ft_strcmp("unset", cmd[0]) == 0)
+		ft_unset(cmd);  // แก้ ไอ่สัสส เขียนไรไว้วะะะะ
+	return (errno);
+}
 
 // lastin == cx if last re in == fd || heredoc
 // init all and find redirect
@@ -41,35 +46,64 @@ int	init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
 	}
 	if (*fdin > 2 && lastin == 2)
 		close(*fdin);
+	if (lastin == 2)
+		*fdin = hd->fdhd[0];
+	return (0);
+}
+
+int	single_execwithfork(char **cmdonly, int fdin, int fdout)
+{
+	int	pid;
+	int	exit_stat;
+	int	chld_stat;
+
+	pid	= fork();
+	if (pid == -1)
+		return (err_msgexec(NULL, strerror(errno)));
+	if (pid == 0)
+		singlecmd_child(cmdonly, fdin, fdout);
+	else
+	{
+		waitpid(pid, &chld_stat, 0);
+		if (WIFEXITED(chld_stat))
+		{
+			exit_stat = WEXITSTATUS(chld_stat);
+			g_data->exit_stat = exit_stat;
+			return (1);
+		}
+	}
 	return (0);
 }
 
 static int	one_exec(t_cmdlist *cmd)
 {
-	// char		**cmdonly;
+	char		**cmdonly;
 	int			fdin;
 	int			fdout;
 	t_heredoc	heredoc;
 	
 	if (init_allfd(cmd->cmd, &fdin, &fdout, &heredoc))
 		return (g_data->exit_stat);
+	cmdonly = get_cmd(cmd->cmd);
 	if (!cmdonly)
 	{
 		close_all_fd(&fdin, &fdout, &heredoc);
 		return (1);
 	}
-
-	// if (cx_bltin_parent(cmdonly))
-	// 	exec_bltin(cmdonly);
-	// cx if sp bltin
-
-
+	if (cx_bltin_parent(cmdonly))
+		return (exec_bltin_parent(cmdonly) || ft_free_p2p_char(cmdonly));
+	else if (single_execwithfork(cmdonly, fdin, fdout))
+		;
+	cmdonly = ft_free_p2p_char(cmdonly);
+	return (g_data->exit_stat);
 }
 
 void	to_execute(t_cmdlist *cmd)
 {
+	signal_handling(2);
+	errno = 0;
 	if (cmd->next == NULL)
 		g_data->exit_stat = one_exec(cmd);
-	// else
-	// 	g_data->exit_stat = multi_exec(cmd);
+	else
+		g_data->exit_stat = multi_exec(cmd);
 }

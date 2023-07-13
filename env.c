@@ -6,11 +6,34 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:10:34 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/26 18:51:07 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:10:42 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	plus_shelllevel(void)
+{
+	int		i;
+	int		lvl;
+	char	*newlvl;
+
+	i = 0;
+	while (g_data->env[i])
+	{
+		if (ft_strncmp(g_data->env[i], "SHLVL=", 6) == 0)
+		{
+			lvl = ft_atoi(my_getenv("SHLVL"));
+			lvl++;
+			newlvl = ssp_strjoin("SHLVL=", ft_itoa(lvl), 0, 1);
+			if (!newlvl)
+				return ; 
+			free(g_data->env[i]);
+			g_data->env[i] = newlvl;
+		}
+		i++;
+	}
+}
 
 int	init_environ(char **env)
 {
@@ -24,6 +47,7 @@ int	init_environ(char **env)
 	}
 	g_data->strcmd = NULL;
 	g_data->exit_stat = 0;
+	plus_shelllevel();
 	return (0);
 }
 

@@ -6,13 +6,13 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:24:04 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/26 15:16:35 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:32:21 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_p2p_char(char **ptr)
+char	**ft_free_p2p_char(char **ptr)
 {
 	int	i;
 
@@ -23,6 +23,8 @@ void	ft_free_p2p_char(char **ptr)
 		i++;
 	}
 	free(ptr);
+	ptr = NULL;
+	return (ptr);
 }
 
 // return firstchar * == NULL

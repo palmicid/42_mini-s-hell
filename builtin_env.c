@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 11:52:31 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/29 09:05:34 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:55:23 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@ void	env_error(char *s)
 	free(msg);
 }
 
-void	ft_env(t_cmdlist *cmdtable)
+void	ft_env(char **cmd)
 {
 	int		i;
-	t_cmdlist	*tmp;
 
 	i = 0;
-	tmp = cmdtable;
-	if (tmp->cmd[0] && tmp->cmd[1])
+	if (cmd[0] && cmd[1])
 	{
 		env_error("too many arguments");
 		return ;

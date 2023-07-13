@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:34:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/03 00:01:02 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:38:18 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**get_cmd(t_strcut *head)
 
 	runner = head;
 	count = count_cmdarg2alloc(runner);
-	ret = (char **)ft_calloc(count, sizeof(char *));
+	ret = (char **)ft_calloc(count + 1, sizeof(char *));
 	if (!ret)
 		return (NULL);
 	ret = onlycmd_dup(runner, ret);
@@ -86,6 +86,7 @@ void	rec_heredoc(char *eof, t_heredoc *hd)
 		ft_putendl_fd(str, hd->fdhd[1]);
 		free(str);
 	}
+	ft_putchar_fd('\0', hd->fdhd[1]);
 	close(hd->fdhd[1]);
 }
 
@@ -110,8 +111,5 @@ int	to_heredoc(t_strcut *list, t_heredoc *hd)
 		}
 		list = list->next;
 	}
-	char str[100];
-	read(hd->fdhd[0], str, 100);
-	printf("heredoc = %s", str);
 	return 0;
 }

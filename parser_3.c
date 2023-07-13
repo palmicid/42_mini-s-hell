@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:32:29 by pruangde          #+#    #+#             */
-/*   Updated: 2023/05/30 23:34:53 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:38:02 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_strcut	*meta_split(t_strcut *head)
 
 	if (find_metatriple(head))
 	{
-		err_redir();
+		err_msgexec(NULL, "syntax error near unexpected token '<' '>'");
 		return (free_strcutlist(&head));
 	}
 	now = head;

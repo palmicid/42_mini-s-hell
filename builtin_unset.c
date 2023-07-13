@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:49:53 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/29 09:05:54 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:21:02 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,27 +105,27 @@ void	unset_env(char *key)
 	}
 }
 
-void	ft_unset(t_cmdlist *cmdtable)
+void	ft_unset(char **cmd)
 {
 	int	i;
 	int	j;
 
-	if (ft_strncmp(cmdtable->cmd[0], "unset", 5) != 0 || !cmdtable->cmd[1])
+	if (!cmd[1])
 		return ;
-	if (ft_strncmp(cmdtable->cmd[0], "unset", 5) == 0 && cmdtable->cmd[1] && \
-	cmdtable->cmd[1][0] == '-')
+	if (cmd[1] && cmd[1][0] == '-')
 		return ;
 	i = 1;
-	while (cmdtable->cmd[i])
+	j = 0;
+	while (cmd[i])
 	{
-		if (check_key(cmdtable->cmd[i]))
+		if (check_key(cmd[i]))
 			return ;
 		while (g_data->env[j])
 		{
-			if (ft_strncmp(cmdtable->cmd[i], g_data->env[j], \
-			ft_strlen(cmdtable->cmd[i])) == 0)
+			if (ft_strncmp(cmd[i], g_data->env[j], \
+			ft_strlen(cmd[i])) == 0)
 			{
-				unset_env(cmdtable->cmd[i]);
+				unset_env(cmd[i]);
 				break ;
 			}
 			j++;

@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/29 09:05:48 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:51:07 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	find_tmp_size(char **tmp)
 	return (i);
 }
 
-void	replace_g_data->env(char **tmp)
+void	replace_environment(char **tmp)
 {
 	int	i;
 	int	tmp_size;
@@ -73,23 +73,23 @@ void	replace_g_data->env(char **tmp)
 	}
 }
 
-void	ft_export_witharg(t_cmdlist *cmdtable)
+void	ft_export_witharg(char **cmd)
 {
 	int		env_size;
 	char	**tmp;
 	int		i;
 	char	*export_without_quote;
 
-	if (isalready(cmdtable->cmd[1]) == 0)
+	if (isalready(cmd[1]) == 0)
 	{
-		replace_env(cmdtable->cmd[1]);
+		replace_env(cmd[1]);
 		return ;
 	}
 	i = 0;
 	env_size = get_env_size();
-	if (validate_env(cmdtable->cmd[1]) == 0)
+	if (validate_env(cmd[1]) == 0)
 		return ;
-	export_without_quote = remove_quote(cmdtable->cmd[1]);
+	export_without_quote = remove_quote(cmd[1]);
 	tmp = malloc(sizeof(char *) * (env_size + 2));
 	while (g_data->env[i])
 	{
@@ -98,16 +98,13 @@ void	ft_export_witharg(t_cmdlist *cmdtable)
 	}
 	tmp[i] = ft_strdup(export_without_quote);
 	tmp[i + 1] = NULL;
-	replace_g_data->env(tmp);
+	replace_environment(tmp);
 }
 
-void	ft_export(t_cmdlist *cmdtable)
+void	ft_export(char **cmd)
 {
-	t_cmdlist	*tmp;
-
-	tmp = cmdtable;
-	if (!tmp->cmd[1])
+	if (!cmd[1])
 		ft_export_noarg();
 	else
-		ft_export_witharg(tmp);
+		ft_export_witharg(cmd);
 }

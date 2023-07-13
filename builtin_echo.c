@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:48:58 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/29 09:05:32 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:57:04 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,60 +29,60 @@ char	*cutspace(char *s)
 	return (ft_substr(s, i, j));
 }
 
-void	echo_utils(t_cmdlist *cmdtable)
+void	echo_utils(char **cmd)
 {
 	char	*output;
 	int		i;
 
 	i = 1;
-	while (cmdtable->cmd[i] && cmdtable->cmd[i + 1])
+	while (cmd[i] && cmd[i + 1])
 	{
-		output = cutspace(cmdtable->cmd[i]);
+		output = cutspace(cmd[i]);
 		output = ft_strjoin(output, " ");
 		ft_putstr_fd(output, STDOUT_FILENO);
 		free(output);
 		i++;
 	}
-	output = cutspace(cmdtable->cmd[i]);
+	output = cutspace(cmd[i]);
 	output = ft_strjoin(output, "\n");
 	ft_putstr_fd(output, STDOUT_FILENO);
 	free(output);
 }
 
-void	last_string(int i, t_cmdlist *cmdtable)
+void	last_string(int i, char **cmd)
 {
 	char	*output;
 
-	if (cmdtable->cmd[i])
+	if (cmd[i])
 	{
-		output = cutspace(cmdtable->cmd[i]);
+		output = cutspace(cmd[i]);
 		ft_putstr_fd(output, STDOUT_FILENO);
 		free(output);
 	}
 }
 
-void	ft_echo(t_cmdlist *cmdtable)
+void	ft_echo(char **cmd)
 {
 	char	*output;
 	int		i;
 
 	i = 2;
-	if (ft_strncmp(cmdtable->cmd[1], "-n", 2) == 0)
+	if (ft_strncmp(cmd[1], "-n", 2) == 0)
 	{
-		while (cmdtable->cmd[i] && ft_strncmp(cmdtable->cmd[i], "-n", 2) == 0)
+		while (cmd[i] && ft_strncmp(cmd[i], "-n", 2) == 0)
 			i++;
-		while (cmdtable->cmd[i] && cmdtable->cmd[i + 1] && \
-		ft_strncmp(cmdtable->cmd[i], "-n", 2) != 0)
+		while (cmd[i] && cmd[i + 1] && \
+		ft_strncmp(cmd[i], "-n", 2) != 0)
 		{
-			output = cutspace(cmdtable->cmd[i]);
+			output = cutspace(cmd[i]);
 			output = ft_strjoin(output, " ");
 			ft_putstr_fd(output, STDOUT_FILENO);
 			free(output);
 			i++;
 		}
-		last_string(i, cmdtable);
+		last_string(i, cmd);
 		return ;
 	}
-	echo_utils(cmdtable);
+	echo_utils(cmd);
 	return ;
 }

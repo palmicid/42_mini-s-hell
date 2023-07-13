@@ -6,13 +6,13 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:59:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/29 09:12:32 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/12 23:33:22 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			cx_bltin_parent(char **strarr)
+int	cx_bltin_parent(char **strarr)
 {
 	if (ft_strncmp(strarr[0], "cd", 3) == 0)
 		return (1);
@@ -25,7 +25,7 @@ int			cx_bltin_parent(char **strarr)
 	return (0);
 }
 
-int			cx_isbltin(char *str)
+int	cx_isbltin(char *str)
 {
 	if (ft_strncmp(str, "cd", 3) == 0)
 		return (1);
@@ -42,4 +42,24 @@ int			cx_isbltin(char *str)
 	else if (ft_strncmp(str, "echo", 5) == 0)
 		return (1);
 	return (0);
+}
+
+void	to_builtin(char **cmd)
+{
+	if (ft_strncmp(cmd[0], "cd", 3) == 0)
+		ft_cd(cmd);
+	else if (ft_strncmp(cmd[0], "export", 7) == 0)
+		ft_export(cmd);
+	else if (ft_strncmp(cmd[0], "unset", 6) == 0)
+		ft_unset(cmd);
+	else if (ft_strncmp(cmd[0], "exit", 5) == 0)
+		ft_exit(cmd);
+	else if (ft_strncmp(cmd[0], "pwd", 4) == 0)
+		ft_pwd(cmd);
+	else if (ft_strncmp(cmd[0], "env", 4) == 0)
+		ft_env(cmd);
+	else if (ft_strncmp(cmd[0], "echo", 5) == 0)
+		ft_echo(cmd);
+	ft_free_p2p_char(cmd);
+	exit(errno);
 }

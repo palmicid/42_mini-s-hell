@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 00:35:49 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/26 19:59:01 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:28:03 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ssp_strnjoin(char *s1, char *s2, size_t n, int mode1);
 int		ft_strlaststr(char *str, char *tofind);
 int		count_element_p2p(char **p2p);
 char	**ft_splitdup(char **origin);
-void	ft_free_p2p_char(char **ptr);
+char	**ft_free_p2p_char(char **ptr);
 char	*ft_freemanycharptr(char *ptr1, char **ptr2, char **ptr3, char **ptr4);
 int		sp_digit_pm(int c);
 

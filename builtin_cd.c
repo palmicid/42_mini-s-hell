@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 23:51:57 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/29 09:05:24 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:57:18 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,24 @@ int	go_home(char *oldpwd)
 	return (0);
 }
 
-int	is_home(t_cmdlist *cmdtable)
+int	is_home(char **cmd)
 {
-	if ((ft_strncmp(cmdtable->cmd[0], "cd", 2) == 0 && !cmdtable->cmd[1]) || \
-		(ft_strncmp(cmdtable->cmd[0], "cd", 2) == 0 && \
-		ft_strncmp(cmdtable->cmd[1], "~", 2) == 0))
+	if ((ft_strncmp(cmd[0], "cd", 2) == 0 && !cmd[1]) || \
+		(ft_strncmp(cmd[0], "cd", 2) == 0 && \
+		ft_strncmp(cmd[1], "~", 2) == 0))
 		return (1);
 	return (0);
 }
 
-void	ft_cd(t_cmdlist *cmdtable)
+void	ft_cd(char **cmd)
 {
 	char	*oldpwd;
 
 	oldpwd = get_old_pwd(getcwd(NULL, 0));
-	if (is_home(cmdtable))
+	if (is_home(cmd))
 		go_home(oldpwd);
-	else if (is_home_with_path(cmdtable))
-		home_with_path(cmdtable, oldpwd);
+	else if (is_home_with_path(cmd))
+		home_with_path(cmd, oldpwd);
 	else
-		normal_path(cmdtable, oldpwd);
+		normal_path(cmd, oldpwd);
 }

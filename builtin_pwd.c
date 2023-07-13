@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 00:13:49 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/29 09:05:50 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:55:51 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ char	*getvalue(char *s, char c)
 	return (ft_substr(s, i + 1, ft_strlen(s)));
 }
 
-void	ft_pwd(t_cmdlist *cmdtable)
+void	ft_pwd(char **cmd)
 {
 	char	*pwd;
 
-	if (cmdtable->cmd[1] != NULL)
+	if (cmd[1] != NULL)
 	{
 		ft_putstr_fd("pwd: too many arguments\n", 2);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/03 09:18:17 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/12 23:33:51 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void		rec_heredoc(char *eof, t_heredoc *hd);
 int			to_heredoc(t_strcut *list, t_heredoc *hd);
 
 // utils_7
-int			openfile(char *str, int *fd, int mode);
+void		openfile(char *str, int *fd, int mode);
 int			fd_redir(t_strcut *cmd, int *fdin, int *fdout);
 int			find_lastinput(t_strcut *cmd);
 int			loop_openfile(t_strcut *cmd, int *fdin, int *fdout);
@@ -173,9 +173,10 @@ void		close_all_fd(int *fdin, int *fdout, t_heredoc *hd);
 // err_msg
 void		err_redirpipe(char *str);
 void		err_q_nopair(void);
-void		err_redir(void);
-void		err_msgexec(char *str, char *msg);
+int			err_msgexec(char *str, char *msg);
 void		err_heredoc_eof(char *str);
+
+/* ************************************************************************** */
 
 // execute_1
 void		to_execute(t_cmdlist *cmd);
@@ -184,36 +185,45 @@ void		to_execute(t_cmdlist *cmd);
 int			cx_bltin_parent(char **strarr);
 int			cx_isbltin(char *str);
 
+// execute_3
+void 		singlecmd_child(char **cmdonly, int fdin, int fdout);
+void		to_builtin(char **cmd);
+
+// execute_5
+char		**cx_cmdpath(char **cmd);
+
+/* ************************************************************************** */
+
 // not mine
 // int			execute_2(t_cmdlist *cmdtable, char *pnamewp);
 // int			check_builtin_fork(t_cmdlist *cmdtable);
 // void		execute(t_cmdlist *cmdtable);
 // void		execve_part(t_cmdlist *cmdtable, char **path, char *tmp_env);
+// char		*my_get_env(void);
 
 // built_in
 int			get_env_size(void);
-int			is_home_with_path(t_cmdlist *cmdtable);
-int			home_with_path(t_cmdlist *cmdtable, char *oldpwd);
+int			is_home_with_path(char **cmd);
+int			home_with_path(char **cmd, char *oldpwd);
 int			validate_env(char *env);
-int			normal_path(t_cmdlist *cmdtable, char *oldpwd);
+int			normal_path(char **cmd, char *oldpwd);
 char		*remove_quote(char *cmd);
 char		*get_key(char *s);
 char		*getvalue(char *s, char c);
 char		*remove_quote(char *cmd);
 char		*get_pwd_now(char *pwd);
-char		*my_get_env(void);
 char		*addslash(char *cmd);
 char		*hash_name(char *filename);
-void		ft_env(t_cmdlist *cmdtable);
-void		ft_export(t_cmdlist *cmdtable);
+void		ft_env(char **cmd);
+void		ft_export(char **cmd);
 void		ft_export_noarg(void);
-void		ft_export_witharg(t_cmdlist *cmdtable);
+void		ft_export_witharg(char **cmd);
 void		replace_env(char *env);
-void		ft_pwd(t_cmdlist *cmdtable);
-void		ft_echo(t_cmdlist *cmdtable);
-void		ft_unset(t_cmdlist *cmdtable);
-void		ft_cd(t_cmdlist *cmdtable);
-void		ft_exit(t_cmdlist *cmdtable);
+void		ft_pwd(char **cmd);
+void		ft_echo(char **cmd);
+void		ft_unset(char **cmd);
+void		ft_cd(char **cmd);
+void		ft_exit(char **cmd);
 
 #endif
 

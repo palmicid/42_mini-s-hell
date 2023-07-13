@@ -6,15 +6,14 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 00:00:14 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/03 09:18:01 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/12 00:32:15 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 // mode 1 = input RDONLY , mode 3 = RDWR, 4 WR app
-int	openfile(char *str, int *fd, int mode)
+void	openfile(char *str, int *fd, int mode)
 {
 	if (*fd > 2)
 		close(*fd);
@@ -25,22 +24,17 @@ int	openfile(char *str, int *fd, int mode)
 	else if (mode == 4)
 		*fd = open(str, O_RDWR | O_CREAT | O_APPEND, 0666);
 	if (*fd < 0)
-	{
-		err_msgexec(str, strerror(errno));
 		g_data->exit_stat = errno;
-		return (1);	
-	}
-	return (0);
 }
 
 int	fd_redir(t_strcut *cmd, int *fdin, int *fdout)
 {
 	if (which_redir(cmd->str) == 1)
-		*fdin = openfile(cmd->next->str, fdin, 1);
+		openfile(cmd->next->str, fdin, 1);
 	else if (which_redir(cmd->str) == 3)
-		*fdin = openfile(cmd->next->str, fdout, 3);
+		openfile(cmd->next->str, fdout, 3);
 	else if (which_redir(cmd->str) == 4)
-		*fdin = openfile(cmd->next->str, fdout, 4);
+		openfile(cmd->next->str, fdout, 4);
 	if (*fdin < 0 || *fdout < 0)
 		return (1);
 	return (0);
@@ -64,6 +58,7 @@ int	find_lastinput(t_strcut *cmd)
 		}
 		cmd = cmd->next;
 	}
+	return (lastin);
 }
 
 int	loop_openfile(t_strcut *cmd, int *fdin, int *fdout)
@@ -73,7 +68,10 @@ int	loop_openfile(t_strcut *cmd, int *fdin, int *fdout)
 		if (cmd->stat == 3)
 		{
 			if (fd_redir(cmd, fdin, fdout))
+			{
+				err_msgexec(cmd->next->str, strerror(errno));
 				return (1);
+			}
 			cmd = cmd->next;
 		}
 		cmd = cmd->next;

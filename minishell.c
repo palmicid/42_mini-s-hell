@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/29 09:06:10 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/13 03:07:38 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	process(void)
 	cmdlist = str_split(g_data->strcmd, g_data);
 	// test_printcmdlist(cmdlist);
 	// to execute
-	to_execute(cmdlist);
+	if (cmdlist)
+		to_execute(cmdlist);
 	cmdlist = free_cmdlist(&cmdlist);
 
 }
@@ -38,9 +39,9 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	g_data = (t_data *)malloc(sizeof(t_data));
 	init_environ(env);
-	signal_handling(1);
 	while (1)
 	{
+		signal_handling(1);
 		g_data->strcmd = readline("Minishell >> ");
 		if (!g_data->strcmd)
 			break ;
