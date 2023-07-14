@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 00:00:14 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/12 00:32:15 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:39:02 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	openfile(char *str, int *fd, int mode)
 {
 	if (*fd > 2)
 		close(*fd);
-	else if (mode == 1)
+	if (mode == 1)
 		*fd = open(str, O_RDONLY);
 	else if (mode == 3)
 		*fd = open(str, O_RDWR | O_CREAT | O_TRUNC, 0666);

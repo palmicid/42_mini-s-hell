@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 03:17:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/12 23:10:41 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:07:19 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ int	dup_close(int in, int out)
 	return (g_data->exit_stat);
 }
 
-// close in out 
-// cmd left
+// to_built has exit in itself
+// 
 void singlecmd_child(char **cmd, int fdin, int fdout)
 {
 	if (dup_close(fdin, fdout))
 		exit(errno);
-	// if builtin
 	if (cx_isbltin(cmd[0]))
 		to_builtin(cmd);
 	cmd = cx_cmdpath(cmd);

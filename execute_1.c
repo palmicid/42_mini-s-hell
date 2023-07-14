@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/13 11:45:09 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/15 02:19:40 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	exec_bltin_parent(char **cmd)
 	else if (ft_strcmp("exit", cmd[0]) == 0)
 		ft_exit(cmd);
 	else if (ft_strcmp("unset", cmd[0]) == 0)
-		ft_unset(cmd);  // แก้ ไอ่สัสส เขียนไรไว้วะะะะ
+		ft_unset(cmd);
 	return (errno);
 }
 
@@ -32,8 +32,6 @@ int	init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
 {
 	int	lastin;
 	
-	*fdin = 0;
-	*fdout = 1;
 	hd->has_hd = 0;
 	lastin = find_lastinput(cmd);
 	to_heredoc(cmd, hd);
@@ -51,7 +49,7 @@ int	init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
 	return (0);
 }
 
-int	single_execwithfork(char **cmdonly, int fdin, int fdout)
+static int	single_execwithfork(char **cmdonly, int fdin, int fdout)
 {
 	int	pid;
 	int	exit_stat;
@@ -82,6 +80,8 @@ static int	one_exec(t_cmdlist *cmd)
 	int			fdout;
 	t_heredoc	heredoc;
 	
+	fdin = 0;
+	fdout = 1;
 	if (init_allfd(cmd->cmd, &fdin, &fdout, &heredoc))
 		return (g_data->exit_stat);
 	cmdonly = get_cmd(cmd->cmd);
@@ -96,6 +96,34 @@ static int	one_exec(t_cmdlist *cmd)
 		;
 	cmdonly = ft_free_p2p_char(cmdonly);
 	return (g_data->exit_stat);
+}
+
+static int	multi_exec(t_cmdlist *cmd)
+{
+	int		ncmd;
+	t_pipe	*pipebox;
+	int		stat;
+	pid_t	*pids;
+
+	stat = 0;
+	ncmd = count_cmdlist(cmd);
+	pids = (pid_t *)ft_calloc(sizeof(pid_t) ,ncmd);
+	if (!pids)
+		return (ENOMEM);
+	pipebox = create_pipe(ncmd);
+	if (!pipebox)
+	{
+		free(pids);
+		return (errno);
+	}
+	stat = multi_fork2exec(cmd, pipebox, pids);
+	if (stat)
+		err_msgexec(NULL, strerror(stat));
+	close_all_pipe(pipebox, ncmd - 1, -1, -1);
+	stat = wait4fork(pids, ncmd);
+	free(pipebox);
+	free(pids);
+	return (stat);
 }
 
 void	to_execute(t_cmdlist *cmd)

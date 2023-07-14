@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 15:42:28 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/12 12:03:19 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:07:27 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	**cx_cmdpath(char **cmd)
 {
 	char	*ret_cmd;
 
+	errno = 0;
 	if (access(cmd[0], X_OK) != -1)
 		return (cmd);
 	ret_cmd = findpath(cmd[0]);

@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
-#    Updated: 2023/07/11 17:00:18 by pruangde         ###   ########.fr        #
+#    Updated: 2023/07/14 15:53:24 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,13 @@ CPPFLAGS = -I${HOMEBREW_PREFIX}/opt/readline/include
 
 
 PARS = parser_1.c parser_2.c parser_3.c parser_4.c parser_5.c parser_6.c
-UTIL = utils_1.c utils_2.c utils_3.c utils_4.c utils_5.c utils_6.c utils_7.c
+UTIL = utils_1.c utils_2.c utils_3.c utils_4.c utils_5.c utils_6.c utils_7.c \
+	utils_8.c
 ERRMSG = err_msg.c
-EXEC = execute_1.c execute_2.c execute_3.c execute_5.c
+EXEC = execute_1.c execute_2.c execute_3.c execute_4.c execute_5.c
 BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c \
-builtin_echo.c builtin_unset.c builtin_utils.c builtin_cd.c builtin_cd_utils.c \
-builtin_exit.c
+	builtin_echo.c builtin_unset.c builtin_utils.c builtin_cd.c builtin_cd_utils.c \
+	builtin_exit.c
 
 # EXECUTE = test_execute.c
 #BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c

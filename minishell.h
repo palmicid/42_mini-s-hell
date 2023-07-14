@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/12 23:33:51 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/15 02:19:03 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ typedef struct s_data
 // extern char		**environ;
 extern t_data	*g_data;
 
-typedef struct s_pipe
-{
-	int	*fd;
-	int	pipe_count;
-	int	size_fd;
-}				t_pipe;
+// typedef struct s_pipe
+// {
+// 	int	*fd;
+// 	int	pipe_count;
+// 	int	size_fd;
+// }				t_pipe;
 
 typedef struct s_cmdlist
 {
@@ -75,8 +75,7 @@ typedef struct s_c
 typedef struct s_heredoc
 {
 	int		has_hd;
-	int		fdhd[2];
-	// char	*str;
+	int		fdhd;
 }			t_heredoc;
 
 // int stst --> 2 = doubleQ " " , 1 = single ' ', 0 non
@@ -87,6 +86,22 @@ typedef struct s_strcut
 	int				stat;
 	struct s_strcut	*next;
 }					t_strcut;
+
+typedef struct s_boxexe
+{
+	int		num;
+	char	**cmd;
+	int		fdin;
+	int		fdout;
+}			t_boxexe;
+
+typedef struct s_pipe
+{
+	int	fd[2];
+	int	max;
+}		t_pipe;
+
+
 
 // minishell
 void		process(void);
@@ -150,7 +165,7 @@ int			find_q_doll(char *str);
 void		set_error(t_strcut *cur);
 void		remove_q(t_strcut *head);
 int			next_i_qsplit(char *str, int i);
-t_cmdlist		*free_cmdlist(t_cmdlist **lstcmd);
+t_cmdlist	*free_cmdlist(t_cmdlist **lstcmd);
 
 // utils_5
 t_strcut	*inside_cxmetavalid(t_strcut **head, char *str);
@@ -170,6 +185,13 @@ int			fd_redir(t_strcut *cmd, int *fdin, int *fdout);
 int			find_lastinput(t_strcut *cmd);
 int			loop_openfile(t_strcut *cmd, int *fdin, int *fdout);
 void		close_all_fd(int *fdin, int *fdout, t_heredoc *hd);
+
+// utils_8
+int			count_cmdlist(t_cmdlist *head);
+t_pipe		*create_pipe(int num);
+void		close_all_pipe(t_pipe *box, int num, int igno_0, int igno_1);
+
+
 // err_msg
 void		err_redirpipe(char *str);
 void		err_q_nopair(void);
@@ -180,6 +202,7 @@ void		err_heredoc_eof(char *str);
 
 // execute_1
 void		to_execute(t_cmdlist *cmd);
+int			init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd);
 
 // execute_2
 int			cx_bltin_parent(char **strarr);
@@ -188,6 +211,12 @@ int			cx_isbltin(char *str);
 // execute_3
 void 		singlecmd_child(char **cmdonly, int fdin, int fdout);
 void		to_builtin(char **cmd);
+
+// execute_4
+int			wait4fork(pid_t *pids, int num);
+void		assign_pipe2fd(int *in, int *out, t_pipe *p, int i);
+void		multi_execchild(t_strcut *cmd, t_pipe *p, int i);
+int			multi_fork2exec(t_cmdlist *cmds, t_pipe *p, pid_t *pids);
 
 // execute_5
 char		**cx_cmdpath(char **cmd);

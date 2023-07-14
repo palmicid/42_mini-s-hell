@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 07:43:42 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/11 14:13:21 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:26:57 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void	err_heredoc_eof(char *str)
 	ft_putstr_fd("Minishell: warning: here-document ", 2);
 	ft_putstr_fd("delimited by end-of-file (wanted `", 2);
 	ft_putstr_fd(str, 2);
-	ft_putendl_fd("'", 2);
+	ft_putendl_fd("')", 2);
 }

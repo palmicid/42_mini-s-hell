@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:34:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/04 17:38:18 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/15 02:18:40 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	**get_cmd(t_strcut *head)
 	char		**ret;
 	int			count;
 	t_strcut	*runner;
-
 
 	runner = head;
 	count = count_cmdarg2alloc(runner);
