@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:34:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/15 02:18:40 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:25:40 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,32 @@ void	rec_heredoc(char *eof, t_heredoc *hd)
 			free(str);
 			break ;
 		}
-		ft_putendl_fd(str, hd->fdhd[1]);
+		ft_putendl_fd(str, hd->fdhd);
 		free(str);
 	}
-	ft_putchar_fd('\0', hd->fdhd[1]);
-	close(hd->fdhd[1]);
+	ft_putchar_fd('\0', hd->fdhd);
+	// close(hd->fdhd);
 }
 
 
 // return fd[0] close fd[1]
-int	to_heredoc(t_strcut *list, t_heredoc *hd)
+int	to_heredoc(t_strcut *list, t_heredoc *hd, int cmdnum)
 {
-	hd->has_hd = 1;
-	if (pipe(hd->fdhd) < 0)
-		return (-1);
+	char	*fname;
+
+	fname = ssp_strjoin("./.hd_tmp-", ft_itoa(cmdnum), 0, 1);
+	if (!fname)
+		return (err_msgexec(NULL, strerror(errno)));
 	while (list)
 	{
 		if (list->stat == 3 && which_redir(list->str) == 2)
 		{
 			if (hd->has_hd == 1)
-				close(hd->fdhd[0]);
+				close(hd->fdhd);
 			hd->has_hd = 1;
-			if (pipe(hd->fdhd) < 0)
-				return (-1);
+			hd->fdhd = open(fname, O_RDWR | O_CREAT | O_TRUNC, 0666);
+			if (hd->fdhd < 0)
+				return (err_msgexec(NULL, strerror(errno)));
 			list = list->next;
 			rec_heredoc(list->str, hd);
 		}

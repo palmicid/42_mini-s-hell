@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:10:34 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/06 14:10:42 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/16 09:50:16 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ int	init_environ(char **env)
 		free(g_data);
 		exit(EXIT_FAILURE);
 	}
+	g_data->tmp_dir = ft_strdup("/tmp/minishell");
 	g_data->strcmd = NULL;
 	g_data->exit_stat = 0;
+	g_data->num = 0;
+
 	plus_shelllevel();
 	return (0);
 }
@@ -57,6 +60,7 @@ int	end_environ(void)
 	g_data->env = NULL;
 	if (g_data->strcmd)
 		free(g_data->strcmd);
+	free(g_data->tmp_dir);
 	free(g_data);
 	return (0);
 }

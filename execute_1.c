@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/15 02:19:40 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:20:19 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ int	init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
 	int	lastin;
 	
 	hd->has_hd = 0;
+	hd->fdhd = -2;
 	lastin = find_lastinput(cmd);
-	to_heredoc(cmd, hd);
+	to_openheredoc(cmd, hd);
 	if (lastin == 1 && hd->has_hd == 1)
-		close(hd->fdhd[0]);
+		close(hd->fdhd);
 	if (loop_openfile(cmd, fdin, fdout))
 	{
 		close_all_fd(fdin, fdout, hd);
@@ -45,7 +46,11 @@ int	init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
 	if (*fdin > 2 && lastin == 2)
 		close(*fdin);
 	if (lastin == 2)
-		*fdin = hd->fdhd[0];
+	{
+		*fdin = hd->fdhd;
+		hd->fdhd = -2;
+		hd->has_hd = 0;
+	}
 	return (0);
 }
 
@@ -107,15 +112,9 @@ static int	multi_exec(t_cmdlist *cmd)
 
 	stat = 0;
 	ncmd = count_cmdlist(cmd);
-	pids = (pid_t *)ft_calloc(sizeof(pid_t) ,ncmd);
-	if (!pids)
-		return (ENOMEM);
-	pipebox = create_pipe(ncmd);
-	if (!pipebox)
-	{
-		free(pids);
+	init_before_fork(cmd, ncmd, &pipebox, &pids);
+	if (errno != 0)
 		return (errno);
-	}
 	stat = multi_fork2exec(cmd, pipebox, pids);
 	if (stat)
 		err_msgexec(NULL, strerror(stat));

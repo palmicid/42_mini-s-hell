@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 00:00:14 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/14 20:39:02 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:02:30 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,5 @@ void	close_all_fd(int *fdin, int *fdout, t_heredoc *hd)
 	if (*fdout > 2)
 		close(*fdout);
 	if (hd->has_hd)
-		close(hd->fdhd[0]);
+		close(hd->fdhd);
 }

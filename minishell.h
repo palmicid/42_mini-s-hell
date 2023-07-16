@@ -6,15 +6,13 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/15 02:19:03 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/16 09:47:40 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
-// # include "./libft/libft.h"
 # include "./libft/libft.h"
 # include <limits.h>
 # include <sys/signal.h>
@@ -36,21 +34,15 @@
 
 typedef struct s_data
 {
-	pid_t				pid;
 	char				**env;
 	int					exit_stat;
 	char				*strcmd;
+	int					num;
+	char				*tmp_dir;
 }						t_data;
 
-// extern char		**environ;
 extern t_data	*g_data;
 
-// typedef struct s_pipe
-// {
-// 	int	*fd;
-// 	int	pipe_count;
-// 	int	size_fd;
-// }				t_pipe;
 
 typedef struct s_cmdlist
 {
@@ -177,7 +169,7 @@ int			which_redir(char *str);
 // utils_6	open file and heredoc
 char		**get_cmd(t_strcut *head);
 void		rec_heredoc(char *eof, t_heredoc *hd);
-int			to_heredoc(t_strcut *list, t_heredoc *hd);
+int			to_heredoc(t_strcut *list, t_heredoc *hd, int cmdnum);
 
 // utils_7
 void		openfile(char *str, int *fd, int mode);
@@ -190,13 +182,19 @@ void		close_all_fd(int *fdin, int *fdout, t_heredoc *hd);
 int			count_cmdlist(t_cmdlist *head);
 t_pipe		*create_pipe(int num);
 void		close_all_pipe(t_pipe *box, int num, int igno_0, int igno_1);
+void		to_openheredoc(t_strcut *cmd, t_heredoc *hd);
 
+// utils_9
+void		init_before_fork(t_cmdlist *cmds, int n, t_pipe **pb, pid_t **ps);
 
 // err_msg
 void		err_redirpipe(char *str);
 void		err_q_nopair(void);
 int			err_msgexec(char *str, char *msg);
 void		err_heredoc_eof(char *str);
+
+// create_tmpdir
+
 
 /* ************************************************************************** */
 

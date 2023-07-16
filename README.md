@@ -3,7 +3,9 @@ as the name says
 
 
 !!!!!!!! NOTICE !!!!!!!!!
-change the way to pass cmd stat must remain
-heredoc workking without create file use only pipe
-finshed recieved multiple heredoc
-next 
+FIXING
+|- heredoc --> [FIN]mkdir , create file, openfile, call hd 1 cmd
+	|-[FIN]mkdir /tmp/minishell
+	|-	create file fix name
+	|-	openfile fix name
+	|-	fix call heredoc in single cmd (still old one)

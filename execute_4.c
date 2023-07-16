@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 15:41:49 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/14 21:00:47 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/15 02:27:44 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	multi_execchild(t_strcut *cmd, t_pipe *p, int i)
 	t_heredoc	hd;
 	char		**cmdonly;
 	
+	g_data->num = i;
 	assign_pipe2fd(&fdin, &fdout, p, i);
 	close_all_pipe(p, p->max - 1, fdin, fdout);
 	if (init_allfd(cmd, &fdin, &fdout, &hd))
