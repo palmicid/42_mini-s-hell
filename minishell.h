@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/22 23:19:04 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/01 16:52:21 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,13 @@ typedef struct s_strcut
 	int				stat;
 	struct s_strcut	*next;
 }					t_strcut;
+
+typedef struct s_heredoc
+{
+	char				*str;
+	int					fd;
+	struct s_heredoc	*next;
+}						t_heredoc;
 
 // minishell
 void		process(char *strcmd, t_data *data);

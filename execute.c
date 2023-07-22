@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:49:56 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/23 09:44:57 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:29:54 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,24 +150,108 @@ char	*hash_name(char *filename)
 	return (hash_name);
 }
 
+t_heredoc	*add_new(char *name_hased)
+{
+	t_heredoc	*new_list;
+
+	new_list = malloc(sizeof(t_heredoc));
+	if (!new_list)
+		return (NULL);
+	new_list->str = ft_strdup(name_hased);
+	new_list->next = NULL;
+	return (new_list);
+}
+
+t_heredoc	*heredoc_last(t_heredoc *heredoc_list)
+{
+	t_heredoc	*tmp;
+
+	tmp = heredoc_list;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	return (tmp);
+}
+
+void	add_last_here_doc(t_heredoc **heredoc_list, t_heredoc *new_list)
+{
+	t_heredoc	*tmp;
+
+	if (heredoc_list && new_list)
+	{
+		if (!(*heredoc_list))
+			*heredoc_list = new_list;
+		else
+		{
+			tmp = heredoc_last(*heredoc_list);
+			tmp->next = new_list;
+		}
+	}
+}
+
+void	printl(t_heredoc *heredoc_list)
+{
+	t_heredoc	*tmp;
+	int			i;
+
+	tmp = heredoc_list;
+	while (tmp)
+	{
+		printf("%s %d\n", tmp->str, i);
+		i++;
+		tmp = tmp->next;
+	}
+}
+
 void	heredoc(t_cmd *cmdtable)
 {
-	t_cmd	*tmp;
-	int		i;
-	char	*name;
+	t_cmd		*tmp;
+	int			i;
+	char		*name;
+	t_heredoc	*heredoc_list;
+	t_heredoc	*new_list;
+	t_heredoc	*tmpdoc;
+	char		*line;
 
 	tmp = cmdtable;
+	heredoc_list = NULL;
 	i = 0;
 	while (tmp->cmd[i])
 	{
 		if (ft_strncmp(tmp->cmd[i], "<<", 3) == 0)
 		{
 			name = hash_name(tmp->cmd[i + 1]);
-			printf("Hello heredoc\n");
-			exit(EXIT_SUCCESS);
+			new_list = add_new(name);
+			add_last_here_doc(&heredoc_list, new_list);
+			free(name);
 		}
 		i++;
 	}
+	tmpdoc = heredoc_list;
+	while (tmpdoc)
+	{
+		tmpdoc->fd = open(tmpdoc->str, O_RDWR | O_CREAT | O_APPEND, 06444);
+		tmpdoc = tmpdoc->next;
+	}
+	tmpdoc = heredoc_list;
+	while (tmpdoc)
+	{
+		close(tmpdoc->fd);
+		tmpdoc = tmpdoc->next;
+	}
+	tmpdoc = heredoc_list;
+	while (tmpdoc)
+	{
+		unlink(tmpdoc->str);
+		tmpdoc = tmpdoc->next;
+	}
+	while (1)
+	{
+		line = readline("> ");
+		if (ft_strncmp(line, "exit", 5) == 0)
+			break ;
+	}
+	// printl(heredoc_list);
+	exit(0);
 }
 
 void	execute(t_cmd *cmdtable)
