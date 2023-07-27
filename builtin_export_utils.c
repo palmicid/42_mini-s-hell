@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 00:07:54 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/28 00:43:22 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 04:38:26 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,24 @@ char	*remove_quote(char *cmd)
 	}
 	tmp[j] = '\0';
 	return (tmp);
+}
+
+void	replace_envexport(char *env)
+{
+	int		i;
+	char	*key;
+
+	i = 0;
+	key = get_key(env);
+	while (g_data->env[i])
+	{
+		if (ft_strncmp(key, g_data->env[i], ft_strlen(key)) == 0)
+		{
+			free(g_data->env[i]);
+			g_data->env[i] = ft_strdup(env);
+			free(key);
+			return ;
+		}
+		i++;
+	}
 }

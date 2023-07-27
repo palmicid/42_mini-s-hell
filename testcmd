@@ -1,5 +1,0 @@
-cat < nofile | < nofile2 env | ls < nofile3
-
-ls | env | echo some
-
-ls | grep utils | wc

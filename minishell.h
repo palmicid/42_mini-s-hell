@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 02:54:18 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 04:22:20 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ void		ft_echo(char **cmd);
 void		ft_unset(char **cmd);
 void		ft_cd(char **cmd);
 void		ft_exit(char **cmd);
+void		replace_envexport(char *env);
 
 #endif
 

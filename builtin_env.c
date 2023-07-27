@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 11:52:31 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/28 03:19:16 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 04:19:25 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,6 @@ void	replace_env(char *env)
 
 	i = 0;
 	key = get_key(env);
-	if (validate_env(env) == 0)
-		return ;
-	env = remove_quote(env);
 	while (g_data->env[i])
 	{
 		if (ft_strncmp(key, g_data->env[i], ft_strlen(key)) == 0)

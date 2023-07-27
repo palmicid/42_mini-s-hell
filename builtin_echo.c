@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:48:58 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/28 01:53:18 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:51:43 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,37 @@ void	last_string(int i, char **cmd)
 	}
 }
 
+void	echo(char **str, int start)
+{
+	int	count;
+
+	count = count_element_p2p(str);
+	if (str[start])
+		ft_putstr_fd(str[start], 1);
+	start++;
+	while (start < count)
+	{
+		ft_putchar_fd(' ', 1);
+		ft_putstr_fd(str[start], 1);
+		start++;
+	}
+}
+
 void	ft_echo(char **cmd)
 {
-	char	*output;
-	int		i;
-
-	i = 2;
-	if (ft_strncmp(cmd[1], "-n", 2) == 0)
-	{
-		while (cmd[i] && ft_strncmp(cmd[i], "-n", 2) == 0)
-			i++;
-		while (cmd[i] && cmd[i + 1] && \
-		ft_strncmp(cmd[i], "-n", 2) != 0)
-		{
-			output = cutspace(cmd[i]);
-			output = ft_strjoin(output, " ");
-			ft_putstr_fd(output, STDOUT_FILENO);
-			free(output);
-			i++;
-		}
-		last_string(i, cmd);
+	if (cmd[1] == NULL)
 		return ;
+	if (cmd[1][0] == '-')
+	{
+		if (ft_strncmp(cmd[1], "-n", 3) == 0)
+		{
+			if (cmd[2] == NULL)
+				return ;
+			echo(cmd, 2);
+			return ;
+		}
 	}
-	echo_utils(cmd);
+	echo(cmd, 1);
+	ft_putchar_fd('\n', 1);
 	return ;
 }

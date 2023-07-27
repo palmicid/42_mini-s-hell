@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/28 02:46:21 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 04:37:28 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_export_witharg(char **cmd)
 
 	if (isalready(cmd[1]) == 0)
 	{
-		replace_env(cmd[1]);
+		replace_envexport(cmd[1]);
 		return ;
 	}
 	i = 0;

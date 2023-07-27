@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 23:51:57 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/28 03:18:33 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 04:23:02 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ char	*get_old_pwd(char *pwd)
 {
 	char	*oldpwd;
 
-	oldpwd = ft_strjoin("OLDPWD=", "\"");
-	oldpwd = ft_strjoin(oldpwd, pwd);
-	oldpwd = ft_strjoin(oldpwd, "\"");
+	oldpwd = ft_strjoin("OLDPWD=", pwd);
 	return (oldpwd);
 }
 
@@ -26,9 +24,7 @@ char	*get_pwd_now(char *pwd)
 {
 	char	*pwd_now;
 
-	pwd_now = ft_strjoin("PWD=", "\"");
-	pwd_now = ft_strjoin(pwd_now, pwd);
-	pwd_now = ft_strjoin(pwd_now, "\"");
+	pwd_now = ft_strjoin("PWD=", pwd);
 	return (pwd_now);
 }
 
