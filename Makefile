@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
-#    Updated: 2023/07/16 08:42:33 by pruangde         ###   ########.fr        #
+#    Updated: 2023/07/21 01:27:25 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ ADD = create_tmpdir.c
 # EXECUTE = test_execute.c
 #BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c
 
-SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXEC) $(BUILTIN)
+SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXEC) $(BUILTIN) $(ADD)
 OBJ_C = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))
@@ -57,7 +57,6 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -lreadline $(LIBFT) $(OBJS) -o $(NAME)
-	mkdir -p .tmp
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all
@@ -73,7 +72,6 @@ clean:
 fclean: clean
 	make -C $(LIBFT_PATH) fclean
 	$(RM) $(NAME)
-	$(RM) .tmp
 
 re: fclean all
 

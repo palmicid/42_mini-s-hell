@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/13 03:07:38 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/21 02:37:39 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 t_data	*g_data;
 
-// the child going to be parent for all program
 void	process(void)
 {
 	t_cmdlist	*cmdlist;
 
 	cmdlist = NULL;
 	add_history(g_data->strcmd);
-	// Why ??? becoz I'm too lazy to fix all inside this process
 	cmdlist = str_split(g_data->strcmd, g_data);
 	// test_printcmdlist(cmdlist);
 	// to execute

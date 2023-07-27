@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/15 18:20:19 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:39:24 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	exec_bltin_parent(char **cmd)
 int	init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
 {
 	int	lastin;
-	
+
 	hd->has_hd = 0;
 	hd->fdhd = -2;
 	lastin = find_lastinput(cmd);
@@ -87,6 +87,8 @@ static int	one_exec(t_cmdlist *cmd)
 	
 	fdin = 0;
 	fdout = 1;
+	if (create_tmpdir(cmd))
+		return (EXIT_FAILURE);
 	if (init_allfd(cmd->cmd, &fdin, &fdout, &heredoc))
 		return (g_data->exit_stat);
 	cmdonly = get_cmd(cmd->cmd);

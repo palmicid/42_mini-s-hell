@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/16 09:47:40 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/27 22:35:43 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 typedef struct s_data
 {
+	pid_t				pid;
 	char				**env;
 	int					exit_stat;
 	char				*strcmd;
@@ -100,7 +101,7 @@ void		process(void);
 
 // sig_handle
 void		sig_int_handler(int sig);
-void		signal_handling();
+void		signal_handling(int mode);
 
 // env
 int			init_environ(char **env);
@@ -185,6 +186,7 @@ void		close_all_pipe(t_pipe *box, int num, int igno_0, int igno_1);
 void		to_openheredoc(t_strcut *cmd, t_heredoc *hd);
 
 // utils_9
+void		init_heredocfile(t_cmdlist *cmds);
 void		init_before_fork(t_cmdlist *cmds, int n, t_pipe **pb, pid_t **ps);
 
 // err_msg
@@ -194,7 +196,7 @@ int			err_msgexec(char *str, char *msg);
 void		err_heredoc_eof(char *str);
 
 // create_tmpdir
-
+int			create_tmpdir(t_cmdlist *cmd);
 
 /* ************************************************************************** */
 

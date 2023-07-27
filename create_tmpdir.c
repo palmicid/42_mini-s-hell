@@ -6,35 +6,23 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 08:15:27 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/16 09:51:09 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/27 22:39:35 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// this is a child
-static void	my_mkdir(void)
-{
-	char	**cmd;
-
-	cmd = (char **)malloc(sizeof(char *) * 4);
-	if (!cmd)
-		exit(EXIT_FAILURE);
-	cmd[0] = ft_strdup("mkdir");
-	cmd[1] = ft_strdup("-p");
-	cmd[2] = ft_strdup("/tmp/minishell")
-}
-
-void	create_tmpdir(void)
+int	create_tmpdir(t_cmdlist *cmd)
 {
 	pid_t	pid;
 	int		stat;
 
+	stat = 0;
 	pid = fork();
-	if(pid < 0)
+	if (pid < 0)
 		exit(EXIT_FAILURE);
 	if (pid == 0)
-		my_mkdir();
+		init_heredocfile(cmd);
 	else
 		waitpid(pid, &stat, 0);
 	if (stat != 0)
@@ -42,4 +30,5 @@ void	create_tmpdir(void)
 		end_environ();
 		exit(EXIT_FAILURE);
 	}
+	return (stat);
 }

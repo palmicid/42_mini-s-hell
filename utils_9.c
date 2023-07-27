@@ -6,17 +6,19 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:53:02 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/15 18:27:55 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:10:08 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	init_heredocfile(t_cmdlist *cmds)
+void	init_heredocfile(t_cmdlist *cmds)
 {
 	int	i;
 	t_heredoc	hd;
 
+	g_data->pid = fork();
+	signal_handling(3);
 	i = 0;
 	while (cmds)
 	{
@@ -27,7 +29,9 @@ static void	init_heredocfile(t_cmdlist *cmds)
 		if (errno != 0)
 			return ;
 		i++;
+		cmds = cmds->next;
 	}
+	g_data->pid = 0;
 }
 
 void	init_before_fork(t_cmdlist *cmds, int n, t_pipe **pb, pid_t **ps)
