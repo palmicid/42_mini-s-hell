@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:18:56 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/21 02:37:39 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:05:18 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,13 @@ void	process(void)
 	cmdlist = NULL;
 	add_history(g_data->strcmd);
 	cmdlist = str_split(g_data->strcmd, g_data);
-	// test_printcmdlist(cmdlist);
-	// to execute
 	if (cmdlist)
 		to_execute(cmdlist);
 	cmdlist = free_cmdlist(&cmdlist);
-
 }
 
 int	main(int ac, char **av, char **env)
 {
-	// char	*strcmd;
-
 	(void)ac;
 	(void)av;
 	g_data = (t_data *)malloc(sizeof(t_data));

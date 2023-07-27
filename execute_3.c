@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 03:17:21 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/14 22:07:19 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:04:54 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	dup_close(int in, int out)
 }
 
 // to_built has exit in itself
-// 
-void singlecmd_child(char **cmd, int fdin, int fdout)
+//
+void	singlecmd_child(char **cmd, int fdin, int fdout)
 {
 	if (dup_close(fdin, fdout))
 		exit(errno);

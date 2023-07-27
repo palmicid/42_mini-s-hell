@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 23:51:57 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/27 22:55:22 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:18:33 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

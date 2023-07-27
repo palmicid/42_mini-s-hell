@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 11:52:31 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/28 02:37:06 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:19:16 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	validate_env(char *env)
 
 	i = 0;
 	count = 0;
-	printf("%s\n", env);
 	while (env[i])
 	{
 		if (env[i] == '=')
