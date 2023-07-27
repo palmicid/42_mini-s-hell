@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 09:22:17 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/27 22:40:51 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:46:48 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,14 @@ t_pipe	*create_pipe(int num)
 }
 
 // just open file
-void	to_openheredoc(t_strcut *cmd, t_heredoc *hd)
+int	to_openheredoc(t_strcut *cmd, t_heredoc *hd)
 {
 	char *fname;
 	
+	errno = 0;
 	fname = ssp_strjoin("/tmp/hd_tmp-", ft_itoa(g_data->num), 0, 1);
 	if (!fname)
-		exit(err_msgexec(NULL, strerror(errno)));
+		return (errno);
 	while (cmd)
 	{
 		if (cmd->stat == 3)
@@ -105,4 +106,5 @@ void	to_openheredoc(t_strcut *cmd, t_heredoc *hd)
 		}
 		cmd = cmd->next;
 	}
+	return (0);
 }

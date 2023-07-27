@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:53:02 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/21 12:10:08 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:54:56 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,23 @@ void	init_heredocfile(t_cmdlist *cmds)
 	g_data->pid = fork();
 	signal_handling(3);
 	i = 0;
-	while (cmds)
+	if (g_data->pid == 0)
 	{
-		errno = 0;
-		hd.fdhd = -2;
-		hd.has_hd = 0;
-		to_heredoc(cmds->cmd, &hd, i);
-		if (errno != 0)
-			return ;
-		i++;
-		cmds = cmds->next;
+		while (cmds)
+		{
+			errno = 0;
+			hd.fdhd = -2;
+			hd.has_hd = 0;
+			to_heredoc(cmds->cmd, &hd, i);
+			if (errno != 0)
+				return ;
+			i++;
+			cmds = cmds->next;
+		}
+		exit (EXIT_SUCCESS);
 	}
+	else if (g_data->pid > 0)
+		waitpid(g_data->pid, &i, 0);
 	g_data->pid = 0;
 }
 

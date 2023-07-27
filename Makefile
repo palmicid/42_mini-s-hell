@@ -6,7 +6,7 @@
 #    By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
-#    Updated: 2023/07/21 01:27:25 by pruangde         ###   ########.fr        #
+#    Updated: 2023/07/27 23:47:10 by pruangde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,6 @@ EXEC = execute_1.c execute_2.c execute_3.c execute_4.c execute_5.c
 BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c \
 	builtin_echo.c builtin_unset.c builtin_utils.c builtin_cd.c builtin_cd_utils.c \
 	builtin_exit.c
-ADD = create_tmpdir.c
 
 # EXECUTE = test_execute.c
 #BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c

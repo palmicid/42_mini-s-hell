@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/21 11:39:24 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:50:54 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	one_exec(t_cmdlist *cmd)
 	
 	fdin = 0;
 	fdout = 1;
-	if (create_tmpdir(cmd))
+	if (to_heredoc(cmd->cmd, &heredoc, 0))
 		return (EXIT_FAILURE);
 	if (init_allfd(cmd->cmd, &fdin, &fdout, &heredoc))
 		return (g_data->exit_stat);
