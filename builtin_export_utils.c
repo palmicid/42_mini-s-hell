@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 00:07:54 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/06/26 18:34:01 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:56:13 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*remove_quote(char *cmd)
 	i = 0;
 	j = 0;
 	tmp = malloc((sizeof(char)) * (ft_strlen(cmd) - 1));
-	while (cmd[i])
+	while (cmd[i] != '\0')
 	{
 		if (cmd[i] == '\"' || cmd[i] == '\'')
 			i++;
@@ -57,6 +57,6 @@ char	*remove_quote(char *cmd)
 		j++;
 		i++;
 	}
-	tmp[i] = '\0';
+	tmp[j] = '\0';
 	return (tmp);
 }

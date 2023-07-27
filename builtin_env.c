@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 11:52:31 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/04 22:55:23 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:03:20 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
