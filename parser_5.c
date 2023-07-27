@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser_5.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 04:15:44 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/26 15:54:37 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:50:10 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// if i++ == nothing malloc 
 static char	*getvarname(char *str, t_c *c)
 {
 	char	*name;
@@ -75,11 +74,11 @@ static char	*subinsub_expand(char *fin, t_c *c, t_strcut *cur, t_data *data)
 	return (fin);
 }
 
-// pass 0 to both int 
+// pass 0 to both int
 static void	sub_expand(t_strcut *cur, t_data *data)
 {
 	char	*fin;
-	t_c	*c;
+	t_c		*c;
 
 	c = create_countptr();
 	if (!c)

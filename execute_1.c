@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 01:38:04 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 02:45:25 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,6 @@ static int	exec_bltin_parent(char **cmd)
 
 // lastin == cx if last re in == fd || heredoc
 // init all and find redirect
-int	init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd)
-{
-	int	lastin;
-
-	hd->has_hd = 0;
-	hd->fdhd = -2;
-	lastin = find_lastinput(cmd);
-	to_openheredoc(cmd, hd);
-	if (lastin == 1 && hd->has_hd == 1)
-		close(hd->fdhd);
-	if (loop_openfile(cmd, fdin, fdout))
-	{
-		close_all_fd(fdin, fdout, hd);
-		return (1);
-	}
-	if (*fdin > 2 && lastin == 2)
-		close(*fdin);
-	if (lastin == 2)
-	{
-		*fdin = hd->fdhd;
-		hd->fdhd = -2;
-		hd->has_hd = 0;
-	}
-	return (0);
-}
 
 static int	single_execwithfork(char **cmdonly, int fdin, int fdout)
 {
@@ -60,7 +35,7 @@ static int	single_execwithfork(char **cmdonly, int fdin, int fdout)
 	int	exit_stat;
 	int	chld_stat;
 
-	pid	= fork();
+	pid = fork();
 	if (pid == -1)
 		return (err_msgexec(NULL, strerror(errno)));
 	if (pid == 0)

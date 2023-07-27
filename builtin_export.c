@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/04 22:51:07 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 02:46:21 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,7 @@ void	replace_environment(char **tmp)
 		i++;
 	}
 	g_data->env[i] = NULL;
-	i = 0;
-	while (tmp[i])
-	{
-		free(tmp[i]);
-		i++;
-	}
+	ft_free_p2p_char(tmp);
 }
 
 void	ft_export_witharg(char **cmd)
@@ -78,7 +73,6 @@ void	ft_export_witharg(char **cmd)
 	int		env_size;
 	char	**tmp;
 	int		i;
-	char	*export_without_quote;
 
 	if (isalready(cmd[1]) == 0)
 	{
@@ -87,16 +81,13 @@ void	ft_export_witharg(char **cmd)
 	}
 	i = 0;
 	env_size = get_env_size();
-	if (validate_env(cmd[1]) == 0)
-		return ;
-	export_without_quote = remove_quote(cmd[1]);
 	tmp = malloc(sizeof(char *) * (env_size + 2));
 	while (g_data->env[i])
 	{
 		tmp[i] = ft_strdup(g_data->env[i]);
 		i++;
 	}
-	tmp[i] = ft_strdup(export_without_quote);
+	tmp[i] = ft_strdup(cmd[1]);
 	tmp[i + 1] = NULL;
 	replace_environment(tmp);
 }

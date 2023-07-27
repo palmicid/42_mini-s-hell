@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_6.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:34:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/27 22:39:09 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 02:58:38 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	rec_heredoc(char *eof, t_heredoc *hd)
 	close(hd->fdhd);
 }
 
-
 // return fd[0] close fd[1]
 int	to_heredoc(t_strcut *list, t_heredoc *hd, int cmdnum)
 {
@@ -113,5 +112,5 @@ int	to_heredoc(t_strcut *list, t_heredoc *hd, int cmdnum)
 		}
 		list = list->next;
 	}
-	return 0;
+	return (0);
 }

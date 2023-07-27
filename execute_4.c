@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 15:41:49 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 00:22:15 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 02:58:55 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	multi_execchild(t_strcut *cmd, t_pipe *p, int i)
 	int			fdout;
 	t_heredoc	hd;
 	char		**cmdonly;
-	
+
 	g_data->num = i;
 	assign_pipe2fd(&fdin, &fdout, p, i);
 	close_all_pipe(p, p->max - 1, fdin, fdout);

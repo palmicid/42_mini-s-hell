@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 01:39:27 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 02:54:18 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_data
 }						t_data;
 
 extern t_data	*g_data;
-
 
 typedef struct s_cmdlist
 {
@@ -94,8 +93,6 @@ typedef struct s_pipe
 	int	max;
 }		t_pipe;
 
-
-
 // minishell
 void		process(void);
 
@@ -109,7 +106,7 @@ int			end_environ(void);
 char		*my_getenv(char *str);
 
 // parser_1 - main split + split long list to cmd
-t_cmdlist		*str_split(char *str, t_data *data);
+t_cmdlist	*str_split(char *str, t_data *data);
 
 // parser_2 - quote split and add stat q or nonq
 t_strcut	*qsp_split(char *str);
@@ -206,7 +203,7 @@ int			cx_bltin_parent(char **strarr);
 int			cx_isbltin(char *str);
 
 // execute_3
-void 		singlecmd_child(char **cmdonly, int fdin, int fdout);
+void		singlecmd_child(char **cmdonly, int fdin, int fdout);
 void		to_builtin(char **cmd);
 
 // execute_4
@@ -233,6 +230,7 @@ int			is_home_with_path(char **cmd);
 int			home_with_path(char **cmd, char *oldpwd);
 int			validate_env(char *env);
 int			normal_path(char **cmd, char *oldpwd);
+int			unset_incorrect(char **cmd);
 char		*remove_quote(char *cmd);
 char		*get_key(char *s);
 char		*getvalue(char *s, char c);

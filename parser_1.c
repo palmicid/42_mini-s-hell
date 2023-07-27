@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:52:30 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/29 09:06:30 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:51:09 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_cmdlist	*sep_commandlist(t_cmdlist *head, t_strcut *run)
 static void	remove_pipe_fromlist(t_cmdlist *head)
 {
 	t_cmdlist		*cmdlst;
-	t_strcut	*strlst;
+	t_strcut		*strlst;
 
 	cmdlst = head;
 	while (cmdlst)
@@ -51,10 +51,10 @@ static void	remove_pipe_fromlist(t_cmdlist *head)
 	}
 }
 
-static t_cmdlist *fusion_and_sepcmd(t_strcut *liststr)
+static t_cmdlist	*fusion_and_sepcmd(t_strcut *liststr)
 {
 	t_cmdlist		*head;
-	t_strcut	*runstr;
+	t_strcut		*runstr;
 
 	head = (t_cmdlist *)malloc(sizeof(t_cmdlist));
 	if (!head)
@@ -79,7 +79,7 @@ static t_cmdlist *fusion_and_sepcmd(t_strcut *liststr)
 // find ' ' or " " if cannot find pair set all as a string
 t_cmdlist	*str_split(char *str, t_data *data)
 {
-	t_strcut	*liststr;
+	t_strcut		*liststr;
 	t_cmdlist		*listcmd;
 
 	liststr = qsp_split(str);
@@ -91,7 +91,6 @@ t_cmdlist	*str_split(char *str, t_data *data)
 	liststr = remove_q_xpand(liststr, data);
 	if (!liststr)
 		return (NULL);
-	// test_printstrcut(liststr);
 	listcmd = fusion_and_sepcmd(liststr);
 	if (!listcmd)
 		return (NULL);

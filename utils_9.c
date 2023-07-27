@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_9.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:53:02 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 01:40:36 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:58:56 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_heredocfile(t_cmdlist *cmds)
 {
-	int	i;
+	int			i;
 	t_heredoc	hd;
 
 	g_data->pid = fork();
@@ -43,7 +43,7 @@ void	init_heredocfile(t_cmdlist *cmds)
 void	init_before_fork(t_cmdlist *cmds, int n, t_pipe **pb, pid_t **ps)
 {
 	errno = 0;
-	ps[0] = (pid_t *)ft_calloc(sizeof(pid_t) ,n);
+	ps[0] = (pid_t *)ft_calloc(sizeof(pid_t), n);
 	if (!ps[0])
 		return ;
 	pb[0] = create_pipe(n);

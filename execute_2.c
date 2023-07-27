@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:59:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/12 23:33:22 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 02:43:53 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	cx_bltin_parent(char **strarr)
 {
 	if (ft_strncmp(strarr[0], "cd", 3) == 0)
 		return (1);
-	else if (ft_strncmp(strarr[0], "export", 7) == 0 && strarr[1] == NULL)
+	else if (ft_strncmp(strarr[0], "export", 7) == 0 && strarr[1] != NULL)
 		return (1);
 	else if (ft_strncmp(strarr[0], "unset", 6) == 0)
 		return (1);

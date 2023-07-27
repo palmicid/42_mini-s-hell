@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:49:53 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/05 23:21:02 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 02:54:24 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,7 @@ void	new_env(char *key, char **tmp)
 		i++;
 	}
 	g_data->env[j] = NULL;
-	i = 0;
-	while (tmp[i])
-	{
-		free(tmp[i]);
-		i++;
-	}
+	ft_free_p2p_char(tmp);
 }
 
 void	unset_env(char *key)
@@ -110,9 +105,7 @@ void	ft_unset(char **cmd)
 	int	i;
 	int	j;
 
-	if (!cmd[1])
-		return ;
-	if (cmd[1] && cmd[1][0] == '-')
+	if (unset_incorrect(cmd))
 		return ;
 	i = 1;
 	j = 0;
@@ -122,8 +115,7 @@ void	ft_unset(char **cmd)
 			return ;
 		while (g_data->env[j])
 		{
-			if (ft_strncmp(cmd[i], g_data->env[j], \
-			ft_strlen(cmd[i])) == 0)
+			if (ft_strncmp(cmd[i], g_data->env[j], ft_strlen(cmd[i])) == 0)
 			{
 				unset_env(cmd[i]);
 				break ;

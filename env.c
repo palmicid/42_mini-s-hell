@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:10:34 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/16 09:50:16 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/28 02:57:51 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	plus_shelllevel(void)
 			lvl++;
 			newlvl = ssp_strjoin("SHLVL=", ft_itoa(lvl), 0, 1);
 			if (!newlvl)
-				return ; 
+				return ;
 			free(g_data->env[i]);
 			g_data->env[i] = newlvl;
 		}
@@ -49,7 +49,6 @@ int	init_environ(char **env)
 	g_data->strcmd = NULL;
 	g_data->exit_stat = 0;
 	g_data->num = 0;
-
 	plus_shelllevel();
 	return (0);
 }
@@ -65,11 +64,11 @@ int	end_environ(void)
 	return (0);
 }
 
-char *my_getenv(char *str)
+char	*my_getenv(char *str)
 {
 	char	*tofind;
 	int		i;
-	
+
 	tofind = ft_strjoin(str, "=");
 	if (!tofind)
 		return (NULL);
