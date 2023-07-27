@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/27 22:35:44 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:39:27 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 typedef struct s_data
 {
+	pid_t				pid;
 	char				**env;
 	int					exit_stat;
 	char				*strcmd;
@@ -182,9 +183,10 @@ void		close_all_fd(int *fdin, int *fdout, t_heredoc *hd);
 int			count_cmdlist(t_cmdlist *head);
 t_pipe		*create_pipe(int num);
 void		close_all_pipe(t_pipe *box, int num, int igno_0, int igno_1);
-void		to_openheredoc(t_strcut *cmd, t_heredoc *hd);
+int			to_openheredoc(t_strcut *cmd, t_heredoc *hd);
 
 // utils_9
+void		init_heredocfile(t_cmdlist *cmds);
 void		init_before_fork(t_cmdlist *cmds, int n, t_pipe **pb, pid_t **ps);
 
 // err_msg
@@ -192,9 +194,6 @@ void		err_redirpipe(char *str);
 void		err_q_nopair(void);
 int			err_msgexec(char *str, char *msg);
 void		err_heredoc_eof(char *str);
-
-// create_tmpdir
-
 
 /* ************************************************************************** */
 

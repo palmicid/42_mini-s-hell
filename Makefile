@@ -6,7 +6,7 @@
 #    By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 17:30:06 by bsirikam          #+#    #+#              #
-#    Updated: 2023/07/27 22:58:58 by bsirikam         ###   ########.fr        #
+#    Updated: 2023/07/28 01:38:57 by bsirikam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,12 +37,11 @@ EXEC = execute_1.c execute_2.c execute_3.c execute_4.c execute_5.c
 BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c \
 	builtin_echo.c builtin_unset.c builtin_utils.c builtin_cd.c builtin_cd_utils.c \
 	builtin_exit.c
-ADD = create_tmpdir.c
 
 # EXECUTE = test_execute.c
 #BUILTIN = builtin_export.c builtin_env.c builtin_export_utils.c builtin_pwd.c
 
-SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXEC) $(BUILTIN)
+SRCS = minishell.c sig_handle.c env.c $(PARS) $(UTIL) $(ERRMSG) $(EXEC) $(BUILTIN) $(ADD)
 OBJ_C = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS := $(addprefix $(OBJ_DIR)/, $(OBJ_C))
@@ -57,7 +56,6 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -lreadline $(LIBFT) $(OBJS) -o $(NAME)
-	mkdir -p .tmp
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all
@@ -73,7 +71,6 @@ clean:
 fclean: clean
 	make -C $(LIBFT_PATH) fclean
 	$(RM) $(NAME)
-	$(RM) .tmp
 
 re: fclean all
 

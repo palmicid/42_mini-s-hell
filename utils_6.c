@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:34:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/15 18:25:40 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/27 22:39:09 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	rec_heredoc(char *eof, t_heredoc *hd)
 		free(str);
 	}
 	ft_putchar_fd('\0', hd->fdhd);
-	// close(hd->fdhd);
+	close(hd->fdhd);
 }
 
 
@@ -95,7 +95,7 @@ int	to_heredoc(t_strcut *list, t_heredoc *hd, int cmdnum)
 {
 	char	*fname;
 
-	fname = ssp_strjoin("./.hd_tmp-", ft_itoa(cmdnum), 0, 1);
+	fname = ssp_strjoin("/tmp/hd_tmp-", ft_itoa(cmdnum), 0, 1);
 	if (!fname)
 		return (err_msgexec(NULL, strerror(errno)));
 	while (list)

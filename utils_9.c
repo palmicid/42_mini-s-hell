@@ -6,29 +6,38 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:53:02 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/27 22:45:23 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:40:36 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	init_heredocfile(t_cmdlist *cmds)
+void	init_heredocfile(t_cmdlist *cmds)
 {
 	int	i;
 	t_heredoc	hd;
 
+	g_data->pid = fork();
+	signal_handling(3);
 	i = 0;
-	while (cmds)
+	if (g_data->pid == 0)
 	{
-		errno = 0;
-		hd.fdhd = -2;
-		hd.has_hd = 0;
-		to_heredoc(cmds->cmd, &hd, i);
-		if (errno != 0)
-			return ;
-		i++;
-		cmds = cmds->next;
+		while (cmds)
+		{
+			errno = 0;
+			hd.fdhd = -2;
+			hd.has_hd = 0;
+			to_heredoc(cmds->cmd, &hd, i);
+			if (errno != 0)
+				return ;
+			i++;
+			cmds = cmds->next;
+		}
+		exit (EXIT_SUCCESS);
 	}
+	else if (g_data->pid > 0)
+		waitpid(g_data->pid, &i, 0);
+	g_data->pid = 0;
 }
 
 void	init_before_fork(t_cmdlist *cmds, int n, t_pipe **pb, pid_t **ps)
