@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_8.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 09:22:17 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/15 17:52:01 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/27 22:42:55 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ t_pipe	*create_pipe(int num)
 // just open file
 void	to_openheredoc(t_strcut *cmd, t_heredoc *hd)
 {
-	char *fname;
-	
+	char	*fname;
+
 	fname = ssp_strjoin("./hd_tmp-", ft_itoa(g_data->num), 0, 1);
 	if (!fname)
 		exit(err_msgexec(NULL, strerror(errno)));
@@ -103,5 +103,6 @@ void	to_openheredoc(t_strcut *cmd, t_heredoc *hd)
 			}
 			cmd = cmd->next;
 		}
+		cmd = cmd->next;
 	}
 }

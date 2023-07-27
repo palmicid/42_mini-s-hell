@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_9.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:53:02 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/15 18:27:55 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/07/27 22:45:23 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	init_heredocfile(t_cmdlist *cmds)
 		if (errno != 0)
 			return ;
 		i++;
+		cmds = cmds->next;
 	}
 }
 
