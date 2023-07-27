@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 00:07:54 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/27 23:56:13 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:43:22 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ char	*remove_quote(char *cmd)
 {
 	int		i;
 	int		j;
+	int		n;
 	char	*tmp;
 
 	i = 0;
 	j = 0;
-	tmp = malloc((sizeof(char)) * (ft_strlen(cmd) - 1));
-	while (cmd[i] != '\0')
+	n = ft_strlen(cmd) - 2;
+	tmp = malloc((sizeof(char)) * (n + 1));
+	while (cmd[i] != '\0' && cmd[i] != '\'' && cmd[i] == '\"')
 	{
 		if (cmd[i] == '\"' || cmd[i] == '\'')
 			i++;
