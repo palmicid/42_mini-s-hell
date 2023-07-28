@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:52:46 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 15:27:39 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:47:42 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@ void	sig_int_handler_exec(int sig)
 		rl_replace_line("", 0);
 	}
 }
-
-// fork heredoc
-// void	sig_int_handler_fork(int sig)
-// {
-// 	(void)sig;
-// 	if (sig == SIGINT)
-// 	{
-// 		if (g_data->pid > 0)
-// 			kill(g_data->pid, 9);
-// 		g_data->exit_stat = 130;
-// 	}
-// }
 
 // ctrl+C and ctrl+backspace
 void	signal_handling(int mode)

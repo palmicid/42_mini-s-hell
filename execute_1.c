@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 15:37:05 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:42:18 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int	exec_bltin_parent(char **cmd, t_data *g_data)
 // lastin == cx if last re in == fd || heredoc
 // init all and find redirect
 
-static int	single_execwithfork(char **cmdonly, int fdin, int fdout, t_data *g_data)
+static int	single_execwithfork(char **cmdonly, int fdin, int fdout, \
+t_data *g_data)
 {
 	int	pid;
 	int	exit_stat;
@@ -73,7 +74,8 @@ static int	one_exec(t_cmdlist *cmd, t_data *g_data)
 		return (1);
 	}
 	if (cx_bltin_parent(cmdonly))
-		return (exec_bltin_parent(cmdonly, g_data) || ft_free_p2p_char(cmdonly));
+		return (exec_bltin_parent(cmdonly, g_data) || \
+		ft_free_p2p_char(cmdonly));
 	else if (single_execwithfork(cmdonly, fdin, fdout, g_data))
 		;
 	cmdonly = ft_free_p2p_char(cmdonly);
