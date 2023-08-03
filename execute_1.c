@@ -6,13 +6,13 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:04:35 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 16:42:18 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:13:10 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	exec_bltin_parent(char **cmd, t_data *g_data)
+int	exec_bltin_parent(char **cmd, t_data *g_data)
 {
 	errno = 0;
 	if (ft_strcmp("cd", cmd[0]) == 0)
@@ -57,27 +57,25 @@ t_data *g_data)
 static int	one_exec(t_cmdlist *cmd, t_data *g_data)
 {
 	char		**cmdonly;
-	int			fdin;
-	int			fdout;
+	t_fd		*ts_fd;
 	t_heredoc	heredoc;
 
-	fdin = 0;
-	fdout = 1;
+	ts_fd = (t_fd *)malloc(sizeof(t_fd));
+	if (!ts_fd)
+		return (err_msgexec(NULL, strerror(errno)));
+	ts_fd->fdin = 0;
+	ts_fd->fdout = 1;
 	if (to_heredoc(cmd->cmd, &heredoc, 0))
 		return (EXIT_FAILURE);
-	if (init_allfd(cmd->cmd, &fdin, &fdout, &heredoc, g_data))
-		return (g_data->exit_stat);
+	if (init_allfd(cmd->cmd, &heredoc, g_data, ts_fd))
+		return (initfd_fail(ts_fd, g_data));
 	cmdonly = get_cmd(cmd->cmd);
 	if (!cmdonly)
-	{
-		close_all_fd(&fdin, &fdout, &heredoc);
-		return (1);
-	}
+		return (nocmdonly(ts_fd, &heredoc));
 	if (cx_bltin_parent(cmdonly))
-		return (exec_bltin_parent(cmdonly, g_data) || \
-		ft_free_p2p_char(cmdonly));
-	else if (single_execwithfork(cmdonly, fdin, fdout, g_data))
-		;
+		return (bltparent_exit(cmdonly, ts_fd, g_data));
+	else if (single_execwithfork(cmdonly, ts_fd->fdin, ts_fd->fdout, g_data))
+		free(ts_fd);
 	cmdonly = ft_free_p2p_char(cmdonly);
 	return (g_data->exit_stat);
 }
@@ -91,7 +89,15 @@ static int	multi_exec(t_cmdlist *cmd, t_data *g_data)
 
 	stat = 0;
 	ncmd = count_cmdlist(cmd);
-	init_before_fork(cmd, ncmd, &pipebox, &pids, g_data);
+	pids = (pid_t *)ft_calloc(sizeof(pid_t), ncmd);
+	pipebox = create_pipe(ncmd);
+	if (!pipebox)
+	{
+		free(pids);
+		return (err_msgexec(NULL, strerror(errno)));
+	}
+	init_heredocfile(cmd, g_data);
+	init_before_fork(ncmd, &pipebox, &pids);
 	if (errno != 0)
 		return (errno);
 	stat = multi_fork2exec(cmd, pipebox, pids, g_data);
@@ -99,9 +105,7 @@ static int	multi_exec(t_cmdlist *cmd, t_data *g_data)
 		err_msgexec(NULL, strerror(stat));
 	close_all_pipe(pipebox, ncmd - 1, -1, -1);
 	stat = wait4fork(pids, ncmd);
-	free(pipebox);
-	free(pids);
-	return (stat);
+	return (multi_exit(pipebox, pids, stat));
 }
 
 void	to_execute(t_cmdlist *cmd, t_data *g_data)

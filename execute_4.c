@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 15:41:49 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 15:37:00 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:13:50 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,27 @@ void	assign_pipe2fd(int *in, int *out, t_pipe *p, int i)
 // i = cmd number .. ,
 void	multi_execchild(t_strcut *cmd, t_pipe *p, int i, t_data *g_data)
 {
-	int			fdin;
-	int			fdout;
+	t_fd		*ts_fd;
 	t_heredoc	hd;
 	char		**cmdonly;
 
 	g_data->num = i;
-	assign_pipe2fd(&fdin, &fdout, p, i);
-	close_all_pipe(p, p->max - 1, fdin, fdout);
-	if (init_allfd(cmd, &fdin, &fdout, &hd, g_data))
+	ts_fd = (t_fd *)malloc(sizeof(t_fd));
+	assign_pipe2fd(&ts_fd->fdin, &ts_fd->fdout, p, i);
+	close_all_pipe(p, p->max - 1, ts_fd->fdin, ts_fd->fdout);
+	if (init_allfd(cmd, &hd, g_data, ts_fd))
+	{
+		free(ts_fd);
 		exit (g_data->exit_stat);
+	}
 	cmdonly = get_cmd(cmd);
 	if (!cmdonly)
 	{
-		close_all_fd(&fdin, &fdout, &hd);
+		close_all_fd(&ts_fd->fdin, &ts_fd->fdout, &hd);
+		free(ts_fd);
 		exit(err_msgexec(NULL, strerror(errno)));
 	}
-	singlecmd_child(cmdonly, fdin, fdout, g_data);
+	singlecmd_child(cmdonly, ts_fd->fdin, ts_fd->fdout, g_data);
 	exit(EXIT_FAILURE);
 }
 

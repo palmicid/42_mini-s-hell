@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:52:46 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 16:47:42 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:25:06 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	signal_handling(int mode)
 		sig_int.sa_handler = sig_int_handler_normal;
 	else if (mode == 2)
 		sig_int.sa_handler = sig_int_handler_exec;
-	// else if (mode == 3)
-		// sig_int.sa_handler = sig_int_handler_fork;
 	sigaction(SIGINT, &sig_int, NULL);
 	sigemptyset(&sig_quit.sa_mask);
 	sig_quit.sa_flags = 0;

@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:53:02 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 15:28:09 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/08/03 09:42:23 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,11 @@ void	init_heredocfile(t_cmdlist *cmds, t_data *g_data)
 	g_data->pid = 0;
 }
 
-void	init_before_fork(t_cmdlist *cmds, int n, t_pipe **pb, pid_t **ps, t_data *g_data)
+void	init_before_fork(int n, t_pipe **pb, pid_t **ps)
 {
 	errno = 0;
-	ps[0] = (pid_t *)ft_calloc(sizeof(pid_t), n);
 	if (!ps[0])
 		return ;
-	pb[0] = create_pipe(n);
-	if (!pb[0])
-	{
-		free(ps);
-		return ;
-	}
-	init_heredocfile(cmds, g_data);
 	if (errno != 0)
 	{
 		free(ps[0]);

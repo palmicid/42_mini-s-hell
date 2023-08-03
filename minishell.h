@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 16:43:34 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:12:57 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ typedef struct s_pipe
 	int	fd[2];
 	int	max;
 }		t_pipe;
+
+typedef struct s_fd
+{
+	int	fdin;
+	int	fdout;
+}		t_fd;
 
 // minishell
 void		process(t_data *g_data);
@@ -182,7 +188,7 @@ int			to_openheredoc(t_strcut *cmd, t_heredoc *hd, t_data *g_data);
 
 // utils_9
 void		init_heredocfile(t_cmdlist *cmds, t_data *g_data);
-void		init_before_fork(t_cmdlist *cmds, int n, t_pipe **pb, pid_t **ps, t_data *g_data);
+void		init_before_fork(int n, t_pipe **pb, pid_t **ps);
 
 // err_msg
 void		err_redirpipe(char *str);
@@ -194,21 +200,29 @@ void		err_heredoc_eof(char *str);
 
 // execute_1
 void		to_execute(t_cmdlist *cmd, t_data *g_data);
-int			init_allfd(t_strcut *cmd, int *fdin, int *fdout, t_heredoc *hd, t_data *g_data);
+int			init_allfd(t_strcut *cmd, t_heredoc *hd, \
+t_data *g_data, t_fd *ts_fd);
+int			nocmdonly(t_fd *ts_fd, t_heredoc *heredoc);
+int			initfd_fail(t_fd *ts_fd, t_data *g_data);
+int			bltparent_exit(char **cmdonly, t_fd *ts_fd, t_data *g_data);
+int			exec_bltin_parent(char **cmd, t_data *g_data);
+int			multi_exit(t_pipe *pipebox, pid_t *pids, int stat);
 
 // execute_2
 int			cx_bltin_parent(char **strarr);
 int			cx_isbltin(char *str);
 
 // execute_3
-void		singlecmd_child(char **cmdonly, int fdin, int fdout, t_data *g_data);
+void		singlecmd_child(char **cmdonly, int fdin, int fdout, \
+t_data *g_data);
 void		to_builtin(char **cmd, t_data *g_data);
 
 // execute_4
 int			wait4fork(pid_t *pids, int num);
 void		assign_pipe2fd(int *in, int *out, t_pipe *p, int i);
 void		multi_execchild(t_strcut *cmd, t_pipe *p, int i, t_data *g_data);
-int			multi_fork2exec(t_cmdlist *cmds, t_pipe *p, pid_t *pids, t_data *g_data);
+int			multi_fork2exec(t_cmdlist *cmds, t_pipe *p, pid_t *pids, \
+t_data *g_data);
 
 // execute_5
 char		**cx_cmdpath(char **cmd, t_data *g_data);
