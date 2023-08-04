@@ -6,7 +6,7 @@
 /*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 01:50:38 by pruangde          #+#    #+#             */
-/*   Updated: 2023/06/29 09:06:39 by pruangde         ###   ########.fr       */
+/*   Updated: 2023/08/04 17:56:14 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	remove_q(t_strcut *head)
 	tmp = head;
 	while (tmp)
 	{
-		if (find_charpos(tmp->str, 34) >= 0)
+		if (tmp->str[0] == 34)
 		{
 			tmp->stat = 2;
 			tmp->str = ft_strtrim(tmp->str, "\"");
 		}
-		else if (find_charpos(tmp->str, 39) >= 0)
+		else if (tmp->str[0] == 39)
 		{
 			tmp->stat = 1;
 			tmp->str = ft_strtrim(tmp->str, "'");
