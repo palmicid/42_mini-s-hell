@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: pruangde <pruangde@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:59:55 by pruangde          #+#    #+#             */
-/*   Updated: 2023/07/28 15:02:25 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/08/04 13:20:10 by pruangde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	cx_isbltin(char *str)
 
 void	to_builtin(char **cmd, t_data *g_data)
 {
+	errno = 0;
 	if (ft_strncmp(cmd[0], "cd", 3) == 0)
 		ft_cd(cmd, g_data);
 	else if (ft_strncmp(cmd[0], "export", 7) == 0)
