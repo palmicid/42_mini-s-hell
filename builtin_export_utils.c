@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 00:07:54 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/28 14:46:48 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:57:42 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,22 @@ void	replace_envexport(char *env, t_data *g_data)
 		}
 		i++;
 	}
+}
+
+int	validate_export(char *cmd)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '=')
+			count++;
+		i++;
+	}
+	if (count == 1)
+		return (0);
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsirikam <bsirikam@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:56:05 by bsirikam          #+#    #+#             */
-/*   Updated: 2023/07/28 14:49:11 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:56:45 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	ft_export_witharg(char **cmd, t_data *g_data)
 	char	**tmp;
 	int		i;
 
+	if (validate_export(cmd[1]) == 1)
+		return ;
 	if (isalready(cmd[1], g_data) == 0)
 	{
 		replace_envexport(cmd[1], g_data);

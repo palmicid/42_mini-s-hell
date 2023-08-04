@@ -6,7 +6,7 @@
 /*   By: bsirikam <bsirikam@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:18:15 by pruangde          #+#    #+#             */
-/*   Updated: 2023/08/03 10:12:57 by bsirikam         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:57:18 by bsirikam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,7 @@ int			is_home_with_path(char **cmd);
 int			home_with_path(char **cmd, char *oldpwd, t_data *g_data);
 int			validate_env(char *env);
 int			normal_path(char **cmd, char *oldpwd, t_data *g_data);
+int			validate_export(char *cmd);
 int			unset_incorrect(char **cmd);
 char		*remove_quote(char *cmd);
 char		*get_key(char *s);
